@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -43,6 +45,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column]
     private ?bool $active = null;
+
+    #[ORM\ManyToMany(targetEntity: Activity::class, mappedBy: 'users')]
+    private Collection $activities;
+
+    #[ORM\OneToMany(targetEntity: Activity::class, mappedBy: 'planner', orphanRemoval: true)]
+    private Collection $plannedActivities;
+
+    public function __construct()
+    {
+        $this->activities = new ArrayCollection();
+        $this->plannedActivities = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -163,6 +177,63 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setActive(bool $active): static
     {
         $this->active = $active;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Activity>
+     */
+    public function getActivities(): Collection
+    {
+        return $this->activities;
+    }
+
+    public function addActivity(Activity $activity): static
+    {
+        if (!$this->activities->contains($activity)) {
+            $this->activities->add($activity);
+            $activity->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeActivity(Activity $activity): static
+    {
+        if ($this->activities->removeElement($activity)) {
+            $activity->removeUser($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Activity>
+     */
+    public function getPlannedActivities(): Collection
+    {
+        return $this->plannedActivities;
+    }
+
+    public function addPlannedActivity(Activity $plannedActivity): static
+    {
+        if (!$this->plannedActivities->contains($plannedActivity)) {
+            $this->plannedActivities->add($plannedActivity);
+            $plannedActivity->setPlanner($this);
+        }
+
+        return $this;
+    }
+
+    public function removePlannedActivity(Activity $plannedActivity): static
+    {
+        if ($this->plannedActivities->removeElement($plannedActivity)) {
+            // set the owning side to null (unless already changed)
+            if ($plannedActivity->getPlanner() === $this) {
+                $plannedActivity->setPlanner(null);
+            }
+        }
 
         return $this;
     }
