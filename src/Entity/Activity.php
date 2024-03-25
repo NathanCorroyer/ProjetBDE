@@ -9,7 +9,8 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ActivityRepository::class)]
-class Activity
+class
+Activity
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -47,6 +48,10 @@ class Activity
     #[ORM\ManyToOne(inversedBy: 'activities')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Campus $campus = null;
+
+    #[ORM\ManyToOne(inversedBy: 'activities')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Place $place = null;
 
     public function __construct()
     {
@@ -187,6 +192,18 @@ class Activity
     public function setCampus(?Campus $campus): static
     {
         $this->campus = $campus;
+
+        return $this;
+    }
+
+    public function getPlace(): ?Place
+    {
+        return $this->place;
+    }
+
+    public function setPlace(?Place $place): static
+    {
+        $this->place = $place;
 
         return $this;
     }
