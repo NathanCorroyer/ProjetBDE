@@ -52,6 +52,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Activity::class, mappedBy: 'planner', orphanRemoval: true)]
     private Collection $plannedActivities;
 
+    #[ORM\ManyToOne(inversedBy: 'users')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Campus $campus = null;
+
     public function __construct()
     {
         $this->activities = new ArrayCollection();
@@ -234,6 +238,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $plannedActivity->setPlanner(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCampus(): ?Campus
+    {
+        return $this->campus;
+    }
+
+    public function setCampus(?Campus $campus): static
+    {
+        $this->campus = $campus;
 
         return $this;
     }

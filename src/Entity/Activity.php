@@ -44,6 +44,10 @@ class Activity
     #[ORM\JoinColumn(nullable: false)]
     private ?User $planner = null;
 
+    #[ORM\ManyToOne(inversedBy: 'activities')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Campus $campus = null;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
@@ -171,6 +175,18 @@ class Activity
     public function setPlanner(?User $planner): static
     {
         $this->planner = $planner;
+
+        return $this;
+    }
+
+    public function getCampus(): ?Campus
+    {
+        return $this->campus;
+    }
+
+    public function setCampus(?Campus $campus): static
+    {
+        $this->campus = $campus;
 
         return $this;
     }
