@@ -34,6 +34,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
                 ->setCampus($this->getReference('CAMPUS'.$faker->randomNumber(1,10)));
 
             $manager->persist($user);
+            $this->addReference('USER' . $i , $user);
         }
         $manager->flush();
     }
