@@ -13,6 +13,8 @@ class PlaceFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create('fr_FR');
+        $faker->seed(3);
+
 
         for ( $i = 1 ; $i <= 10 ; $i ++ ) {
             $place = ( new Place())

@@ -12,6 +12,7 @@ class CampusFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create('fr_FR');
+        $faker->seed(1);
 
         for($i = 1; $i <= 10; $i++)
         {

@@ -22,6 +22,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
     {
 
         $faker = Factory::create('fr_FR');
+        $faker->seed(2);
         $faker->addProvider(new PhoneNumber($faker));
 
         for ($i = 1; $i <= 10; $i++){

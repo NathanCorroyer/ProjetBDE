@@ -12,6 +12,8 @@ class CityFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create('fr_FR');
+        $faker->seed(4);
+
 
         for ( $i = 1 ; $i <= 10 ; $i ++){
             $city = ( new City())
