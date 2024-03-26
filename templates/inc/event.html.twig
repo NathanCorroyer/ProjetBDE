@@ -32,7 +32,23 @@
                 </td>
 
                 <td>
-                        <div class="">{{ activity.state }}</div>
+
+                    {% if activity.state == 'Terminée' %}
+                            <div class="badge badge-danger rounded-pill d-inline">{{ activity.state }}</div>
+                        {% elseif activity.state == 'En Cours'%}
+                            <div class="badge badge-primary rounded-pill d-inline">{{ activity.state }}</div>
+                        {% elseif activity.state == 'En Création' %}
+                            <div class="badge badge-secondary rounded-pill d-inline">{{ activity.state }}</div>
+                        {% elseif activity.state == 'Ouverte' %}
+                            <div class="badge badge-success rounded-pill d-inline">{{ activity.state }}</div>
+                        {% elseif activity.state == 'Annulée' %}
+                            <div class="badge badge-warning rounded-pill d-inline">{{ activity.state }}</div>
+                        {% elseif activity.state == 'Historisée' %}
+                            <div class="badge badge-dark rounded-pill d-inline">{{ activity.state }}</div>
+                        {% elseif activity.state == 'Clôturée' %}
+                            <div class="badge badge-info rounded-pill d-inline">{{ activity.state }}</div>
+                        {% endif %}
+
                 </td>
                 <td>
                         <p class="fw-normal mb-1">X</p>
