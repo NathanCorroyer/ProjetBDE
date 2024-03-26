@@ -20,9 +20,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
 
     public function load(ObjectManager $manager): void
     {
-
         $faker = Factory::create('fr_FR');
-        $faker->seed(2);
         $faker->addProvider(new PhoneNumber($faker));
 
         $user = new User();
@@ -33,7 +31,14 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             ->setPhone('020304050607')
             ->setCampus($this->getReference('CAMPUS'.$faker->randomNumber(1,10)))
             ->setRoles(['ROLE_ADMIN']);
+
         $manager->persist($user);
+
+
+        $faker->seed(2);
+
+
+
 
         for ($i = 1; $i <= 10; $i++){
             $user = new User();
