@@ -5,7 +5,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
     </div>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent" style="position: absolute; right: 0">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent" style="position: absolute; right: 0 ; margin-right: 20px">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 {% if app.user %}
                     <li class="nav-item">
@@ -24,7 +24,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_logout') }}" onclick="return confirm('Êtes-vous sûr de vouloir vous déconnecter ?')">Se déconnecter</a>
+                        <a class="nav-link" href="{{ path('app_logout') }}" onclick="return confirm('Êtes-vous sûr de vouloir vous déconnecter ?')">Se déconnecter ( {{ app.user.firstName }} )</a>
                     </li>
                 {% else %}
                     <li class="nav-item">

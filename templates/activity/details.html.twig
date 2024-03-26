@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+   <h1 style="display: flex ; justify-content: center ; margin-top: 5% ; margin-bottom: 5%">Détails de la sortie :</h1>
+
+    <div style="display: flex ; justify-content: space-evenly">
+        <div class="fatContainerInfosActivites">
+            <div class="containerInfosActivites"><p class="labelInfosActivites">Nom de la sortie : </p>{{ activity.name }}</div>
+            <div class="containerInfosActivites"><p class="labelInfosActivites">Date et heure de la sortie : </p>{{ activity.startingDateTime | format_datetime(pattern='yyyy-MM-dd HH:mm' , locale="fr" ) }}</div>
+            <div class="containerInfosActivites"><p class="labelInfosActivites">Date limite d'inscription : </p>{{ activity.inscriptionLimitDate | format_datetime(pattern='yyyy-MM-dd HH:mm' , locale="fr" ) }}</div>
+            <div class="containerInfosActivites"><p class="labelInfosActivites">Nombre de places :</p>{{ activity.maxInscription }}</div>
+            <div class="containerInfosActivites"><p class="labelInfosActivites">Durée ( en minutes ) : </p>{{ activity.duration | format_datetime(pattern='HH:mm' , locale="fr" ) }}</div>
+        </div>
+    
+    
+        <div class="fatContainerInfosActivites">
+            <div class="containerInfosActivites"><p class="labelInfosActivites">Campus : </p>{{ activity.campus.name }}</div>
+            <div class="containerInfosActivites"><p class="labelInfosActivites">Ville : </p>{{ activity.place.city.name }}</div>
+            <div class="containerInfosActivites"><p class="labelInfosActivites">Lieu : </p>{{ activity.place.name }}</div>
+            <div class="containerInfosActivites"><p class="labelInfosActivites">Rue : </p>{{ activity.place.adress }}</div>
+            <div class="containerInfosActivites"><p class="labelInfosActivites">Latite / Longitude : </p>{{ activity.place.latitude }} / {{ activity.place.longitude }}</div>
+        </div>
+
+    </div>
+    <div class="fatContainerInfosActivites containerDescription" >
+        <div><p class="labelInfosActivites">Description : </p>{{ activity.description }}</div>
+    </div>
+
+    <br><br><br>
+
+    <table class="table">
+        <thead class="bg-light">
+        <tr>
+            <th>Nom / Prénom : </th>
+            <th>E-mail :</th>
+        </tr>
+        </thead>
+        <tbody>
+          {% for user in activity.users %}
+
+            <tr>
+                <td>
+                    {{ user.firstName }} / {{ user.lastName }}
+                </td>
+
+                <td>
+                    {{ user.email }}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
+
+
+
+{% block title %}
+Sortir.com | Details
+{% endblock %}
+
