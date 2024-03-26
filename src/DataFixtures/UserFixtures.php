@@ -28,7 +28,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             ->setPassword($this->hasher->hashPassword($user, 'admin'))
             ->setFirstName('admin')
             ->setLastName('admin')
-            ->setPhone('020304050607')
+            ->setPhone('0203040506')
             ->setCampus($this->getReference('CAMPUS'.$faker->randomNumber(1,10)))
             ->setRoles(['ROLE_ADMIN']);
 
