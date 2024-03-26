@@ -46,7 +46,7 @@
                         <p class="fw-normal mb-1">X</p>
                 </td>
                 <td>
-                    <a href="{{ path('app_main_home')}}">
+                    <a href="{{ path('user_profile' , { 'id' : activity.planner.id })}}">
                         <div class="">{{ activity.planner.firstName }} {{ activity.planner.lastName }}</div></a>
                 </td>
                 <td>

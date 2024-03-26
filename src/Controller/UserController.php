@@ -2,18 +2,27 @@
 
 namespace App\Controller;
 
+use App\Repository\CampusRepository;
+use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-
+#[Route('/user' , name : 'user_')]
 class UserController extends AbstractController
 {
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
     #[Route('/myProfile', name: 'myProfile', methods: ['GET', 'POST'])]
-    public function myProfile(): Response
+    public function myProfile(  CampusRepository $campusRepository): Response
     {
         $user = $this->getUser();
-        $campuses = $this->entityManager->getRepository(Campus::class)->findAll();
+        $campuses = $campusRepository->findAll();
 
         return $this->render('main/profile.html.twig', [
             'user' => $user,
