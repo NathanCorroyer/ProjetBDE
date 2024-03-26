@@ -8,31 +8,30 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 {% if app.user %}
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href='{{ path('app_main_home') }}'>Accueil</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href='{{ path('app_main_home') }}'>Accueil</a>
+                    </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Villes</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Campus</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Villes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Campus</a>
+                    </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href='{{ path('app_main_profile') }}'>Mon profil</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href='{{ path('app_main_profile') }}'>Mon profil</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_logout') }}">Se déconnecter</a>
+                    </li>
                 {% else %}
-
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_login') }}">Se connecter / S'inscrire</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_login') }}">Se connecter / S'inscrire</a>
+                    </li>
                 {% endif %}
-
-
             </ul>
-
         </div>
-
     </div>
 </nav>

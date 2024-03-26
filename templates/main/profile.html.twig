@@ -20,15 +20,15 @@
                     <div class="row mt-3">
                         <div class="col-md-12"><label class="labels">Téléphone :</label><input type="text" class="form-control" placeholder="Numéro de téléphone" value="{{ user.phone }}"></div>
                         <div class="col-md-12"><label class="labels">Email :</label><input type="text" class="form-control" placeholder="Adresse Mail" value="{{ user.email }}"></div>
-                        <div class="col-md-12"><label class="labels">Modifier votre mot de passe :</label><input type="password" class="form-control" placeholder="Mot de passe" value=""></div>
-                        <div class="col-md-12"><label class="labels">Confirmation du mot de passe :</label><input type="text" class="form-control" placeholder="Confirmation mot de passe" value=""></div>
+                        <div class="col-md-12"><label class="labels">Modifier votre mot de passe :</label><input type="password" class="form-control" name="new_password" placeholder="Nouveau mot de passe"></div>
+                        <div class="col-md-12"><label class="labels">Confirmation du mot de passe :</label><input type="password" class="form-control" name="confirm_password" placeholder="Confirmation du mot de passe"></div>
                         <div class="col-md-12">
                             <label class="labels">Campus :</label>
                             <select class="form-control">
                                 <option value="">Sélectionnez un campus</option>
-                            {% if user.campus %}
+
                                 <option value="{{ user.campus.id }}" selected>{{ user.campus.name }}</option>
-                            {% endif %}
+
                             </select>
                         </div>
 
