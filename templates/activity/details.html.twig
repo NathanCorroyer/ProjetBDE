@@ -38,9 +38,11 @@
         <tbody>
           {% for user in activity.users %}
 
-            <tr>
+            <tr style="background-color: white;">
                 <td>
-                    {{ user.firstName }} / {{ user.lastName }}
+                    <a href="{{ path('user_profile' , {'id' : user.id } ) }}">
+                    {{ user.firstName }}  {{ user.lastName }}
+                    </a>
                 </td>
 
                 <td>

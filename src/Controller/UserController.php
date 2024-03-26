@@ -40,4 +40,16 @@ class UserController extends AbstractController
         ]);
     }
 
+
+    #[Route ( '/modify/{id}' , name : 'modify')]
+    public function modifyProfile ( int $id , UserRepository $userRepository , CampusRepository $campusRepository  ) : Response {
+        $user = $userRepository->find($id);
+        $campuses = $campusRepository->findAll();
+
+        return $this->render('user/modify.html.twig' , [
+            'user' => $user,
+            'campuses' => $campuses,
+        ]);
+    }
+
 }
