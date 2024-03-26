@@ -13,48 +13,32 @@
             </tr>
             </thead>
             <tbody>
-
+            {% for activity in activities %}
             <tr>
-
                 <td>
-                    {% for activity in activities %}
                         <p class="fw-normal mb-1">{{ activity.name }}</p>
-                    {% endfor %}
                 </td>
 
                 <td>
-                    {% for activity in activities %}
                         <p class="fw-normal mb-1">{{ activity.startingDateTime | date('d-m-Y H:i:s') }}</p>
-                    {% endfor %}
                 </td>
 
                 <td>
-                    {% for activity in activities %}
                         <p class="fw-normal mb-1">{{ activity.inscriptionLimitDate | date('d-m-Y H:i:s') }}</p>
-                    {% endfor %}
                 </td>
 
                 <td>
-                    {% for activity in activities %}
-                        <p class="fw-normal mb-1">{{ activity.inscriptionLimitDate | date('d-m-Y H:i:s') }}</p>
-                    {% endfor %}
+                        <p class="fw-normal mb-1">{{ activity.users.count}} / {{ activity.maxInscription }}</p>
                 </td>
 
                 <td>
-                    <p class="fw-normal mb-1"></p>
+                        <div class="">{{ activity.state }}</div>
                 </td>
                 <td>
-                    <span class="badge badge-success rounded-pill d-inline">Ouvert</span>
+                        <p class="fw-normal mb-1">X</p>
                 </td>
                 <td>
-                    <p class="fw-normal mb-1">X</p>
-                </td>
-                <td>
-                    <div class="d-flex align-items-center">
-                        <div class="ms-3">
-                            <p class="fw-bold mb-1">John Doe</p>
-                        </div>
-                    </div>
+                        <div class="">{{ activity.planner.firstName }} {{ activity.planner.lastName }}</div>
                 </td>
                 <td>
                     <button type="button" class="btn btn-link btn-sm btn-rounded">
@@ -62,6 +46,7 @@
                     </button>
                 </td>
             </tr>
+            {% endfor %}
             </tbody>
         </table>
     </div>
