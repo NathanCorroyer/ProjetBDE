@@ -25,6 +25,16 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $faker->seed(2);
         $faker->addProvider(new PhoneNumber($faker));
 
+        $user = new User();
+        $user ->setEmail('admin@admin.com')
+            ->setPassword($this->hasher->hashPassword($user, 'admin'))
+            ->setFirstName('admin')
+            ->setLastName('admin')
+            ->setPhone('020304050607')
+            ->setCampus($this->getReference('CAMPUS'.$faker->randomNumber(1,10)))
+            ->setRoles(['ROLE_ADMIN']);
+        $manager->persist($user);
+
         for ($i = 1; $i <= 10; $i++){
             $user = new User();
             $user ->setEmail( $faker->unique()->Email())
