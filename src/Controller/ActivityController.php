@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\State;
 use App\Entity\User;
 use App\Repository\ActivityRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -32,9 +33,14 @@ class ActivityController extends AbstractController
         $user = $this->getUser();
         $activity->addUser($user);
 
+
+
+        if($activity->getUsers()->count()>=$activity->getMaxInscription()){
+            $activity->setState(State::Closed);
+        }
+
         $em->persist($activity);
         $em->flush();
-
         return $this->render('/activity/details/'.$id, [
             'message' => 'Vous avez bien été inscrit à cette activité'
         ]);

@@ -37,8 +37,8 @@ Activity
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
-    #[ORM\Column(length: 30)]
-    private ?string $state = null;
+    #[ORM\Column(type: 'string', length: 30, enumType: State::class)]
+    private ?State $state = null;
 
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'activities')]
     private Collection $users;
@@ -72,6 +72,33 @@ Activity
             $context->buildViolation('The maximum number of users cannot exceed maxInscription.')
                 ->atPath('users')
                 ->addViolation();
+        }
+    }
+
+    /*
+     * Methode qui sert à retourner le badge associé à la bonne valeur de l'énumération
+     * Il serait peut-être bon de la déplacer dans un service?
+     */
+    public function getStateBadge(): string
+    {
+        $state = $this->getState();
+        switch ($state) {
+            case State::Finished:
+                return '<div class="badge badge-danger rounded-pill d-inline">' . $state->value . '</div>';
+            case State::Ongoing:
+                return '<div class="badge badge-primary rounded-pill d-inline">' . $state->value . '</div>';
+            case State::Creation:
+                return '<div class="badge badge-secondary rounded-pill d-inline">' . $state->value . '</div>';
+            case State::Open:
+                return '<div class="badge badge-success rounded-pill d-inline">' . $state->value . '</div>';
+            case State::Cancelled:
+                return '<div class="badge badge-warning rounded-pill d-inline">' . $state->value . '</div>';
+            case State::Archived:
+                return '<div class="badge badge-dark rounded-pill d-inline">' . $state->value. '</div>';
+            case State::Closed:
+                return '<div class="badge badge-info rounded-pill d-inline">' . $state->value . '</div>';
+            default:
+                return '<div class="badge badge-light rounded-pill d-inline">' . $state->value . '</div>';
         }
     }
 
@@ -152,12 +179,12 @@ Activity
         return $this;
     }
 
-    public function getState(): ?string
+    public function getState(): ?State
     {
         return $this->state;
     }
 
-    public function setState(string $state): static
+    public function setState(State $state): static
     {
         $this->state = $state;
 

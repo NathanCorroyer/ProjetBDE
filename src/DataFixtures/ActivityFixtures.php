@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Activity;
+use App\Entity\State;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -15,9 +16,12 @@ class ActivityFixtures extends Fixture implements DependentFixtureInterface
         $faker = Factory::create('fr_FR');
         $faker->seed(5);
 
-        $states = ['En Création' , 'Ouverte' , 'Clôturée' , 'En Cours' , 'Terminée' , 'Annulée' , 'Historisée' ];
+        $states = [State::Creation , State::Open , State::Closed , State::Ongoing , State::Finished, State::Archived
+            ,State::Cancelled];
 
         for ( $i = 1 ; $i <= 20 ; $i ++ ) {
+            $index = array_rand($states);
+            $state = $states[$index];
             $activity = new Activity() ;
              $activity->setName("Activité {$i}")
                     ->setStartingDateTime($faker->dateTime())
@@ -25,7 +29,7 @@ class ActivityFixtures extends Fixture implements DependentFixtureInterface
                     ->setInscriptionLimitDate($activity->getStartingDateTime()->modify('-1 week'))
                     ->setMaxInscription($faker->randomNumber(1 , 15))
                     ->setDescription($faker->text())
-                    ->setState($faker->randomElement($states))
+                    ->setState($state)
                     ->setCampus($this->getReference('CAMPUS' . $faker->randomNumber(1, 10)))
                     ->setPlace($this->getReference('LIEU' . $faker->randomNumber(1 , 10)))
                     ->setPlanner($this->getReference('USER' . $faker->randomNumber(1 , 10)));
