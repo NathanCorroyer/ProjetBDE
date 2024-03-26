@@ -8,6 +8,7 @@ use App\Repository\CampusRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -27,7 +28,7 @@ class FiltersType extends AbstractType
     {
 
         $builder
-            ->add('Campus', EntityType::class, [
+            ->add('campus', EntityType::class, [
                 'label' => 'Campus :',
                 'query_builder' => function (CampusRepository $cr) {
                     return $cr->createQueryBuilder('c')
@@ -37,6 +38,10 @@ class FiltersType extends AbstractType
                 'choice_label' => 'name',
                 'placeholder' => $this->user->getCampus()->getName(),
 
+            ])
+            ->add('searchbar', TextType::class, [
+                'label' => 'Le nom de la sortie contient :',
+                'placeholder' => 'search'
             ])
 
         ;

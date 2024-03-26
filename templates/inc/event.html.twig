@@ -18,7 +18,7 @@
             </thead>
             <tbody>
             {% for activity in activities %}
-            {% if activity.state.value != 'Clôturée' %}
+            {% if activity.state.value != 'Archivée' %}
             <tr>
                 <td>
                         <p class="fw-normal mb-1">{{ activity.name }}</p>
