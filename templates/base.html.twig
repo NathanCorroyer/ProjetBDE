@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
-<header>
-    {% include 'inc/nav.html.twig' %}
 
-</header>
     <head>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -24,7 +21,13 @@
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
     </head>
+    <header>
+        {% include 'inc/nav.html.twig' %}
+
+    </header>
     <body>
         {% block body %}{% endblock %}
     </body>
+
+
 </html>

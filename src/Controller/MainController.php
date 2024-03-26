@@ -17,10 +17,4 @@ class MainController extends AbstractController
 
     }
 
-    #[Route('/sorties', name: 'app_main_event', methods: ['GET', 'POST'])]
-    public function sortie()
-    {
-        return $this->render('main/event.html.twig');
-    }
-
 }
