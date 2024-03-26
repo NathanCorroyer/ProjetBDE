@@ -29,7 +29,7 @@ class ActivityRepository extends ServiceEntityRepository
         $this->security = $security;
         parent::__construct($registry, Activity::class);
         /** @var User $user */
-        $user = $this->security->getUser();
+        $this->user = $this->security->getUser();
     }
 
     public function findAllWithUsers(){
@@ -44,8 +44,6 @@ class ActivityRepository extends ServiceEntityRepository
 
     public function filter($filtres){
         $queryBuilder = $this->createQueryBuilder('a');
-
-
         foreach ($filtres as $key => $value){
             if(strcmp($key, 'campus') == 0){
                 $queryBuilder->leftJoin('a.campus','c')
@@ -56,30 +54,34 @@ class ActivityRepository extends ServiceEntityRepository
             }elseif(strcmp($key,'searchbar') == 0){
                 $queryBuilder->andWhere('a.name like :textValue')
                 ->setParameter('textValue', $value);
-            }elseif(strcmp($key, 'status') == 0){
+            }elseif(strcmp($key, 'status_filter') == 0){
                 foreach($value as $status){
                     switch ($status){
+
                         case 'planner' :
                             $queryBuilder->leftJoin('a.users', 'u')
                                 ->andWhere('u.id = :planner')
                                 ->setParameter('planner', $this->user->getId())
                                 ->addSelect('u');
+                            break;
                         case 'followed' :
                             $queryBuilder -> andWhere(':user MEMBER OF a.users')
                                 ->setParameter('user',$this->user);
+                            break;
                         case 'nonfollowed' :
                             $queryBuilder -> andWhere(':user NOT MEMBER OF a.users')
                                 ->setParameter('user',$this->user);
+                            break;
                         case 'finished' :
                             $queryBuilder -> andWhere('a.state = :state')
                                 -> setParameter('state', State::Finished);
+                            break;
                     }
                 }
             }
         }
-        $query = $queryBuilder->getQuery();
-        $paginator = new Paginator($query);
 
-        return $paginator;
+        $query = $queryBuilder->getQuery();
+        return new Paginator($query);
     }
 }
