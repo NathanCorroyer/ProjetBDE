@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 #[ORM\Entity(repositoryClass: ActivityRepository::class)]
 class
@@ -58,6 +60,20 @@ Activity
         $this->users = new ArrayCollection();
     }
 
+
+    /**
+     * Gets called during validation process to ensure that you can't add a user to an activity if all the
+     * inscription slots are full
+     * @Assert\Callback
+     */
+    public function validateMaxInscription(ExecutionContextInterface $context)
+    {
+        if ($this->users->count() >= $this->maxInscription) {
+            $context->buildViolation('The maximum number of users cannot exceed maxInscription.')
+                ->atPath('users')
+                ->addViolation();
+        }
+    }
 
     public function getId(): ?int
     {
