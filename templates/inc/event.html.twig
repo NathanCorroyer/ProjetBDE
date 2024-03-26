@@ -1,4 +1,5 @@
- <div class="container">
+ <div class="container-xxl">
+     <div class="table-container">
         <table class="table align-middle mb-0 bg-white">
             <thead class="bg-light">
             <tr>
@@ -41,21 +42,23 @@
                         <p class="fw-normal mb-1">X</p>
                 </td>
                 <td>
-                        <div class="">{{ activity.planner.firstName }} {{ activity.planner.lastName }}</div>
+                    <a href="{{ path('app_main_home')}}">
+                        <div class="">{{ activity.planner.firstName }} {{ activity.planner.lastName }}</div></a>
                 </td>
                 <td>
-                    <button type="button" class="btn btn-link btn-sm btn-rounded">
+                    <button type="button" class="btn btn-primary">
                         Afficher
-                    </button>
+                    </button >
                     {% if not activity.users.contains(app.user)
                         and activity.state not in ['Annulée','Clôturée','Terminée']
                         and activity.users.count() < activity.maxInscription %}
-                        <a href="{{ path('activity_register',{'id':activity.id}) }}">S'inscrire</a>
+                        <a class="btn btn-outline-primary" href="{{ path('activity_register',{'id':activity.id}) }}">S'inscrire</a>
                     {% endif %}
                 </td>
             </tr>
             {% endfor %}
             </tbody>
         </table>
+     </div>
     </div>
 
