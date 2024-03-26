@@ -14,7 +14,7 @@ class MainController extends AbstractController
     public function home(ActivityRepository $activityRepository,
     UserRepository $userRepository): Response
     {
-        $activities = $activityRepository->findAll();
+        $activities = $activityRepository->findAllWithUsers();
 
         return $this->render('main/home.html.twig', ['activities' => $activities ]);
 
