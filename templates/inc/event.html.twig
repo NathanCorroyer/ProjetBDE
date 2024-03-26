@@ -1,4 +1,6 @@
 
+
+
 <div class="container-xxl">
      <div class="table-container">
         <table class="table align-middle mb-0 bg-white">
@@ -16,6 +18,7 @@
             </thead>
             <tbody>
             {% for activity in activities %}
+            {% if activity.state.value != 'Clôturée' %}
             <tr>
                 <td>
                         <p class="fw-normal mb-1">{{ activity.name }}</p>
@@ -47,9 +50,11 @@
                         <div class="">{{ activity.planner.firstName }} {{ activity.planner.lastName }}</div></a>
                 </td>
                 <td>
-                    <button type="button" class="btn btn-primary">
-                        Afficher
-                    </button >
+                    <a href=" {{ path('activity_details' , { 'id' : activity.id }) }}" title="View activity details">
+                        <button type="button" class="btn btn-primary">
+                             Afficher
+                         </button >
+                    </a>
                     {% if not activity.users.contains(app.user)
                         and activity.state.value not in ['Annulée','Clôturée','Terminée', 'Archivée']
                         and activity.users.count() < activity.maxInscription %}
@@ -57,6 +62,7 @@
                     {% endif %}
                 </td>
             </tr>
+            {% endif %}
             {% endfor %}
             </tbody>
         </table>

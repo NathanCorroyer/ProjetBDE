@@ -7,9 +7,9 @@ enum State : string
     case Finished = 'Terminée';
     case Cancelled = 'Annulée';
     case Archived = 'Archivée';
-    case Creation = 'En création';
+    case Creation = 'En Création';
     case Closed = 'Clôturée';
     case Open = 'Ouverte';
-    case Ongoing = 'En cours';
+    case Ongoing = 'En Cours';
 
 }
