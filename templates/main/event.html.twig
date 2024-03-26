@@ -18,19 +18,33 @@
             <tbody>
 
             <tr>
+
                 <td>
-                    <p class="fw-normal mb-1">Philo</p>
+                    {% for activity in activities %}
+                        <p class="fw-normal mb-1">{{ activity.name }}</p>
+                    {% endfor %}
                 </td>
 
                 <td>
-                    <p class="fw-normal mb-1">19/07/2024 23:45</p>
-                </td>
-                <td>
-                    <p class="fw-normal mb-1">19/07/2024</p>
+                    {% for activity in activities %}
+                        <p class="fw-normal mb-1">{{ activity.startingDateTime | date('d-m-Y H:i:s') }}</p>
+                    {% endfor %}
                 </td>
 
                 <td>
-                    <p class="fw-normal mb-1">8/8</p>
+                    {% for activity in activities %}
+                        <p class="fw-normal mb-1">{{ activity.inscriptionLimitDate | date('d-m-Y H:i:s') }}</p>
+                    {% endfor %}
+                </td>
+
+                <td>
+                    {% for activity in activities %}
+                        <p class="fw-normal mb-1">{{ activity.inscriptionLimitDate | date('d-m-Y H:i:s') }}</p>
+                    {% endfor %}
+                </td>
+
+                <td>
+                    <p class="fw-normal mb-1"></p>
                 </td>
                 <td>
                     <span class="badge badge-success rounded-pill d-inline">Ouvert</span>
