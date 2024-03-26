@@ -34,6 +34,5 @@ class ActivityRepository extends ServiceEntityRepository
     }
 
     public function filter(){
-
     }
 }
