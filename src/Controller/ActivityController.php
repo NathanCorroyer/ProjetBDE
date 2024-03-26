@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Repository\ActivityRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -17,7 +18,7 @@ class ActivityController extends AbstractController
     }
 
     #[Route('/activity/register/{id}', name : '')]
-    public function addUsersToActivity(int $id, ActivityRepository $activityRepository) : Response
+    public function addUsersToActivity(int $id, ActivityRepository $activityRepository, EntityManagerInterface $em) : Response
     {
         $activity = $activityRepository->find($id);
 
@@ -30,6 +31,9 @@ class ActivityController extends AbstractController
         /** @var User $user */
         $user = $this->getUser();
         $activity->addUser($user);
+
+        $em->persist($activity);
+        $em->flush();
 
         return $this->render('/activity/details/'.$id, [
             'message' => 'Vous avez bien été inscrit à cette activité'
