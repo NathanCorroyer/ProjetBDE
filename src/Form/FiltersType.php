@@ -41,7 +41,6 @@ class FiltersType extends AbstractType
             ])
             ->add('searchbar', TextType::class, [
                 'label' => 'Le nom de la sortie contient :',
-                'placeholder' => 'search'
             ])
 
         ;
