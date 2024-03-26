@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Activity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 use function Symfony\Component\String\u;
 
@@ -24,8 +25,15 @@ class ActivityRepository extends ServiceEntityRepository
 
     public function findAllWithUsers(){
         $queryBuilder = $this->createQueryBuilder('a');
-        $queryBuilder->leftJoin('a.a.users', 'u')
+        $queryBuilder->leftJoin('a.users', 'u')
             ->addSelect('u');
         $query = $queryBuilder->getQuery();
+        $paginator = new Paginator($query);
+
+        return $paginator;
+    }
+
+    public function filter(){
+
     }
 }

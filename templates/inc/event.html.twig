@@ -1,4 +1,6 @@
 
+
+
 <div class="container-xxl">
      <div class="table-container">
         <table class="table align-middle mb-0 bg-white">
@@ -16,7 +18,7 @@
             </thead>
             <tbody>
             {% for activity in activities %}
-
+            {% if activity.state.value != 'Clôturée' %}
             <tr>
                 <td>
                         <p class="fw-normal mb-1">{{ activity.name }}</p>
@@ -58,6 +60,7 @@
                     {% endif %}
                 </td>
             </tr>
+            {% endif %}
             {% endfor %}
             </tbody>
         </table>
