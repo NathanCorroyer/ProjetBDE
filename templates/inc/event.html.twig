@@ -61,7 +61,9 @@
                     <button type="button" class="btn btn-link btn-sm btn-rounded">
                         Afficher
                     </button>
-                    {% if not activity.users.contains(app.user) %}
+                    {% if not activity.users.contains(app.user)
+                        and activity.state not in ['Annulée','Clôturée','Terminée']
+                        and activity.users.count() < activity.maxInscription %}
                         <a href="{{ path('activity_register',{'id':activity.id}) }}">S'inscrire</a>
                     {% endif %}
                 </td>
