@@ -17,7 +17,7 @@ class ActivityController extends AbstractController
     {
     }
 
-    #[Route('/activity/register/{id}', name : '')]
+    #[Route('/activity/register/{id}', name : 'activity_register')]
     public function addUsersToActivity(int $id, ActivityRepository $activityRepository, EntityManagerInterface $em) : Response
     {
         $activity = $activityRepository->find($id);
@@ -39,11 +39,5 @@ class ActivityController extends AbstractController
             'message' => 'Vous avez bien été inscrit à cette activité'
         ]);
     }
-    #[Route('/activity', name: 'app_activity')]
-    public function index(): Response
-    {
-        return $this->render('activity/index.html.twig', [
-            'controller_name' => 'ActivityController',
-        ]);
-    }
+
 }
