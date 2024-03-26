@@ -29,6 +29,7 @@ class ActivityFixtures extends Fixture implements DependentFixtureInterface
                     ->setCampus($this->getReference('CAMPUS' . $faker->randomNumber(1, 10)))
                     ->setPlace($this->getReference('LIEU' . $faker->randomNumber(1 , 10)))
                     ->setPlanner($this->getReference('USER' . $faker->randomNumber(1 , 10)));
+
                 for($j=1;$j<=rand(5,10); $j++)
                 {
                     $activity->addUser($this->getReference('USER'.rand(1,10)));
