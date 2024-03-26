@@ -15,8 +15,8 @@ class MainController extends AbstractController
     UserRepository $userRepository): Response
     {
         $activities = $activityRepository->findAll();
-        $users = $userRepository ->findAll();
-        return $this->render('main/home.html.twig', ['activities' => $activities,'users' => $users ]);
+
+        return $this->render('main/home.html.twig', ['activities' => $activities ]);
 
     }
 
