@@ -12,6 +12,7 @@
                         <a class="nav-link active" aria-current="page" href='{{ path('app_main_home') }}'>Accueil</a>
                     </li>
 
+
                     <li class="nav-item">
                         <a class="nav-link" href="#">Villes</a>
                     </li>
@@ -19,17 +20,27 @@
                         <a class="nav-link" href="#">Campus</a>
                     </li>
 
+
                     <li class="nav-item">
                         <a class="nav-link" href='{{ path('app_main_profile') }}'>Mon profil</a>
                     </li>
 
                     <li class="nav-item">
+                        <a class="nav-link"href="{{ path('app_register') }}">Inscrire un étudiant</a>
+                    </li>
+
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ path('app_logout') }}" onclick="return confirm('Êtes-vous sûr de vouloir vous déconnecter ?')">Se déconnecter</a>
                     </li>
+
+
                 {% else %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('app_login') }}">Se connecter / S'inscrire</a>
                     </li>
+
+
+
                 {% endif %}
             </ul>
         </div>

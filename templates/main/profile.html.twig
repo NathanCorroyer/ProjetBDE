@@ -24,13 +24,16 @@
                         <div class="col-md-12"><label class="labels">Confirmation du mot de passe :</label><input type="password" class="form-control" name="confirm_password" placeholder="Confirmation du mot de passe"></div>
                         <div class="col-md-12">
                             <label class="labels">Campus :</label>
-                            <select class="form-control">
-                                <option value="">Sélectionnez un campus</option>
-                                <option value="{{ user.campus.id }}" selected>{{ user.campus.name }}</option>
+                            <select class="form-control" name="campus">
+                                <option value=""></option>
+                                {% for campus in campuses %}
+                                    <option value="{{ campus.id }}" {% if user.campus.id == campus.id %} selected {% endif %}>{{ campus.name }}</option>
+                                {% endfor %}
                             </select>
                         </div>
+
                     </div>
-                    <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Sauvegarder mon profil</button></div>
+                    <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button" >Sauvegarder mon profil</button></div>
                 </div>
             </div>
         </div>
