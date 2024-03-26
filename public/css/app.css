@@ -14,3 +14,27 @@
     max-height: 680px;
     overflow-y: auto;
 }
+
+.containerInfosActivites{
+    margin-top: 2%;
+    font-size: x-large;
+    display: flex;
+}
+
+.fatContainerInfosActivites{
+    padding : 20px;
+    border: 2px blue solid ;
+    border-radius: 10px;
+    background-color: floralwhite;
+}
+
+.labelInfosActivites{
+    margin-right: 10px;
+    font-weight: bolder;
+}
+
+.containerDescription{
+    margin-top: 5%;
+    margin-left: 5%;
+    margin-right: 5%;
+}

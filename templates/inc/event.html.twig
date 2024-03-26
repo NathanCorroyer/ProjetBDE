@@ -50,9 +50,11 @@
                         <div class="">{{ activity.planner.firstName }} {{ activity.planner.lastName }}</div></a>
                 </td>
                 <td>
-                    <button type="button" class="btn btn-primary">
-                        Afficher
-                    </button >
+                    <a href=" {{ path('activity_details' , { 'id' : activity.id }) }}" title="View activity details">
+                        <button type="button" class="btn btn-primary">
+                             Afficher
+                         </button >
+                    </a>
                     {% if not activity.users.contains(app.user)
                         and activity.state.value not in ['Annulée','Clôturée','Terminée', 'Archivée']
                         and activity.users.count() < activity.maxInscription %}

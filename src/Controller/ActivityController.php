@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
+#[Route('/activity', name : 'activity_')]
 class ActivityController extends AbstractController
 {
 
@@ -18,7 +19,7 @@ class ActivityController extends AbstractController
     {
     }
 
-    #[Route('/activity/register/{id}', name : 'activity_register')]
+    #[Route('/register/{id}', name : 'register')]
     public function addUsersToActivity(int $id, ActivityRepository $activityRepository, EntityManagerInterface $em) : Response
     {
         $activity = $activityRepository->find($id);
@@ -44,6 +45,18 @@ class ActivityController extends AbstractController
         return $this->render('/activity/details/'.$id, [
             'message' => 'Vous avez bien été inscrit à cette activité'
         ]);
+    }
+
+    #[Route( '/details/{id}' , name : "details")]
+    public function details ( int $id , ActivityRepository $activityRepository ) : Response {
+
+        $activity = $activityRepository->find($id);
+
+
+        return $this->render('activity/details.html.twig' , [
+            'activity' => $activity
+        ]
+        );
     }
 
 }
