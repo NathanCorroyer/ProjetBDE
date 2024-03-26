@@ -1,8 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+{% if filterForm %}
+  {{ form_start(filterForm) }}
+  {{ form_widget(filterForm) }}
 
- {{ form(filterForm) }}
+  <button>Submit</button>
+  {{ form_end(filterForm) }}
+ {% endif %}
+
  {{ include('inc/event.html.twig') }}
 {% endblock %}
 
