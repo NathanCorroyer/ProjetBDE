@@ -1,4 +1,5 @@
- <div class="container-xxl">
+
+<div class="container-xxl">
      <div class="table-container">
         <table class="table align-middle mb-0 bg-white">
             <thead class="bg-light">
@@ -50,7 +51,7 @@
                         Afficher
                     </button >
                     {% if not activity.users.contains(app.user)
-                        and activity.state not in ['Annulée','Clôturée','Terminée']
+                        and activity.state.value not in ['Annulée','Clôturée','Terminée', 'Archivée']
                         and activity.users.count() < activity.maxInscription %}
                         <a class="btn btn-outline-primary" href="{{ path('activity_register',{'id':activity.id}) }}">S'inscrire</a>
                     {% endif %}

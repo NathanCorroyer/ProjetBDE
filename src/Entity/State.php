@@ -4,11 +4,11 @@ namespace App\Entity;
 
 enum State : string
 {
-    case Finished = 'Terminee';
-    case Cancelled = 'Annulee';
-    case Archived = 'Archivee';
-    case Creation = 'En creation';
-    case Closed = 'Cloturee';
+    case Finished = 'Terminée';
+    case Cancelled = 'Annulée';
+    case Archived = 'Archivée';
+    case Creation = 'En création';
+    case Closed = 'Clôturée';
     case Open = 'Ouverte';
     case Ongoing = 'En cours';
 
