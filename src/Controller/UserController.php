@@ -24,7 +24,7 @@ class UserController extends AbstractController
         $user = $this->getUser();
         $campuses = $campusRepository->findAll();
 
-        return $this->render('main/profile.html.twig', [
+        return $this->render('user/profile.html.twig', [
             'user' => $user,
             'campuses' => $campuses,
         ]);
