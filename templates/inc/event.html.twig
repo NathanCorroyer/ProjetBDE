@@ -44,7 +44,15 @@
 
                     </td>
                     <td>
+                        {% if(activity.users.contains(app.user)) %}
+                            <p class="fw-normal mb-1"><img src="{{ asset('img/favicon-16x16.png') }}" alt="checkmark"></p>
+                        {%elseif(activity.planner == app.user)%}
+                            <img src="{{ asset('img/crown_91202.png') }}" width='16px' height='16px' alt="crown">
+                        {% else %}
                             <p class="fw-normal mb-1">X</p>
+                        {% endif %}
+
+
                     </td>
                     <td>
                         <a href="{{ path('user_profile' , { 'id' : activity.planner.id })}}">
@@ -58,7 +66,9 @@
                         </a>
                         {% if not activity.users.contains(app.user)
                             and activity.state.value not in ['Annulée','Clôturée','Terminée', 'Archivée']
-                            and activity.users.count() < activity.maxInscription %}
+                            and activity.users.count() < activity.maxInscription
+                            and activity.planner != app.user
+                        %}
                             <a class="btn btn-outline-primary" href="{{ path('activity_register',{'id':activity.id}) }}">S'inscrire</a>
                         {% endif %}
                     </td>

@@ -31,7 +31,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             ->setPhone('0203040506')
             ->setCampus($this->getReference('CAMPUS'.$faker->randomNumber(1,10)))
             ->setRoles(['ROLE_ADMIN']);
-
+        $this->addReference('ADMIN', $user);
         $manager->persist($user);
 
 

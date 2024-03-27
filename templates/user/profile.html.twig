@@ -13,27 +13,41 @@
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h4 class="text-right">Mon profil</h4>
                     </div>
-                    <div class="row mt-2">
-                        <div class="col-md-6"><label class="labels">Nom :</label><input type="text" class="form-control" value="{{ user.lastName }}" placeholder="Nom" pattern="[A-Za-zÀ-ÖØ-öø-ÿ\s'-]{2,}" title="Veuillez entrer un nom valide"></div>
-                        <div class="col-md-6"><label class="labels">Prénom :</label><input type="text" class="form-control" value="{{ user.firstName }}" placeholder="Prénom" pattern="[A-Za-zÀ-ÖØ-öø-ÿ\s'-]{2,}" title="Veuillez entrer un prénom valide"></div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col-md-12"><label class="labels">Téléphone :</label><input type="tel" class="form-control" placeholder="Numéro de téléphone" value="{{ user.phone }}" maxlength="10"></div>
-                        <div class="col-md-12"><label class="labels">Email :</label><input type="email" class="form-control" placeholder="Adresse Mail" value="{{ user.email }}" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Veuillez entrer une adresse email valide"></div>
-                        <div class="col-md-12"><label class="labels">Modifier votre mot de passe :</label><input type="password" class="form-control" name="new_password" placeholder="Nouveau mot de passe"></div>
-                        <div class="col-md-12"><label class="labels">Confirmation du mot de passe :</label><input type="password" class="form-control" name="confirm_password" placeholder="Confirmation du mot de passe"></div>
-                        <div class="col-md-12">
-                            <label class="labels">Campus :</label>
-                            <select class="form-control" name="campus">
-                                <option value=""></option>
-                                {% for campus in campuses %}
-                                    <option value="{{ campus.id }}" {% if user.campus.id == campus.id %} selected {% endif %}>{{ campus.name }}</option>
-                                {% endfor %}
-                            </select>
+                    <form action="{{ path('user_modify', {'id': user.id}) }}" method="post">
+                        <div class="row mt-2">
+                            <div class="col-md-6"><label class="labels">Nom :</label><input type="text" class="form-control" name="lastName" value="{{ user.lastName }}" placeholder="Nom" pattern="[A-Za-zÀ-ÖØ-öø-ÿ\s'-]{2,}" title="Veuillez entrer un nom valide"></div>
+                            <div class="col-md-6"><label class="labels">Prénom :</label><input type="text" class="form-control" name="firstName" value="{{ user.firstName }}" placeholder="Prénom" pattern="[A-Za-zÀ-ÖØ-öø-ÿ\s'-]{2,}" title="Veuillez entrer un prénom valide"></div>
                         </div>
+                        <div class="row mt-3">
+                            <div class="col-md-12"><label class="labels">Téléphone :</label><input type="tel" class="form-control" name="phone" placeholder="Numéro de téléphone" value="{{ user.phone }}" maxlength="10"></div>
+                            <div class="col-md-12"><label class="labels">Email :</label><input type="email" class="form-control" name="email" placeholder="Adresse Mail" value="{{ user.email }}" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Veuillez entrer une adresse email valide"></div>
+                            <div class="col-md-12"><label class="labels">Modifier votre mot de passe :</label><input type="password" class="form-control" name="password" placeholder="Nouveau mot de passe"></div>
+                            <div class="col-md-12"><label class="labels">Confirmation du mot de passe :</label><input type="password" class="form-control" name="confirm_password" placeholder="Confirmation du mot de passe"></div>
+                            <div class="col-md-12">
+                                <label class="labels">Campus :</label>
+                                <select class="form-control" name="campus">
+                                    <option value=""></option>
+                                    {% for campus in campuses %}
+                                        <option value="{{ campus.id }}" {% if user.campus.id == campus.id %} selected {% endif %}>{{ campus.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
 
-                    </div>
-                    <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button" >Sauvegarder mon profil</button></div>
+                        </div>
+                        <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="submit" >Sauvegarder mon profil</button></div>
+
+                        {% set successMessages = app.flashes('success') %}
+                        {% if successMessages is not empty %}
+                            <div class="alert alert-success">
+                                {% for message in successMessages %}
+                                    {{ message }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+
+
+
+                    </form>
                 </div>
             </div>
         </div>
