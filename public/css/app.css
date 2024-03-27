@@ -81,7 +81,14 @@ margin: 5px 5px 0 5px;
     display: flex;
     justify-content: space-evenly;
 }
- #formulaireFiltresStatuses{
+
+#formulaireFiltresStatuses{
      display: flex;
      flex-direction: column;
- }
+}
+
+.create {
+    display: flex;
+    flex-direction: row-reverse;
+    margin: 0 2% 2% 2%;
+}

@@ -27,7 +27,10 @@
 
  {{ include('inc/event.html.twig') }}
 
-    <a href="{{ path('activity_create') }}" title=""><button class="btn btn-primary"></a>Créer une sortie</button>
+    <div class="create">
+        <a href="{{ path('activity_create') }}" title=""><button class="btn btn-primary">Créer une sortie</button></a>
+    </div>
+
 {% endblock %}
 
 {% block title %}
