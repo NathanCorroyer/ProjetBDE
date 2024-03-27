@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Campus;
 use App\Repository\CampusRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -56,6 +57,7 @@ class UserController extends AbstractController
             $email = $request->request->get('email');
             $password = $request->request->get('password');
             $confirmPassword = $request->request->get('confirm_password');
+            $campusId = $request->request->get('campus');
 
             if ($password !== $confirmPassword) {
                 $this->addFlash('error', 'Le mot de passe et la confirmation du mot de passe ne correspondent pas.');
@@ -73,6 +75,9 @@ class UserController extends AbstractController
             $user->setFirstName($firstName);
             $user->setLastName($lastName);
             $user->setPassword($hashedPassword);
+
+            $campus = $campusRepository->find($campusId);
+            $user->setCampus($campus);
 
 
             $this->entityManager->flush();
