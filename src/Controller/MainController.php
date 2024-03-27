@@ -29,10 +29,6 @@ class MainController extends AbstractController
             $activities = $activityRepository->filter($filterForm->getData());
 
             $this->addFlash('success', 'Serie added! Good job.');
-            return $this->redirectToRoute('app_main_home',[
-                'activities' => $activities,
-                'filterForm' => $filterForm
-            ]);
         }
 
         return $this->render('main/home.html.twig', ['campuses' => $campuses,
