@@ -7,6 +7,8 @@ use App\Entity\State;
 use App\Entity\User;
 use App\Form\CreateActivityType;
 use App\Repository\ActivityRepository;
+use App\Repository\CampusRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -65,7 +67,11 @@ class ActivityController extends AbstractController
     #[Route( '/create' , name : "create")]
     public function create( Request $request, EntityManagerInterface $entityManager) : Response
     {
+        $user = $this->getUser();
+        
+        $campus= $user->getCampus();
         $activity = new Activity();
+        $activity->setCampus($campus);
         $activityForm = $this->createForm(CreateActivityType::class, $activity);
 
         $activityForm->handleRequest($request);
@@ -78,7 +84,10 @@ class ActivityController extends AbstractController
             return $this->redirectToRoute('activity_details',['id' => $activity->getId()]);
         }
 
-        return $this->render('activity/create.html.twig', ['activityForm' => $activityForm->createView()]);
+        return $this->render('activity/create.html.twig', ['activityForm' => $activityForm->createView(),
+            "user"=>$user,
+            "campus"=>$campus
+        ]);
     }
 
 

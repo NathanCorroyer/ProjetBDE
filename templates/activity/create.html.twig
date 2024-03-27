@@ -1,14 +1,60 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+<div class="container-fluid custom-gradient-bg py-5">
+    <div class="container" >
+        <div class="row justify-content-center">
+            <div class="col-md-6"  >
+                <div class="card-header bg-primary text-white">
+                    <h1 class="text-center">Inscrire un étudiant</h1>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                    {{ form_start(activityForm, {'attr': {'id': 'formulaireActivity'}}) }}
+                        <div class="col">
+                            <div class="mb-3">
+                            {{ form_row(activityForm.name) }}
+                            </div>
+                            <div class="mb-3">
+                            {{ form_row(activityForm.startingDateTime) }}
+                            </div>
+                            <div class="mb-3">
+                            {{ form_row(activityForm.inscriptionLimitDate) }}
+                            </div>
+                            <div class="mb-3">
+                            {{ form_row(activityForm.maxInscription) }}
+                            </div>
+                            <div class="mb-3">
+                            {{ form_row(activityForm.duration) }}
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3">
+                                <label> Campus </label>
+                                {{ app.user.campus.name }}
+                            </div>
+                            <div class="mb-3">
+                                {{ form_row(activityForm.place) }}
+                            </div>
 
-    <div class="container">
-        {{ form_start(activityForm, {'attr': {'id': 'formulaireActivity'}}) }}
+
+
+                        </div>
+
+
+
+                        <div class="mb-3">
+                            {{ form_row(activityForm.description) }}
+                        </div>
+
+
         {{ form_widget(activityForm) }}
 
         <button>Ajouter</button>
         {{ form_end(activityForm) }}
 
+            </div>
+            </div>
     </div>
 {% endblock %}
 
