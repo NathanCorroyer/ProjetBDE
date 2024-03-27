@@ -9,11 +9,27 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 
+
 class ActivityFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
+
         $faker = Factory::create('fr_FR');
+        $activity = new Activity() ;
+        $activity->setName("Activité créée par Admin")
+            ->setStartingDateTime($faker->dateTimeBetween('+1 week', '+2 week'))
+            ->setDuration($faker->dateTime())
+            ->setMaxInscription($faker->randomNumber(1 , 15))
+            ->setDescription($faker->text())
+            ->setState(State::Ongoing)
+            ->setCampus($this->getReference('CAMPUS' . $faker->randomNumber(1, 10)))
+            ->setPlace($this->getReference('LIEU' . $faker->randomNumber(1 , 10)))
+            ->setPlanner($this->getReference('ADMIN'));
+        $startingDate = new \DateTime(($activity->getStartingDateTime())->format('Y-m-d H:i:s'));
+        $activity->setInscriptionLimitDate($startingDate -> modify(' +1 week'));
+        $manager -> persist($activity);
+
         $faker->seed(5);
 
         $states = [State::Creation , State::Open , State::Closed , State::Ongoing , State::Finished, State::Archived
@@ -24,15 +40,16 @@ class ActivityFixtures extends Fixture implements DependentFixtureInterface
             $state = $states[$index];
             $activity = new Activity() ;
              $activity->setName("Activité {$i}")
-                    ->setStartingDateTime($faker->dateTime())
+                    ->setStartingDateTime($faker->dateTimeBetween('+1 week', '+2 week'))
                     ->setDuration($faker->dateTime())
-                    ->setInscriptionLimitDate($activity->getStartingDateTime()->modify('-1 week'))
                     ->setMaxInscription($faker->randomNumber(1 , 15))
                     ->setDescription($faker->text())
                     ->setState($state)
                     ->setCampus($this->getReference('CAMPUS' . $faker->randomNumber(1, 10)))
                     ->setPlace($this->getReference('LIEU' . $faker->randomNumber(1 , 10)))
                     ->setPlanner($this->getReference('USER' . $faker->randomNumber(1 , 10)));
+             $startingDate = new \DateTime(($activity->getStartingDateTime())->format('Y-m-d H:i:s'));
+             $activity->setInscriptionLimitDate($startingDate -> modify(' +1 week'));
 
                 for($j=1;$j<=rand(5,10); $j++)
                 {

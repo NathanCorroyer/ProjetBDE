@@ -2,11 +2,12 @@
 
 {% block body %}
 {% if filterForm %}
-  {{ form_start(filterForm) }}
-  {{ form_widget(filterForm) }}
 
-  <button>Submit</button>
-  {{ form_end(filterForm) }}
+    {% form_theme filterForm 'foundation_5_layout.html.twig' %}
+    {{ form_start(filterForm) }}
+    {{ form_widget(filterForm) }}
+        <button>Submit</button>
+    {{ form_end(filterForm) }}
  {% endif %}
 
  {{ include('inc/event.html.twig') }}

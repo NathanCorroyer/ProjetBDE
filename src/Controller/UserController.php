@@ -6,6 +6,7 @@ use App\Repository\CampusRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -19,37 +20,59 @@ class UserController extends AbstractController
     }
 
     #[Route('/myProfile', name: 'myProfile', methods: ['GET', 'POST'])]
-    public function myProfile(  CampusRepository $campusRepository): Response
+    public function myProfile(CampusRepository $campusRepository): Response
     {
         $user = $this->getUser();
         $campuses = $campusRepository->findAll();
 
-        return $this->render('main/profile.html.twig', [
+        return $this->render('user/profile.html.twig', [
             'user' => $user,
             'campuses' => $campuses,
         ]);
     }
 
-    #[Route( '/profile/{id}' , name : 'profile')]
-    public function profileById ( int $id , UserRepository $userRepository ) : Response {
+    #[Route('/profile/{id}', name: 'profile')]
+    public function profileById(int $id, UserRepository $userRepository): Response
+    {
 
         $user = $userRepository->find($id);
 
-        return $this->render('user/details.html.twig' , [
+        return $this->render('user/details.html.twig', [
             'user' => $user
         ]);
     }
 
 
-    #[Route ( '/modify/{id}' , name : 'modify')]
-    public function modifyProfile ( int $id , UserRepository $userRepository , CampusRepository $campusRepository  ) : Response {
+    #[Route('/modify/{id}', name: 'modify')]
+    public function modifyProfile(int $id, UserRepository $userRepository, CampusRepository $campusRepository, Request $request): Response
+    {
         $user = $userRepository->find($id);
         $campuses = $campusRepository->findAll();
 
-        return $this->render('user/modify.html.twig' , [
+        if ($request->isMethod('POST')) {
+            $firstName = $request->request->get('firstName');
+            $lastName = $request->request->get('lastName');
+            $email = $request->request->get('email');
+            $password = $request->request->get('password');
+
+
+            if ($password !== null && !empty($password)) {
+                $user->setPassword($password);
+            }
+
+            $user->setEmail($email);
+            $user->setFirstName($firstName);
+            $user->setLastName($lastName);
+
+            $this->entityManager->flush();
+
+            $this->addFlash('success', 'Profil mis à jour avec succès.');
+            return $this->redirectToRoute('user_myProfile');
+        }
+
+        return $this->render('user/modify.html.twig', [
             'user' => $user,
             'campuses' => $campuses,
         ]);
     }
-
 }

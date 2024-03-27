@@ -54,9 +54,13 @@ class ActivityRepository extends ServiceEntityRepository
             if(strcmp($key, 'campus') == 0 && $value != null){
                 $queryBuilder->andWhere('c.id = :value')
                 ->setParameter('value', $value->getId());
-            }elseif(strcmp($key,'searchbar') == 0 && $value != null && $value != ''){
+            }elseif(strcmp($key,'searchbar') == 0 && $value != null && $value != '') {
                 $queryBuilder->andWhere('a.name like :textValue')
-                ->setParameter('textValue', '%' . $value . '%');
+                    ->setParameter('textValue', '%' . $value . '%');
+            }elseif (strcmp($key, 'startDate') == 0) {
+                $startDate = $value;
+            }elseif (strcmp($key, 'endDate') == 0){
+                $endDate = $value;
             }elseif(strcmp($key, 'status_filter') == 0){
                 foreach($value as $status){
                     switch ($status){
@@ -82,6 +86,16 @@ class ActivityRepository extends ServiceEntityRepository
                     }
                 }
             }
+        }
+        if($startDate != null){
+            $queryBuilder->andWhere('a.startingDateTime > :startingDate')
+                ->setParameter('startingDate', $startDate);
+        }
+
+
+        if($endDate != null){
+            $queryBuilder->andWhere('a.inscriptionLimitDate < :date')
+                ->setParameter('date', $endDate->modify('+1 day'));
         }
 
         $query = $queryBuilder->getQuery();
