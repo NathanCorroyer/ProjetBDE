@@ -5,25 +5,27 @@
 
 {% block body %}
 {% if filterForm %}
-
+    <div class="form-container">
     {{ form_start(filterForm , {'attr': {'id': 'formulaireFiltres' }}) }}
-        <div class="formsFlex">
+
             {{ form_row(filterForm.campus ) }}
             {{ form_row(filterForm.searchbar ) }}
-        </div>
-        <div class="formsFlex">
+
+
             {{ form_row(filterForm.startDate ) }}
             {{ form_row(filterForm.endDate ) }}
-        </div>
 
 
-        <div id="formulaireFiltresStatuses" class="formsFlex">
+
+
             {{ form_row(filterForm.status_filter ) }}
-        </div>
+
          {{ form_widget(filterForm) }}
         <div style="display: flex ;justify-content: center">
              <button>Submit</button>
         </div>
+
+    </div>
     {{ form_end(filterForm) }}
 
  {% endif %}

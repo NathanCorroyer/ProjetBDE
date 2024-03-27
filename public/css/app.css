@@ -1,14 +1,6 @@
-.gradient-custom {
-    /* fallback for old browsers */
-    background: #6a11cb;
-
-    /* Chrome 10-25, Safari 5.1-6 */
-    background: -webkit-linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1));
-
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1))
+* {
+    font-family: "Poppins", sans-serif;
 }
-
 .table-container{
     margin: 2%;
     max-height: 680px;
@@ -40,25 +32,29 @@
 
 html , body {
     background: linear-gradient(to bottom, #ADD8E6, #0071A4);
-    height: 100%;
+    height: auto;
     margin: 0;
     padding: 0;
 }
 
-
+.form-container {
+    display: flex;
+    justify-items :center;
+}
 #formulaireFiltres {
+    margin: 2% 10% 0 10%;
+    padding: 10px 0 20px 10% ;
     border: solid 2px steelblue;
     border-radius: 4px;
-    display: flex;
-    max-width: 60%;
-    background-color: #FFFFFF;
-    margin: 2% 20% 2% 20%;
-    padding: 10px;
-    flex-direction: column
+    background-color: #212529;
+    color: #FFFFFF;
 }
 
 #formulaireFiltres div {
-margin: 5px 5px 0 5px;
+    display: inline-block;
+    justify-content: space-around;
+    margin: 5px 5px 0 5px;
+
 }
 
 #formulaireFiltres div label {
@@ -66,6 +62,7 @@ margin: 5px 5px 0 5px;
 }
 
 #formulaireFiltres button {
+    display: block;
     background-color: #007bff;
     border: 1px solid #007bff;
     border-radius: .25rem;
@@ -74,20 +71,13 @@ margin: 5px 5px 0 5px;
     padding: .375rem .75rem;
     font-size: 1rem;
     color: #fff;
-    margin-top: 20px;
+    margin: 2% 15% 0 0;
     width: 10%;
 
 }
 
-.formsFlex {
-    display: flex;
-    justify-content: space-evenly;
-}
 
-#formulaireFiltresStatuses{
-     display: flex;
-     flex-direction: column;
- }
+
 
  .borderCards {
      border: solid 2px steelblue;
@@ -99,4 +89,22 @@ margin: 5px 5px 0 5px;
     display: flex;
     flex-direction: row-reverse;
     margin: 0 2% 2% 2%;
+}
+
+.create button {
+    background-color: #212529;
+    border: none;
+}
+
+nav a{
+    font-weight: bold;
+    color: #FFFFFF;
+}
+
+.logo {
+    width: 10%;
+}
+
+.logo img {
+    width: 90%;
 }
