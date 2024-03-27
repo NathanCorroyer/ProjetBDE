@@ -55,6 +55,12 @@ class UserController extends AbstractController
             $lastName = $request->request->get('lastName');
             $email = $request->request->get('email');
             $password = $request->request->get('password');
+            $confirmPassword = $request->request->get('confirm_password');
+
+            if ($password !== $confirmPassword) {
+                $this->addFlash('error', 'Le mot de passe et la confirmation du mot de passe ne correspondent pas.');
+                return $this->redirectToRoute('user_myProfile', ['id => $id']);
+            }
 
             if ($password === null || empty($password)) {
                 $this->addFlash('error', 'Veuillez renseigner un mot de passe.');
