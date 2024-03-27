@@ -36,6 +36,17 @@
                         </div>
                         <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="submit" >Sauvegarder mon profil</button></div>
 
+                        {% set errorMessages = app.flashes('error') %}
+                        {% if errorMessages is not empty %}
+                            <div class="alert alert-danger">
+                                {% for message in errorMessages %}
+                                    {{ message }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+
+
+
                         {% set successMessages = app.flashes('success') %}
                         {% if successMessages is not empty %}
                             <div class="alert alert-success">
