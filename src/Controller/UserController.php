@@ -56,17 +56,17 @@ class UserController extends AbstractController
             $email = $request->request->get('email');
             $password = $request->request->get('password');
 
-
             if ($password === null || empty($password)) {
                 $this->addFlash('error', 'Veuillez renseigner un mot de passe.');
                 return $this->redirectToRoute('user_myProfile', ['id' => $id]);
             }
 
-
+            $hashedPassword = $userPasswordHasher->hashPassword($user, $password);
 
             $user->setEmail($email);
             $user->setFirstName($firstName);
             $user->setLastName($lastName);
+            $user->setPassword($hashedPassword);
 
 
             $this->entityManager->flush();
