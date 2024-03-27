@@ -40,7 +40,10 @@
 }
 
 html , body {
-    background-color: #eee ;
+    background: linear-gradient(to bottom, #ADD8E6, #0071A4);
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 
@@ -48,8 +51,6 @@ html , body {
     display: flex;
     max-width: 60%;
     background-color: #FFFFFF;
-    border: 1px solid #007bff;
-    border-radius: 6px;
     margin: 2% 20% 2% 20%;
     padding: 10px;
     flex-direction: column
@@ -84,4 +85,9 @@ margin: 5px 5px 0 5px;
  #formulaireFiltresStatuses{
      display: flex;
      flex-direction: column;
+ }
+
+ .borderCards {
+     border: solid 2px steelblue;
+     border-radius: 4px;
  }
