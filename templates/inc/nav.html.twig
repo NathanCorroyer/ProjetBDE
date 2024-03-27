@@ -5,44 +5,29 @@
             <span class="navbar-toggler-icon"></span>
         </button>
     </div>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent" style="position: absolute; right: 0">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                {% if app.user %}
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href='{{ path('app_main_home') }}'>Accueil</a>
-                    </li>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent" style="position: absolute; right: 0">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            {% if app.user %}
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href='{{ path('app_main_home') }}'>Accueil</a>
+                </li>
 
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Villes</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Campus</a>
-                    </li>
-
-
-                    <li class="nav-item">
-                        <a class="nav-link" href='{{ path('user_myProfile') }}'>Mon profil</a>
-                    </li>
-
+                <li class="nav-item">
+                    <a class="nav-link" href='{{ path('user_myProfile') }}'>Mon profil</a>
+                </li>
+                {% if is_granted('ROLE_ADMIN') %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('app_register') }}">Inscrire un étudiant</a>
                     </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_logout') }}" onclick="return confirm('Êtes-vous sûr de vouloir vous déconnecter ?')">Se déconnecter</a>
-                    </li>
-
-
-                {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_login') }}">Se connecter / S'inscrire</a>
-                    </li>
-
-
-
                 {% endif %}
-            </ul>
-        </div>
-
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_logout') }}" onclick="return confirm('Êtes-vous sûr de vouloir vous déconnecter ?')">Se déconnecter</a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_login') }}">Se connecter / S'inscrire</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
 </nav>

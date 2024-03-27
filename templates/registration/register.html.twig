@@ -18,7 +18,7 @@
         <div class="container" >
             <div class="row justify-content-center">
                 <div class="col-md-6"  >
-                    <div class="card rounded-card">
+                    <div class="card rounded-card" style="height: 85vh ; border-radius: 4px ; border-color: steelblue">
                         <div class="card-header bg-primary text-white">
                             <h1 class="text-center">Inscrire un étudiant</h1>
                         </div>
@@ -44,7 +44,7 @@
                                 {{ form_row(registrationForm.campus, {'label': 'Campus', 'attr': {'class': 'form-control'}}) }}
                             </div>
                             <div class="d-grid text-center"> {# Utilisation de la classe Bootstrap pour centrer le bouton #}
-                                <button type="submit" class="btn btn-primary">Inscrire l'étudiant</button>
+                                <button type="submit" class="btn btn-primary" style="margin-top: 10%">Inscrire l'étudiant</button>
                             </div>
                             {{ form_end(registrationForm) }}
                         </div>

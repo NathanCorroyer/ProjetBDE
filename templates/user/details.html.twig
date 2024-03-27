@@ -1,25 +1,28 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <section style="background-color: #eee;">
+    <section style="background: linear-gradient(to bottom, #ADD8E6, #0071A4); height: 100vh">
         <div class="container py-5">
             <div class="row">
                 <div class="col-lg-4">
-                    <div class="card mb-4">
+                    <div class="borderCards card mb-4">
                         <div class="card-body text-center">
                             <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span class="font-weight-bold"></span><span class="text-black-50"></span><span> </span></div>
                             <h5 class="my-3">{{ user.firstName }} {{ user.lastName }}</h5>
                             <div class="d-flex justify-content-center mb-2">
+                                {% if is_granted('ROLE_ADMIN') %}
                                 <a href="{{ path('user_modify' , {id : user.id } ) }}">
                                     <button type="button" class="btn btn-primary">Modifier profil</button>
                                 </a>
+                                {%  endif  %}
                             </div>
+
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-8">
-                    <div class="card mb-4">
-                        <div class="card-body">
+                    <div class="card mb-4 borderCards">
+                        <div class=" card-body">
                             <div class="row">
                                 <div class="col-sm-3">
                                     <p class="mb-0">Campus</p>

@@ -1,8 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div>
-        {{ form_start(activityForm) }}
+
+    <div class="container">
+        {{ form_start(activityForm, {'attr': {'id': 'formulaireActivity'}}) }}
         {{ form_widget(activityForm) }}
 
         <button>Ajouter</button>

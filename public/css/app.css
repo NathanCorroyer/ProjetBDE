@@ -24,8 +24,6 @@
 
 .fatContainerInfosActivites{
     padding : 20px;
-    border: 2px blue solid ;
-    border-radius: 10px;
     background-color: white;
 }
 
@@ -41,7 +39,10 @@
 }
 
 html , body {
-    background-color: #eee ;
+    background: linear-gradient(to bottom, #ADD8E6, #0071A4);
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 
@@ -82,7 +83,20 @@ margin: 5px 5px 0 5px;
     display: flex;
     justify-content: space-evenly;
 }
- #formulaireFiltresStatuses{
+
+#formulaireFiltresStatuses{
      display: flex;
      flex-direction: column;
  }
+
+ .borderCards {
+     border: solid 2px steelblue;
+     border-radius: 4px;
+ }
+
+
+.create {
+    display: flex;
+    flex-direction: row-reverse;
+    margin: 0 2% 2% 2%;
+}
