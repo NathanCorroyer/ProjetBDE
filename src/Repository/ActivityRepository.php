@@ -57,6 +57,7 @@ class ActivityRepository extends ServiceEntityRepository
             }elseif(strcmp($key,'searchbar') == 0 && $value != null && $value != ''){
                 $queryBuilder->andWhere('a.name like :textValue')
                 ->setParameter('textValue', '%' . $value . '%');
+
             }elseif(strcmp($key, 'status_filter') == 0){
                 foreach($value as $status){
                     switch ($status){
