@@ -58,11 +58,11 @@
                             <div class="">{{ activity.planner.firstName }} {{ activity.planner.lastName }}</div></a>
                     </td>
                     <td>
-                        <div class="text-center align-middle " style="display: grid;
-                    grid-template-columns:repeat(auto-fit, 35%); grid-row-gap: 3px; ">
+                        <div class="text-center align-middle" style="display: grid;
+                    grid-template-columns:repeat(2, minmax(auto,50%)); grid-gap: 3px;">
                             <a href="{{ path('activity_details' , { 'id' : activity.id }) }}" title="View activity
-                            details" >
-                                <button type="button" class="btn btn-primary m-auto">
+                            details" class="w-100">
+                                <button type="button" class="btn btn-primary m-auto w-100">
                                      Afficher
                                  </button >
                             </a>
@@ -73,21 +73,21 @@
                                 .contains(app.user)))
                             %}
                                 <a href="{{ path('activity_register',{'id':activity.id})
-                                }}">
-                                    <button class="btn btn-outline-primary m-auto m">S'inscrire </button>
+                                }}" class="w-100">
+                                    <button class="btn btn-outline-primary m-auto  w-100">S'inscrire </button>
                                 </a>
                             {% endif %}
 
                             {% if (activity.users.contains(app.user)) %}
-                                <a  href="#">
-                                    <button class="btn btn-outline-primary m-auto" style="width: max-content">Se
+                                <a  href="#" class="w-100">
+                                    <button class="btn btn-outline-primary m-auto w-100" style="width: max-content">Se
                                         désister</button>
                                 </a>
                             {% endif %}
 
                             {% if(activity.planner == app.user and activity.state.value == 'En cours') %}
-                                <a  href="#">
-                                    <button class="btn btn-outline-primary m-auto">Annuler</button>
+                                <a  href="#" class="w-100">
+                                    <button class="btn btn-outline-primary m-auto w-100">Annuler</button>
                                 </a>
                             {% endif %}
                         </div>
