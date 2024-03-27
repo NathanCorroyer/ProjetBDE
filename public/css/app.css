@@ -44,39 +44,26 @@ html , body {
 }
 
 
-form {
+#formulaireFiltres {
     display: flex;
-    justify-content: center;
     max-width: 60%;
     background-color: #FFFFFF;
     border: 1px solid #007bff;
-    border-radius: 2px;
+    border-radius: 6px;
     margin: 2% 20% 2% 20%;
     padding: 10px;
-    align-items: center;
     flex-direction: column
 }
-form div {
-    display: inline;
-    align-items: center;
-    justify-content: space-evenly;
-    margin: 5px 5px 0 5px;
 
+#formulaireFiltres div {
+margin: 5px 5px 0 5px;
 }
 
-form div label {
+#formulaireFiltres div label {
     margin: 5px 5px 5px 5px;
 }
 
-#filters_status_filter {
-    display: flex;
-    flex-direction: row;
-    align-content: flex-end;
-    justify-content: space-evenly;
-    align-items: center;
-}
-
-form button {
+#formulaireFiltres button {
     background-color: #007bff;
     border: 1px solid #007bff;
     border-radius: .25rem;
@@ -85,5 +72,16 @@ form button {
     padding: .375rem .75rem;
     font-size: 1rem;
     color: #fff;
+    margin-top: 20px;
+    width: 10%;
 
 }
+
+.formsFlex {
+    display: flex;
+    justify-content: space-evenly;
+}
+ #formulaireFiltresStatuses{
+     display: flex;
+     flex-direction: column;
+ }

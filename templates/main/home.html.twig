@@ -3,11 +3,26 @@
 {% block body %}
 {% if filterForm %}
 
-    {{ form_start(filterForm) }}
-  {{ form_widget(filterForm) }}
+    {{ form_start(filterForm , {'attr': {'id': 'formulaireFiltres'}}) }}
+        <div class="formsFlex">
+            {{ form_row(filterForm.campus ) }}
+            {{ form_row(filterForm.searchbar ) }}
+        </div>
+        <div class="formsFlex">
+            {{ form_row(filterForm.startDate ) }}
+            {{ form_row(filterForm.endDate ) }}
+        </div>
 
-  <button>Submit</button>
-  {{ form_end(filterForm) }}
+
+        <div id="formulaireFiltresStatuses" class="formsFlex">
+            {{ form_row(filterForm.status_filter ) }}
+        </div>
+         {{ form_widget(filterForm) }}
+        <div style="display: flex ;justify-content: center">
+             <button>Submit</button>
+        </div>
+    {{ form_end(filterForm) }}
+
  {% endif %}
 
  {{ include('inc/event.html.twig') }}

@@ -15,9 +15,9 @@
 
 {% block body %}
     <div class="container-fluid custom-gradient-bg py-5">
-        <div class="container">
+        <div class="container" >
             <div class="row justify-content-center">
-                <div class="col-md-6">
+                <div class="col-md-6"  >
                     <div class="card rounded-card">
                         <div class="card-header bg-primary text-white">
                             <h1 class="text-center">Inscrire un étudiant</h1>
@@ -42,9 +42,6 @@
                             </div>
                             <div class="mb-3">
                                 {{ form_row(registrationForm.campus, {'label': 'Campus', 'attr': {'class': 'form-control'}}) }}
-                            </div>
-                            <div class="form-check mb-3">
-                                {{ form_row(registrationForm.agreeTerms, {'label': 'J\'accepte les termes et conditions', 'attr': {'class': 'form-check-input'}}) }}
                             </div>
                             <div class="d-grid text-center"> {# Utilisation de la classe Bootstrap pour centrer le bouton #}
                                 <button type="submit" class="btn btn-primary">Inscrire l'étudiant</button>

@@ -21,7 +21,7 @@ class MainController extends AbstractController
         $campuses = $campusRepository->findAll();
         $activities = $activityRepository->findAllWithUsers();
 
-        $filterForm = $this->createForm(FiltersType::class);
+        $filterForm = $this->createForm(FiltersType::class );
         $filterForm->handleRequest($request);
         if($filterForm->isSubmitted()) {
             $activities = $activityRepository->filter($filterForm->getData());
