@@ -2,11 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Activity;
 use App\Entity\State;
 use App\Entity\User;
+use App\Form\CreateActivityType;
 use App\Repository\ActivityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -58,5 +61,25 @@ class ActivityController extends AbstractController
         ]
         );
     }
+
+    #[Route( '/create' , name : "create")]
+    public function create( Request $request, EntityManagerInterface $entityManager) : Response
+    {
+        $activity = new Activity();
+        $activityForm = $this->createForm(CreateActivityType::class, $activity);
+
+        $activityForm->handleRequest($request);
+
+        if ($activityForm->isSubmitted() && $activityForm->isValid()){
+            $entityManager->persist($activity);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Idea successfully added');
+            return $this->redirectToRoute('activity_details',['id' => $activity->getId()]);
+        }
+
+        return $this->render('activity/create.html.twig', ['activityForm' => $activityForm->createView()]);
+    }
+
 
 }
