@@ -4,7 +4,7 @@
    <h1 style="display: flex ; justify-content: center ; margin-top: 5% ; margin-bottom: 5%">Détails de la sortie :</h1>
 
     <div style="display: flex ; justify-content: space-evenly">
-        <div class="fatContainerInfosActivites">
+        <div class="fatContainerInfosActivites borderCards">
             <div class="containerInfosActivites"><p class="labelInfosActivites">Nom de la sortie : </p>{{ activity.name }}</div>
             <div class="containerInfosActivites"><p class="labelInfosActivites">Date et heure de la sortie : </p>{{ activity.startingDateTime | format_datetime(pattern='yyyy-MM-dd HH:mm' , locale="fr" ) }}</div>
             <div class="containerInfosActivites"><p class="labelInfosActivites">Date limite d'inscription : </p>{{ activity.inscriptionLimitDate | format_datetime(pattern='yyyy-MM-dd HH:mm' , locale="fr" ) }}</div>
@@ -13,7 +13,7 @@
         </div>
     
     
-        <div class="fatContainerInfosActivites">
+        <div class="fatContainerInfosActivites borderCards">
             <div class="containerInfosActivites"><p class="labelInfosActivites">Campus : </p>{{ activity.campus.name }}</div>
             <div class="containerInfosActivites"><p class="labelInfosActivites">Ville : </p>{{ activity.place.city.name }}</div>
             <div class="containerInfosActivites"><p class="labelInfosActivites">Lieu : </p>{{ activity.place.name }}</div>
@@ -22,13 +22,13 @@
         </div>
 
     </div>
-    <div class="fatContainerInfosActivites containerDescription" >
+    <div class="fatContainerInfosActivites containerDescription borderCards" >
         <div><p class="labelInfosActivites">Description : </p>{{ activity.description }}</div>
     </div>
 
     <br><br><br>
 
-    <table class="table">
+    <table class="table borderCards">
         <thead class="bg-light">
         <tr>
             <th>Nom / Prénom : </th>
