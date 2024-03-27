@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/user' , name : 'user_')]
@@ -44,7 +45,7 @@ class UserController extends AbstractController
 
 
     #[Route('/modify/{id}', name: 'modify')]
-    public function modifyProfile(int $id, UserRepository $userRepository, CampusRepository $campusRepository, Request $request): Response
+    public function modifyProfile(int $id, UserRepository $userRepository,UserPasswordHasherInterface $userPasswordHasher, CampusRepository $campusRepository, Request $request): Response
     {
         $user = $userRepository->find($id);
         $campuses = $campusRepository->findAll();
@@ -54,15 +55,25 @@ class UserController extends AbstractController
             $lastName = $request->request->get('lastName');
             $email = $request->request->get('email');
             $password = $request->request->get('password');
+            $confirmPassword = $request->request->get('confirm_password');
 
-
-            if ($password !== null && !empty($password)) {
-                $user->setPassword($password);
+            if ($password !== $confirmPassword) {
+                $this->addFlash('error', 'Le mot de passe et la confirmation du mot de passe ne correspondent pas.');
+                return $this->redirectToRoute('user_myProfile', ['id => $id']);
             }
+
+            if ($password === null || empty($password)) {
+                $this->addFlash('error', 'Veuillez renseigner un mot de passe.');
+                return $this->redirectToRoute('user_myProfile', ['id' => $id]);
+            }
+
+            $hashedPassword = $userPasswordHasher->hashPassword($user, $password);
 
             $user->setEmail($email);
             $user->setFirstName($firstName);
             $user->setLastName($lastName);
+            $user->setPassword($hashedPassword);
+
 
             $this->entityManager->flush();
 
