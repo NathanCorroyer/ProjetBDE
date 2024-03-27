@@ -45,8 +45,9 @@ class ActivityController extends AbstractController
 
         $em->persist($activity);
         $em->flush();
-        return $this->render('/activity/details/'.$id, [
-            'message' => 'Vous avez bien été inscrit à cette activité'
+        return $this->render('activity/details.html.twig', [
+            'message' => 'Vous avez bien été inscrit à cette activité' ,
+            'activity' => $activity
         ]);
     }
 
