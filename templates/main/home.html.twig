@@ -3,7 +3,7 @@
 {% block body %}
 {% if filterForm %}
 
-    {{ form_start(filterForm , {'attr': {'id': 'formulaireFiltres' , 'class' : 'borderCards'}}) }}
+    {{ form_start(filterForm , {'attr': {'id': 'formulaireFiltres' }}) }}
         <div class="formsFlex">
             {{ form_row(filterForm.campus ) }}
             {{ form_row(filterForm.searchbar ) }}
