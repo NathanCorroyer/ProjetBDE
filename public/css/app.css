@@ -15,6 +15,7 @@
     overflow-y: auto;
 }
 
+
 .containerInfosActivites{
     margin-top: 2%;
     font-size: x-large;
@@ -51,6 +52,8 @@ html , body {
     display: flex;
     max-width: 60%;
     background-color: #FFFFFF;
+    border: 1px solid #007bff;
+    border-radius: 6px;
     margin: 2% 20% 2% 20%;
     padding: 10px;
     flex-direction: column
@@ -82,7 +85,8 @@ margin: 5px 5px 0 5px;
     display: flex;
     justify-content: space-evenly;
 }
- #formulaireFiltresStatuses{
+
+#formulaireFiltresStatuses{
      display: flex;
      flex-direction: column;
  }
@@ -91,3 +95,10 @@ margin: 5px 5px 0 5px;
      border: solid 2px steelblue;
      border-radius: 4px;
  }
+
+
+.create {
+    display: flex;
+    flex-direction: row-reverse;
+    margin: 0 2% 2% 2%;
+}
