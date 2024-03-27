@@ -15,20 +15,20 @@ class MainController extends AbstractController
 {
     #[Route('/', name: 'app_main_home', methods: ['GET', 'POST'])]
     public function home(ActivityRepository $activityRepository,
-    CampusRepository $campusRepository,
     Request $request): Response
     {
-        $campuses = $campusRepository->findAll();
-        $activities = $activityRepository->findAllWithUsers();
+
 
         $filterForm = $this->createForm(FiltersType::class );
         $filterForm->handleRequest($request);
-        if($filterForm->isSubmitted()) {
+        if($filterForm->isSubmitted() && $filterForm->isValid()) {
             $activities = $activityRepository->filter($filterForm->getData());
 
+        }else{
+            $activities = $activityRepository->findAllWithUsers();
         }
 
-        return $this->render('main/home.html.twig', ['campuses' => $campuses,
+        return $this->render('main/home.html.twig', [
             'activities' => $activities,
             'filterForm' => $filterForm]);
 
