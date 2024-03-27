@@ -43,15 +43,18 @@ class ActivityRepository extends ServiceEntityRepository
     }
 
     public function filter($filtres){
-        $queryBuilder = $this->createQueryBuilder('a');
-        foreach ($filtres as $key => $value){
-            if(strcmp($key, 'campus') == 0){
-                $queryBuilder->leftJoin('a.campus','c')
-                    ->andWhere('c.id = :value')
-                ->setParameter('value', $value->getId())
-                ->addSelect('c');
+        $queryBuilder = $this->createQueryBuilder('a')
+            ->leftJoin('a.campus','c')
+            ->leftJoin('a.users', 'u')
+            ->addSelect('u', 'c');
 
-            }elseif(strcmp($key,'searchbar') == 0){
+
+        foreach ($filtres as $key => $value){
+
+            if(strcmp($key, 'campus') == 0 && $value != null){
+                $queryBuilder->andWhere('c.id = :value')
+                ->setParameter('value', $value->getId());
+            }elseif(strcmp($key,'searchbar') == 0 && $value != null && $value != ''){
                 $queryBuilder->andWhere('a.name like :textValue')
                 ->setParameter('textValue', $value);
             }elseif(strcmp($key, 'status_filter') == 0){
@@ -59,10 +62,10 @@ class ActivityRepository extends ServiceEntityRepository
                     switch ($status){
 
                         case 'planner' :
-                            $queryBuilder->leftJoin('a.users', 'u')
-                                ->andWhere('u.id = :planner')
-                                ->setParameter('planner', $this->user->getId())
-                                ->addSelect('u');
+                            $queryBuilder
+                                ->andWhere('a.planner = :planner')
+                                ->setParameter('planner', $this->user->getId());
+
                             break;
                         case 'followed' :
                             $queryBuilder -> andWhere(':user MEMBER OF a.users')

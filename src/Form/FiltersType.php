@@ -30,6 +30,7 @@ class FiltersType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
 
+
         $builder
             ->setMethod('POST')
             ->add('campus', EntityType::class, [
@@ -40,27 +41,32 @@ class FiltersType extends AbstractType
                 },
                 'class' => Campus::class,
                 'choice_label' => 'name',
-                'placeholder' => $this->user->getCampus()->getName(),
+//                'placeholder' => $this->user->getCampus()->getName(),
+                'required' => false,
                 'attr' => [
-                    'name' => 'campus'
+                    'name' => 'campus',
                 ]
 
             ])
             ->add('searchbar', TextType::class, [
                 'label' => 'Le nom de la sortie contient :',
+                'required' => false,
+                'trim' => true,
                 'attr' => ['placeholder' => 'search',
-                    'name' => 'search'],
-            ])
+                    'name' => 'search'
+            ]])
             ->add('startDate', DateType::class, [
                 'label' => 'Entre ',
                 'widget' => 'single_text',
+                'required' => false,
                 'attr' => [
-                    'name' => 'startDate'
+                    'name' => 'startDate',
                 ]
             ])
             ->add('endDate', DateType::class, [
                 'label' => 'Et ',
                 'widget' => 'single_text',
+                'required' => false,
                 'attr' => [
                     'name' => 'endDate'
                 ]

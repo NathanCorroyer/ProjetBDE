@@ -15,11 +15,9 @@ class MainController extends AbstractController
 {
     #[Route('/', name: 'app_main_home', methods: ['GET', 'POST'])]
     public function home(ActivityRepository $activityRepository,
-    UserRepository $userRepository,
     CampusRepository $campusRepository,
     Request $request): Response
     {
-        dump($request);
         $campuses = $campusRepository->findAll();
         $activities = $activityRepository->findAllWithUsers();
 
@@ -28,7 +26,6 @@ class MainController extends AbstractController
         if($filterForm->isSubmitted()) {
             $activities = $activityRepository->filter($filterForm->getData());
 
-            $this->addFlash('success', 'Serie added! Good job.');
         }
 
         return $this->render('main/home.html.twig', ['campuses' => $campuses,
