@@ -2,6 +2,7 @@
 
 {% block body %}
 {% if filterForm %}
+
     {% form_theme filterForm 'foundation_5_layout.html.twig' %}
     {{ form_start(filterForm) }}
     {{ form_widget(filterForm) }}
