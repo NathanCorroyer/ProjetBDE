@@ -110,6 +110,7 @@ nav a{
 }
 
 textarea {
+    min-height: 130px;
     resize: none;
 }
 

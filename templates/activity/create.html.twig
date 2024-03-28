@@ -33,48 +33,46 @@
                                 {{ form_row(activityForm.durationInMinutes, {'attr':
                                     {'class': 'form-control'}}) }}
                                 </div>
-                            </div>
-                            <div class="col">
                                 <div class="mb-3">
                                     <label> Campus </label>
                                     <div class="form-control" >{{ app.user.campus.name }}</div>
                                 </div>
+
+
+
                                 <div class="mb-3">
+                                    {{ form_row(activityForm.city, {'attr':
+                                        {'class': 'city-selector form-control'}})  }}
+                                </div>
+
+                                <div class="mb-3">
+                                    {{ form_row(activityForm.place, {'attr':
+                                        {'class': 'place-selector form-control'}} ) }}
                                 </div>
 
 
 
-                            </div>
+                                <div class="mb-3">
+                                    {{ form_row(activityForm.description, {'label' : 'Description et info', 'attr': {'class': 'form-control'}}) }}
+                                </div>
 
-
-
-                            <div class="mb-3">
-                                {{ form_row(activityForm.description, {'label' : 'Description et info', 'attr': {'class': 'form-control'}}) }}
-                            </div>
-
-                            <div class="mb-3">
-                                {{ form_row(activityForm.city) }}
-                            </div>
-
-                            <div class="mb-3">
-                                {{ form_row(activityForm.place) }}
-                            </div>
-
-                            <div class="grid">
-                                <div class="row">
-                                    <div class="col text-center">  {#Utilisation de la classe Bootstrap pour centrer le bouton#}
-                                        {{ form_row(activityForm.save) }}
+                                <div class="grid">
+                                    <div class="row">
+                                        <div class="col text-center">  {#Utilisation de la classe Bootstrap pour centrer le bouton#}
+                                            {{ form_row(activityForm.save) }}
+                                        </div>
+                                        <div class="col text-center">  {#Utilisation de la classe Bootstrap pour centrer le bouton#}
+                                            {{ form_row(activityForm.publish) }}
+                                        </div>
+                                        <div class="col text-center">  {#Utilisation de la classe Bootstrap pour centrer le bouton#}
+                                            <button type="submit" class="btn btn-secondary" style="margin-top: 10%"
+                                                    onclick="redirectToHomePage()"
+                                            >Retour à la liste</button>
+                                        </div>
                                     </div>
-                                    <div class="col text-center">  {#Utilisation de la classe Bootstrap pour centrer le bouton#}
-                                        {{ form_row(activityForm.publish) }}
-                                    </div>
-                                    <div class="col text-center">  {#Utilisation de la classe Bootstrap pour centrer le bouton#}
-                                        <button type="submit" class="btn btn-secondary" style="margin-top: 10%"
-                                                onclick="redirectToHomePage()"
-                                        >Retour à la liste</button>
-                                    </div>
+                                </div>
                             </div>
-
+                        </div>
         {{ form_end(activityForm) }}
 
             </div>
