@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Campus;
+use App\Form\ProfileModifierType;
 use App\Form\RegistrationFormType;
 use App\Repository\CampusRepository;
 use App\Repository\UserRepository;
@@ -30,22 +31,7 @@ class UserController extends AbstractController
     {
         $user = $this->getUser();
         $campuses = $campusRepository->findAll();
-        $form = $this->createForm(RegistrationFormType::class, $user);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            /** @var UploadedFile $pictureFile */
-            $pictureFile = $form->get('pictureFile')->getData();
-            if($pictureFile) {
-                $newFilename = $fileUploader->upload($pictureFile);
-                $user->setAvatar($newFilename);
-            }
-
-            $entityManager->persist($user);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('user_myProfile', [], Response::HTTP_SEE_OTHER);
-        }
 
         return $this->render('user/profile.html.twig', [
             'user' => $user,
@@ -60,57 +46,63 @@ class UserController extends AbstractController
 
         $user = $userRepository->find($id);
 
-        return $this->render('user/details.html.twig', [
+        return $this->render('user/profile.html.twig', [
             'user' => $user
         ]);
     }
 
 
     #[Route('/modify/{id}', name: 'modify')]
-    public function modifyProfile(int $id, UserRepository $userRepository,UserPasswordHasherInterface $userPasswordHasher, CampusRepository $campusRepository, Request $request): Response
+    public function modifyProfile(int $id,FileUploader $fileUploader, UserRepository $userRepository,
+                                  UserPasswordHasherInterface
+$userPasswordHasher, CampusRepository $campusRepository, Request $request): Response
     {
         $user = $userRepository->find($id);
         $campuses = $campusRepository->findAll();
+        $form = $this->createForm(ProfileModifierType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
 
 
-        if ($request->isMethod('POST')) {
-            $firstName = $request->request->get('firstName');
-            $lastName = $request->request->get('lastName');
-            $email = $request->request->get('email');
-            $password = $request->request->get('password');
-            $confirmPassword = $request->request->get('confirm_password');
-            $campusId = $request->request->get('campus');
-
-            if ($password !== $confirmPassword) {
-                $this->addFlash('error', 'Le mot de passe et la confirmation du mot de passe ne correspondent pas.');
-                return $this->redirectToRoute('user_myProfile', ['id => $id']);
+            $firstName = $form->get('firstName')->getData();
+            $lastName = $form->get('lastName')->getData();
+            $password = $form->get('password')->getData();
+            $email = $form->get('email')->getData();
+            $phone = $form->get('phone')->getData();
+            /** @var UploadedFile $pictureFile */
+            $pictureFile = $form->get('avatarFile')->getData();
+            if($password != null && trim($password)!=''){
+                $hashedPassword = $userPasswordHasher->hashPassword($user, $password);
+                $user->setPassword($hashedPassword);
+            }
+            if($email != null && trim($email)!=''){
+                $user->setEmail($email);
+            }
+            if($phone != null && trim($phone)){
+                $user->setPhone($phone);
+            }
+            if($pictureFile != null) {
+                $newFilename = $fileUploader->upload($pictureFile);
+                $user->setAvatar($newFilename);
             }
 
-            if ($password === null || empty($password)) {
-                $this->addFlash('error', 'Veuillez renseigner un mot de passe.');
-                return $this->redirectToRoute('user_myProfile', ['id' => $id]);
+            if($firstName != null && trim($firstName) !=''){
+                $user->setFirstName($firstName);
             }
-
-            $hashedPassword = $userPasswordHasher->hashPassword($user, $password);
-
-            $user->setEmail($email);
-            $user->setFirstName($firstName);
-            $user->setLastName($lastName);
-            $user->setPassword($hashedPassword);
-
-            $campus = $campusRepository->find($campusId);
-            $user->setCampus($campus);
-
+            if($lastName != null && trim($lastName) !=''){
+                $user->setLastName($lastName);
+            }
 
             $this->entityManager->flush();
 
             $this->addFlash('success', 'Profil mis à jour avec succès.');
-            return $this->redirectToRoute('user_myProfile');
+            return $this->redirectToRoute('user_profile', ['id' => $user->getId()]);
         }
 
         return $this->render('user/modify.html.twig', [
             'user' => $user,
             'campuses' => $campuses,
+            'formulaire'=>$form
         ]);
     }
 }
