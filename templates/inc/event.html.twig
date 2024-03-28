@@ -85,6 +85,13 @@
                                 </a>
                             {% endif %}
 
+                            {% if(activity.planner == app.user and activity.state.value == 'En création') %}
+                                <a  href="{{ path('activity_edit' , {'id' : activity.id }) }}" class="w-100">
+                                    <button class="btn btn-outline-primary m-auto w-100" style="width: max-content">Modifier
+                                    </button>
+                                </a>
+                            {% endif %}
+
                             {% if(activity.planner == app.user and activity.state.value == 'En cours') %}
                                 <a  href="#" class="w-100">
                                     <button class="btn btn-outline-primary m-auto w-100">Annuler</button>
