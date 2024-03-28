@@ -31,6 +31,7 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('phone', TextType::class, [
                 'label' => 'Numéro de téléphone',
+                'attr'=>['pattern'=>'(0|\+33)[1-9]([-. ]?[0-9]{2}){4}$']
             ])
             ->add('campus', EntityType::class, [
                 'label' => 'Campus',
@@ -52,8 +53,13 @@ class RegistrationFormType extends AbstractType
                 ],
             ])
             ->add('avatarFile', FileType::class, [
+                'label'=>'Photo de profil: ',
+                'label_attr'=>['class' =>'labels'],
                 'mapped' => false,
                 'required' => false,
+                'attr'=>['class'=>'form-control',
+                    'style' => 'border:none;']
+
             ]);
     }
 

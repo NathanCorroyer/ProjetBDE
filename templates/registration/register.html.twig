@@ -43,6 +43,9 @@
                             <div class="mb-3">
                                 {{ form_row(registrationForm.campus, {'label': 'Campus', 'attr': {'class': 'form-control'}}) }}
                             </div>
+                            <div class="mb-3">
+                                {{ form_row(registrationForm.avatarFile) }}
+                            </div>
                             <div class="d-grid text-center"> {# Utilisation de la classe Bootstrap pour centrer le bouton #}
                                 <button type="submit" class="btn btn-primary" style="margin-top: 10%">Inscrire l'étudiant</button>
                             </div>

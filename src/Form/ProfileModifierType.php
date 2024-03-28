@@ -76,7 +76,8 @@ class ProfileModifierType extends AbstractType
                 'mapped'=>false,
                 'attr'=>[
                     'value'=>$this->user->getPhone(),
-                    'class'=>'form-control'
+                    'class'=>'form-control',
+                    'pattern'=>'/^(0|\+33)[1-9]([-. ]?[0-9]{2}){4}$/'
                 ]
             ])
             ->add('avatarFile',FileType::class, [

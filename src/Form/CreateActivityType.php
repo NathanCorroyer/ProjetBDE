@@ -43,7 +43,7 @@ class CreateActivityType extends AbstractType
                 'required' => false,
                 'attr' => ['name' => 'endDate',]
             ])
-            ->add('maxInscription', TextType::class, [
+            ->add('maxInscription', IntegerType::class, [
 
             ])
             ->add('durationInMinutes', IntegerType::class, [
