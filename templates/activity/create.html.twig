@@ -5,52 +5,53 @@
     <div class="container" >
         <div class="row justify-content-center">
             <div class="col-md-6"  >
-                <div class="card-header bg-primary text-white">
-                    <h1 class="text-center">Inscrire un étudiant</h1>
-                </div>
-                <div class="card-body">
-                    <div class="mb-3">
-                    {{ form_start(activityForm, {'attr': {'id': 'formulaireActivity'}}) }}
-                        <div class="col">
-                            <div class="mb-3">
-                            {{ form_row(activityForm.name) }}
-                            </div>
-                            <div class="mb-3">
-                            {{ form_row(activityForm.startingDateTime) }}
-                            </div>
-                            <div class="mb-3">
-                            {{ form_row(activityForm.inscriptionLimitDate) }}
-                            </div>
-                            <div class="mb-3">
-                            {{ form_row(activityForm.maxInscription) }}
-                            </div>
-                            <div class="mb-3">
-                            {{ form_row(activityForm.duration) }}
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="mb-3">
-                                <label> Campus </label>
-                                {{ app.user.campus.name }}
-                            </div>
-                            <div class="mb-3">
-                                {{ form_row(activityForm.place) }}
-                            </div>
-
-
-
-                        </div>
-
-
-
+                <div class="card rounded-card" style="height: auto ; border-radius: 4px ; border-color: steelblue">
+                    <div class="card-header bg-primary text-white">
+                        <h1 class="text-center">Inscrire un étudiant</h1>
+                    </div>
+                    <div class="card-body">
                         <div class="mb-3">
-                            {{ form_row(activityForm.description) }}
-                        </div>
+                        {{ form_start(activityForm, {'attr': {'id': 'formulaireActivity'}}) }}
+                            <div class="col">
+                                <div class="mb-3">
+                                {{ form_row(activityForm.name, {'label': 'Nom de la sortie', 'attr': {'class': 'form-control'}}) }}
+                                </div>
+                                <div class="mb-3">
+                                {{ form_row(activityForm.startingDateTime, {'label' : 'Date et heure de la sortie', 'attr': {'class': 'form-control'}}) }}
+                                </div>
+                                <div class="mb-3">
+                                {{ form_row(activityForm.inscriptionLimitDate, {'label' : 'Date limite d\'inscription', 'attr': {'class': 'form-control'}}) }}
+                                </div>
+                                <div class="mb-3">
+                                {{ form_row(activityForm.maxInscription, {'label' : 'Nombre de places', 'attr': {'class': 'form-control'}}) }}
+                                </div>
+                                <div class="mb-3">
+                                {{ form_row(activityForm.duration, {'label' : 'Durée (en minutes)', 'attr': {'class': 'form-control'}}) }}
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="mb-3">
+                                    <label> Campus </label>
+                                    <div class="form-control" >{{ app.user.campus.name }}</div>
+                                </div>
+                                <div class="mb-3">
+                                </div>
+
+
+
+                            </div>
+
+
+
+                            <div class="mb-3">
+                                {{ form_row(activityForm.description, {'label' : 'Description et info', 'attr': {'class': 'form-control'}}) }}
+                            </div>
 
 
         {{ form_widget(activityForm) }}
-
-        <button>Ajouter</button>
+                            <div class="d-grid text-center"> {# Utilisation de la classe Bootstrap pour centrer le bouton #}
+                                <button type="submit" class="btn btn-primary" style="margin-top: 10%">Inscrire l'étudiant</button>
+                            </div>
         {{ form_end(activityForm) }}
 
             </div>

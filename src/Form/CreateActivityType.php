@@ -29,22 +29,21 @@ class CreateActivityType extends AbstractType
                 'label' => 'Nom de la sortie'
             ])
             ->add('startingDateTime', DateType::class, [
-                'label' => 'Date et heure de la sortie',
+
                 'widget' => 'single_text',
                 'required' => false,
                 'attr' => ['name' => 'startDate',]
             ])
             ->add('inscriptionLimitDate', DateType::class, [
-                'label' => 'Date limite d\'inscription',
+
                 'widget' => 'single_text',
                 'required' => false,
                 'attr' => ['name' => 'endDate',]
             ])
             ->add('maxInscription', TextType::class, [
-                'label' => 'Nombre de places'
+
             ])
             ->add('duration', IntegerType::class, [
-                'label' => 'Durée (en minutes)',
                 'required' => true, // ou false selon vos besoins
                 'attr' => [
                     'min' => 0, // Valeur minimale autorisée
