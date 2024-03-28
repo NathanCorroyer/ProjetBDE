@@ -47,8 +47,29 @@ class ActivityController extends AbstractController
 
         $em->persist($activity);
         $em->flush();
+        $this->addFlash('succes' , 'Vous venez de vous inscrire à cette activité !');
         return $this->render('activity/details.html.twig', [
-            'message' => 'Vous avez bien été inscrit à cette activité' ,
+            'activity' => $activity
+        ]);
+    }
+
+    #[Route( '/desist/{id}' , name: 'desist')]
+    public function removeUserFromActivity ( int $id , ActivityRepository $activityRepository , EntityManagerInterface $entityManager ) : Response {
+        $activity = $activityRepository->find($id);
+
+        $user = $this->getUser();
+        $activity->removeUser($user);
+
+        if ( $activity->getUsers()->count() < $activity->getMaxInscription() ){
+            $activity->setState(State::Open);
+        }
+
+        $entityManager->persist($activity);
+        $entityManager->flush();
+
+        $this->addFlash('succes' , 'Vous venez de vous désister de cette activité !');
+
+        return $this->render('activity/details.html.twig' , [
             'activity' => $activity
         ]);
     }
