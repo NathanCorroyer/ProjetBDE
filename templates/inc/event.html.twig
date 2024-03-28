@@ -72,7 +72,7 @@
                                 and (activity.planner != app.user or (activity.planner == app.user and not activity.users
                                 .contains(app.user)))
                             %}
-                                <a href="{{ path('activity_register', {'id':activity.id} )
+                                <a href="{{ path('activity_register',{'id':activity.id})
                                 }}" class="w-100">
                                     <button class="btn btn-outline-primary m-auto  w-100">S'inscrire </button>
                                 </a>
@@ -82,6 +82,13 @@
                                 <a  href="{{ path('activity_desist' , {'id' : activity.id }) }}" class="w-100">
                                     <button class="btn btn-outline-primary m-auto w-100" style="width: max-content">Se
                                         désister</button>
+                                </a>
+                            {% endif %}
+
+                            {% if(activity.planner == app.user and activity.state.value == 'En création') %}
+                                <a  href="{{ path('activity_edit' , {'id' : activity.id }) }}" class="w-100">
+                                    <button class="btn btn-outline-primary m-auto w-100" style="width: max-content">Modifier
+                                    </button>
                                 </a>
                             {% endif %}
 

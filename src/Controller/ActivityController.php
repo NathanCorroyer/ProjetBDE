@@ -166,4 +166,52 @@ class ActivityController extends AbstractController
         return new Response($options);
     }
 
+    #[Route('/edit/{id}', name: "edit", methods: ["GET", "POST"])]
+    public function edit(Request $request, EntityManagerInterface $entityManager, Activity $activity): Response
+    {
+        $user = $this->getUser();
+
+        // Vérifiez si l'utilisateur est autorisé à modifier cette activité
+        // Cela peut dépendre de la relation entre l'utilisateur et l'activité
+        // Par exemple, vérifiez si l'utilisateur est l'organisateur de l'activité
+
+        $activityForm = $this->createForm(CreateActivityType::class, $activity);
+        $activityForm->handleRequest($request);
+
+        if ($activityForm->isSubmitted() && $activityForm->isValid()) {
+            $duration = $activityForm->get('durationInMinutes')->getData();
+            if ($duration) {
+                $hours = floor($duration / 60);
+                $minutes = $duration % 60;
+
+                $time = new \DateTime();
+                $time->setTime($hours, $minutes);
+
+                $activity->setDuration($time);
+            }
+
+            switch ($activityForm->getClickedButton()->getName()) {
+                case 'save':
+                    $activity->setState(State::Creation);
+                    break;
+                case 'publish':
+                    $activity->setState(State::Open);
+                    break;
+                case 'return':
+                    return $this->redirectToRoute('app_main_home');
+                default:
+                    $activity->setState(State::Open);
+            }
+
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Activity successfully updated');
+            return $this->redirectToRoute('activity_details', ['id' => $activity->getId()]);
+        }
+
+        return $this->render('activity/edit.html.twig', [
+            'activityForm' => $activityForm->createView(),
+        ]);
+    }
+
 }
