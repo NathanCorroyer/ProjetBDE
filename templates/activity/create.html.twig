@@ -5,9 +5,9 @@
     <div class="container" >
         <div class="row justify-content-center">
             <div class="col-md-6"  >
-                <div class="card rounded-card" style="height: auto ; border-radius: 4px ; border-color: steelblue">
+                <div class="card rounded-card" style="height: auto ; min-width: 600px; border-radius: 4px ; border-color: steelblue">
                     <div class="card-header bg-primary text-white">
-                        <h1 class="text-center">Inscrire un étudiant</h1>
+                        <h1 class="text-center">Créer une sortie</h1>
                     </div>
                     <div class="card-body">
                         <div class="mb-3">
@@ -49,8 +49,18 @@
 
 
         {{ form_widget(activityForm) }}
-                            <div class="d-grid text-center"> {# Utilisation de la classe Bootstrap pour centrer le bouton #}
-                                <button type="submit" class="btn btn-primary" style="margin-top: 10%">Inscrire l'étudiant</button>
+
+                            <div class="grid">
+                                <div class="row">
+                                    <div class="col text-center"> {# Utilisation de la classe Bootstrap pour centrer le bouton #}
+                                        <button type="submit" class="btn btn-outline-primary" style="margin-top: 10%">Enregistrer</button>
+                                    </div>
+                                    <div class="col text-center"> {# Utilisation de la classe Bootstrap pour centrer le bouton #}
+                                        <button type="submit" class="btn btn-primary" style="margin-top: 10%">Publier</button>
+                                    </div>
+                                    <div class="col text-center"> {# Utilisation de la classe Bootstrap pour centrer le bouton #}
+                                        <button type="submit" class="btn btn-secondary" style="margin-top: 10%">Retour à la liste</button>
+                                    </div>
                             </div>
         {{ form_end(activityForm) }}
 
