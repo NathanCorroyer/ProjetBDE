@@ -3,10 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Campus;
+use App\Form\RegistrationFormType;
 use App\Repository\CampusRepository;
 use App\Repository\UserRepository;
+use App\Service\FileUploader;
+use Cassandra\Type\UserType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -22,14 +26,31 @@ class UserController extends AbstractController
     }
 
     #[Route('/myProfile', name: 'myProfile', methods: ['GET', 'POST'])]
-    public function myProfile(CampusRepository $campusRepository): Response
+    public function myProfile(CampusRepository $campusRepository, EntityManagerInterface $entityManager, Request $request, FileUploader $fileUploader): Response
     {
         $user = $this->getUser();
         $campuses = $campusRepository->findAll();
+        $form = $this->createForm(RegistrationFormType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var UploadedFile $pictureFile */
+            $pictureFile = $form->get('pictureFile')->getData();
+            if($pictureFile) {
+                $newFilename = $fileUploader->upload($pictureFile);
+                $user->setAvatar($newFilename);
+            }
+
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('user_myProfile', [], Response::HTTP_SEE_OTHER);
+        }
 
         return $this->render('user/profile.html.twig', [
             'user' => $user,
             'campuses' => $campuses,
+
         ]);
     }
 
@@ -50,6 +71,7 @@ class UserController extends AbstractController
     {
         $user = $userRepository->find($id);
         $campuses = $campusRepository->findAll();
+
 
         if ($request->isMethod('POST')) {
             $firstName = $request->request->get('firstName');
