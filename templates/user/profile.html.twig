@@ -26,7 +26,6 @@
                             <div class="col-md-12">
                                 <label class="labels">Campus :</label>
                                 <select class="form-control" name="campus">
-                                    <option value=""></option>
                                     {% for campus in campuses %}
                                         <option value="{{ campus.id }}" {% if user.campus.id == campus.id %} selected {% endif %}>{{ campus.name }}</option>
                                     {% endfor %}
