@@ -71,6 +71,7 @@ class CreateActivityType extends AbstractType
                     'class' => 'place-selector'
                 ]
             ])
+
             ->add('description')
 
             -> add('save', SubmitType::class, [
@@ -84,7 +85,7 @@ class CreateActivityType extends AbstractType
             -> add('publish', SubmitType::class, [
                 'label' => 'Publier',
                 'attr' => [
-                    'class' => 'btn btn-outline-primary',
+                    'class' => 'btn btn-primary',
                     'style' => 'margin-top:10%'
                 ]
             ])
