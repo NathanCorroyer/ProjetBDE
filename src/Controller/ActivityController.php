@@ -8,7 +8,6 @@ use App\Entity\User;
 use App\Form\CreateActivityType;
 use App\Repository\ActivityRepository;
 use App\Repository\CampusRepository;
-use App\Repository\PlaceRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -61,6 +60,7 @@ class ActivityController extends AbstractController
         $user = $this->getUser();
         $activity->removeUser($user);
 
+
         if ( $activity->getUsers()->count() < $activity->getMaxInscription() ){
             $activity->setState(State::Open);
         }
@@ -87,7 +87,7 @@ class ActivityController extends AbstractController
         );
     }
 
-    #[Route( '/create' , name : "create", methods: ["GET", "POST"])]
+    #[Route( '/create' , name : "create")]
     public function create( Request $request, EntityManagerInterface $entityManager) : Response
     {
         $user = $this->getUser();
@@ -135,6 +135,19 @@ class ActivityController extends AbstractController
             "user"=>$user,
             "campus"=>$campus
         ]);
+    }
+
+    #[Route('/cancel/{id}' , name : 'cancel' , methods: "GET")]
+    public function cancelActivity ( int $id , EntityManagerInterface $entityManager , ActivityRepository $activityRepository ) {
+
+        $activity = $activityRepository->find($id);
+
+        $entityManager->remove($activity);
+        $entityManager->flush();
+
+        $this->addFlash('succes', 'Activité supprimée !');
+
+        return $this->redirectToRoute('app_main_home');
     }
 
 

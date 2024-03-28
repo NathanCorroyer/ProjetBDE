@@ -125,5 +125,5 @@ textarea {
 }
 
 .flash-succes  {
-    background-color: forestgreen;
+    background-color: forestgreen !important;
 }

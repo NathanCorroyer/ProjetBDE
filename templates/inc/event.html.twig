@@ -72,7 +72,7 @@
                                 and (activity.planner != app.user or (activity.planner == app.user and not activity.users
                                 .contains(app.user)))
                             %}
-                                <a href="{{ path('activity_register',{'id':activity.id})
+                                <a href="{{ path('activity_register', {'id':activity.id} )
                                 }}" class="w-100">
                                     <button class="btn btn-outline-primary m-auto  w-100">S'inscrire </button>
                                 </a>
@@ -85,8 +85,8 @@
                                 </a>
                             {% endif %}
 
-                            {% if(activity.planner == app.user and activity.state.value == 'En cours') %}
-                                <a  href="#" class="w-100">
+                            {% if( is_granted('ROLE_ADMIN') or activity.planner == app.user  and activity.state.value == 'En cours') %}
+                                <a  href="{{ path( 'activity_cancel' , {'id' : activity.id })}}" class="w-100">
                                     <button class="btn btn-outline-primary m-auto w-100">Annuler</button>
                                 </a>
                             {% endif %}
