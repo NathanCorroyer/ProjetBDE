@@ -32,10 +32,10 @@
                                 {{ form_row(registrationForm.lastName, {'label': 'Nom', 'attr': {'class': 'form-control'}}) }}
                             </div>
                             <div class="mb-3">
-                                {{ form_row(registrationForm.email, {'label': 'Adresse email', 'attr': {'class': 'form-control'}}) }}
+                                {{ form_row(registrationForm.email, {'label': 'Adresse email', 'attr': {'class': 'form-control', 'pattern': '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$'}}) }}
                             </div>
                             <div class="mb-3">
-                                {{ form_row(registrationForm.phone, {'label': 'Numéro de téléphone', 'attr': {'class': 'form-control'}}) }}
+                                {{ form_row(registrationForm.phone, {'label': 'Numéro de téléphone', 'attr': {'class': 'form-control', 'maxlength': 10}}) }}
                             </div>
                             <div class="mb-3">
                                 {{ form_row(registrationForm.plainPassword, {'label': 'Mot de passe', 'attr': {'class': 'form-control'}}) }}
