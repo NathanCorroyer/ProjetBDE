@@ -8,6 +8,7 @@ use App\Entity\User;
 use App\Form\CreateActivityType;
 use App\Repository\ActivityRepository;
 use App\Repository\CampusRepository;
+use App\Repository\PlaceRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -65,19 +66,43 @@ class ActivityController extends AbstractController
         );
     }
 
-    #[Route( '/create' , name : "create")]
+    #[Route( '/create' , name : "create", methods: ["GET", "POST"])]
     public function create( Request $request, EntityManagerInterface $entityManager) : Response
     {
         $user = $this->getUser();
         
         $campus= $user->getCampus();
         $activity = new Activity();
-        $activity->setCampus($campus);
+        $activity->setCampus($campus)
+            ->setPlanner($user);
         $activityForm = $this->createForm(CreateActivityType::class, $activity);
 
         $activityForm->handleRequest($request);
 
+
         if ($activityForm->isSubmitted() && $activityForm->isValid()){
+            $duration = $activityForm->get('durationInMinutes')->getData();
+            if($duration){
+                $hours = floor($duration/60);
+                $minutes = $duration % 60;
+
+                $time = new \DateTime();
+                $time->setTime($hours, $minutes);
+
+                $activity->setDuration($time);
+            }
+            switch ($activityForm->getClickedButton()->getName()){
+                case 'save' :
+                    $activity->setState(State::Creation);
+                break;
+                case 'publish' :
+                    $activity->setState(State::Open);
+                    break;
+                case 'return' :
+                    return $this->redirectToRoute('app_main_home');
+                default: $activity->setState(State::Open);
+            }
+
             $entityManager->persist($activity);
             $entityManager->flush();
 
@@ -91,5 +116,20 @@ class ActivityController extends AbstractController
         ]);
     }
 
+
+
+     #[Route("/places/{cityId}", name : "places_by_city", methods : "GET")]
+    public function getPlacesByCity($cityId, PlaceRepository $placeRepository): Response
+    {
+        $places = $placeRepository->findBy(['city' => $cityId]);
+        $options = '';
+        if($places) {
+
+            foreach ($places as $place) {
+                $options .= '<option value="' . $place->getId() . '">' . $place->getName() . '</option>';
+            }
+        }
+        return new Response($options);
+    }
 
 }

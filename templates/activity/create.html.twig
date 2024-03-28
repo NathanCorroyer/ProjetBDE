@@ -1,5 +1,9 @@
 {% extends 'base.html.twig' %}
-
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ asset('scripts/dynamicActivityCreationForm.js') }}"></script>
+{% endblock %}
 {% block body %}
 <div class="container-fluid custom-gradient-bg py-5">
     <div class="container" >
@@ -26,7 +30,8 @@
                                 {{ form_row(activityForm.maxInscription, {'label' : 'Nombre de places', 'attr': {'class': 'form-control'}}) }}
                                 </div>
                                 <div class="mb-3">
-                                {{ form_row(activityForm.duration, {'label' : 'Durée (en minutes)', 'attr': {'class': 'form-control'}}) }}
+                                {{ form_row(activityForm.durationInMinutes, {'attr':
+                                    {'class': 'form-control'}}) }}
                                 </div>
                             </div>
                             <div class="col">
@@ -47,21 +52,29 @@
                                 {{ form_row(activityForm.description, {'label' : 'Description et info', 'attr': {'class': 'form-control'}}) }}
                             </div>
 
+                            <div class="mb-3">
+                                {{ form_row(activityForm.city) }}
+                            </div>
 
-        {{ form_widget(activityForm) }}
+                            <div class="mb-3">
+                                {{ form_row(activityForm.place) }}
+                            </div>
 
                             <div class="grid">
                                 <div class="row">
-                                    <div class="col text-center"> {# Utilisation de la classe Bootstrap pour centrer le bouton #}
-                                        <button type="submit" class="btn btn-outline-primary" style="margin-top: 10%">Enregistrer</button>
+                                    <div class="col text-center">  {#Utilisation de la classe Bootstrap pour centrer le bouton#}
+                                        {{ form_row(activityForm.save) }}
                                     </div>
-                                    <div class="col text-center"> {# Utilisation de la classe Bootstrap pour centrer le bouton #}
-                                        <button type="submit" class="btn btn-primary" style="margin-top: 10%">Publier</button>
+                                    <div class="col text-center">  {#Utilisation de la classe Bootstrap pour centrer le bouton#}
+                                        {{ form_row(activityForm.publish) }}
                                     </div>
-                                    <div class="col text-center"> {# Utilisation de la classe Bootstrap pour centrer le bouton #}
-                                        <button type="submit" class="btn btn-secondary" style="margin-top: 10%">Retour à la liste</button>
+                                    <div class="col text-center">  {#Utilisation de la classe Bootstrap pour centrer le bouton#}
+                                        <button type="submit" class="btn btn-secondary" style="margin-top: 10%"
+                                                onclick="redirectToHomePage()"
+                                        >Retour à la liste</button>
                                     </div>
                             </div>
+
         {{ form_end(activityForm) }}
 
             </div>
