@@ -7,6 +7,7 @@ use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -31,16 +32,12 @@ class RegistrationFormType extends AbstractType
             ->add('phone', TextType::class, [
                 'label' => 'Numéro de téléphone',
             ])
-
             ->add('campus', EntityType::class, [
                 'label' => 'Campus',
                 'class' => Campus::class,
-                'choice_label' =>'name',
+                'choice_label' => 'name',
             ])
-
-
             ->add('plainPassword', PasswordType::class, [
-
                 'mapped' => false,
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
@@ -49,14 +46,15 @@ class RegistrationFormType extends AbstractType
                     ]),
                     new Length([
                         'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
-
+                        'minMessage' => 'Votre mot de passe doit être de {{ limit }} caractères minimum',
                         'max' => 4096,
                     ]),
                 ],
             ])
-
-        ;
+            ->add('pictureFile', FileType::class, [
+                'mapped' => false,
+                'required' => false,
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
