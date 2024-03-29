@@ -85,12 +85,11 @@ html , body {
  .borderCards {
 
      border: solid 1px #007bff;
-     border-radius: 2%;
  }
 
 .card-header bg-primary text-white
 
-.create {
+div .create {
     display: flex;
     flex-direction: row-reverse;
     margin: 0 2% 2% 2%;
