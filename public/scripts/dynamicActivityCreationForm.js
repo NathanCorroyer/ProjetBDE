@@ -1,26 +1,31 @@
 $(document).ready(function() {
+    let citySelector =  $('.city-selector');
+    let placeSelector = $('.place-selector');
+    let zipcode = $('.zipcode');
     // Désactiver la liste déroulante city-selector au chargement de la page
-    $('.place-selector').prop('disabled', true);
+    placeSelector.prop('disabled', true);
 
-    $('.city-selector').change(function() {
+    citySelector.change(function() {
         let cityId = $(this).val();
         $.get('/projetbde/public/city/zipcode/' + cityId, function(data) {
-            $('.zipcode').val(data);
+            zipcode.val(data);
             $('.label-zipcode').css('display', 'block');
-            $('.zipcode').css('display','block');
+            zipcode.css('display','block');
 
         });
-        $('.place-selector').empty().append('<option value="">Loading...</option>');
+        placeSelector.empty();
+        placeSelector.append('<option value="">Loading...</option>');
         $.get('/projetbde/public/activity/places/' + cityId, function(data) {
 
-            $('.place-selector').empty().append(data);
+            placeSelector.empty();
+            placeSelector.append(data);
 
-            $('.place-selector').prop('disabled', false);
-            let placeId = $('.place-selector').val();
+            placeSelector.prop('disabled', false);
+            let placeId = placeSelector.val();
             getPlaceInformations(placeId);
 
         });
-        $('.place-selector').change(function () {
+        placeSelector.change(function () {
             let placeId = $(this).val();
 
             getPlaceInformations(placeId);
