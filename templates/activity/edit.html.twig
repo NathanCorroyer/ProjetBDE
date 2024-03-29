@@ -68,18 +68,20 @@
                                 </div>
 
                                 <div class="grid">
-                                    <div class="row">
+                                    <div class="d-flex justify-content-between" >
                                         <div class="col text-center">  {#Utilisation de la classe Bootstrap pour centrer le bouton#}
                                             {{ form_row(activityForm.save) }}
                                         </div>
                                         <div class="col text-center">  {#Utilisation de la classe Bootstrap pour centrer le bouton#}
                                             {{ form_row(activityForm.publish) }}
                                         </div>
-
+                                        <div class="col text-center">  {#Utilisation de la classe Bootstrap pour centrer le bouton#}
+                                            <button   class="btn btn-danger" style="margin-top: 10%" onclick="supprimer({{ id }})">Supprimer</button>
+                                        </div>
                                         <div class="col text-center">  {#Utilisation de la classe Bootstrap pour centrer le bouton#}
                                             <button type="submit" class="btn btn-secondary" style="margin-top: 10%"
                                                     onclick="redirectToHomePage()"
-                                            >Retour à la liste</button>
+                                            >Retour</button>
                                         </div>
 
                                     </div>
@@ -87,9 +89,7 @@
                             </div>
                         </div>
                         {{ form_end(activityForm) }}
-                        <div class="col text-center">  {#Utilisation de la classe Bootstrap pour centrer le bouton#}
-                            <button name="delete"  class="btn btn-danger" onclick="supprimer({{ id }})">Supprimer</button>
-                        </div>
+
                     </div>
                 </div>
             </div>

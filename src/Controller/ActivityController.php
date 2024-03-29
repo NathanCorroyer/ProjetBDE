@@ -99,7 +99,8 @@ class ActivityController extends AbstractController
         $activity = new Activity();
         $activity->setCampus($campus)
             ->setPlanner($user);
-        $activityForm = $this->createForm(CreateActivityType::class, $activity);
+        $activityForm = $this->createForm(CreateActivityType::class, $activity, ['attr' =>
+            ['id'=>'formulaireActivity']]);
 
         $activityForm->handleRequest($request);
 
@@ -246,7 +247,7 @@ class ActivityController extends AbstractController
 
 
         // Répondre avec un code de succès
-        $this->addFlash('success', 'Activity successfully delete');
+        $this->addFlash('success', 'Activity successfully deleted');
         return new Response();
     }
 

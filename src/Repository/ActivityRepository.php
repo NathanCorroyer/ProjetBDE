@@ -35,7 +35,8 @@ class ActivityRepository extends ServiceEntityRepository
     public function findAllWithUsers(){
         $queryBuilder = $this->createQueryBuilder('a');
         $queryBuilder->leftJoin('a.users', 'u')
-            ->addSelect('u');
+            ->addSelect('u')
+            ->orderBy('a.startingDateTime', 'DESC');
         $query = $queryBuilder->getQuery();
         $paginator = new Paginator($query);
 

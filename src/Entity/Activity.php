@@ -29,6 +29,7 @@ Activity
     private ?\DateTimeInterface $duration = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\Expression("this.getStartingDateTime() >= this.getInscriptionLimitDate()", message : "La date de début doit être postérieure ou égale à la date limite d'inscription.")]
     private ?\DateTimeInterface $inscriptionLimitDate = null;
 
     #[ORM\Column]
