@@ -9,13 +9,12 @@ use App\Entity\User;
 
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -29,27 +28,39 @@ class CreateActivityType extends AbstractType
 
         $builder
             ->add('name', TextType::class, [
-                'label' => 'Nom de la sortie'
+                'label' => 'Nom de la sortie',
+                'attr' => [
+                    'class' => 'form-control'
+                ]
             ])
             ->add('startingDateTime', DateType::class, [
-
+                'label' => 'Date et heure de la sortie',
                 'widget' => 'single_text',
-                'required' => false,
-                'attr' => ['name' => 'startDate',]
+                'required' => true,
+                'attr' => [
+                    'id' => 'startDate',
+                    'name' => 'startDate',
+                    'class' => 'form-control startDate',
+                    'placeholder' => 'Sélectionnez une date']
             ])
             ->add('inscriptionLimitDate', DateType::class, [
-
+                'label' => 'Date limite d\'inscription',
                 'widget' => 'single_text',
-                'required' => false,
-                'attr' => ['name' => 'endDate',]
+                'required' => true,
+                'attr' => [
+                    'id' => 'limitDate',
+                    'name' => 'limitDate',
+                    'class' => 'form-control limitDate']
             ])
             ->add('maxInscription', IntegerType::class, [
-
+                'label' => 'Nombre de places',
+                'attr' => ['class'=>'form-control']
             ])
             ->add('durationInMinutes', IntegerType::class, [
                 'mapped'=>false,
                 'label' => 'Durée (en minutes)',
                 'required' => true, // ou false selon vos besoins
+                'attr' => ['class'=>'form-control']
             ])
 
             ->add('city', EntityType::class, [
@@ -59,16 +70,17 @@ class CreateActivityType extends AbstractType
                 'mapped' => false,
                 'required' => true,
                 'attr'=>[
-                    'class' => 'city-selector',
+                    'class' => 'city-selector form-control',
                 ]
             ])
             ->add('place', EntityType::class, [
+                'label' => 'Place',
                         'class' => Place::class,
                         'placeholder'=>'Choisissez un lieu',
                         'required' =>true,
                         'choice_label'=>'name',
                 'attr' => [
-                    'class' => 'place-selector'
+                    'class' => 'place-selector form-control'
                 ]
             ])
 
@@ -106,7 +118,12 @@ class CreateActivityType extends AbstractType
 
 
 
-            ->add('description')
+            ->add('description', TextareaType::class, [
+                'label' => 'Description et informations',
+                'attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
 
             -> add('save', SubmitType::class, [
                 'label' => 'Enregister',

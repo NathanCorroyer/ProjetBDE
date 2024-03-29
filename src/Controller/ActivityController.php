@@ -99,7 +99,8 @@ class ActivityController extends AbstractController
         $activity = new Activity();
         $activity->setCampus($campus)
             ->setPlanner($user);
-        $activityForm = $this->createForm(CreateActivityType::class, $activity);
+        $activityForm = $this->createForm(CreateActivityType::class, $activity, ['attr' =>
+            ['id'=>'formulaireActivity']]);
 
         $activityForm->handleRequest($request);
 

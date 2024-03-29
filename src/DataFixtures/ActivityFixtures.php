@@ -27,7 +27,7 @@ class ActivityFixtures extends Fixture implements DependentFixtureInterface
             ->setPlace($this->getReference('LIEU' . $faker->randomNumber(1 , 10)))
             ->setPlanner($this->getReference('ADMIN'));
         $startingDate = new \DateTime(($activity->getStartingDateTime())->format('Y-m-d H:i:s'));
-        $activity->setInscriptionLimitDate($startingDate -> modify(' +1 week'));
+        $activity->setInscriptionLimitDate($startingDate -> modify(' -1 week'));
         $manager -> persist($activity);
 
         $faker->seed(5);
@@ -49,7 +49,7 @@ class ActivityFixtures extends Fixture implements DependentFixtureInterface
                     ->setPlace($this->getReference('LIEU' . $faker->randomNumber(1 , 10)))
                     ->setPlanner($this->getReference('USER' . $faker->randomNumber(1 , 10)));
              $startingDate = new \DateTime(($activity->getStartingDateTime())->format('Y-m-d H:i:s'));
-             $activity->setInscriptionLimitDate($startingDate -> modify(' +1 week'));
+             $activity->setInscriptionLimitDate($startingDate -> modify(' -1 week'));
 
                 for($j=1;$j<=rand(1,$activity->getMaxInscription()); $j++)
                 {
