@@ -23,6 +23,7 @@ Activity
     private ?string $name = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\GreaterThanOrEqual('now')]
     private ?\DateTimeInterface $startingDateTime = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]
