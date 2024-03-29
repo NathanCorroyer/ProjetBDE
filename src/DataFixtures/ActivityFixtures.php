@@ -51,7 +51,7 @@ class ActivityFixtures extends Fixture implements DependentFixtureInterface
              $startingDate = new \DateTime(($activity->getStartingDateTime())->format('Y-m-d H:i:s'));
              $activity->setInscriptionLimitDate($startingDate -> modify(' +1 week'));
 
-                for($j=1;$j<=rand(5,10); $j++)
+                for($j=1;$j<=rand(1,$activity->getMaxInscription()); $j++)
                 {
                     $activity->addUser($this->getReference('USER'.rand(1,10)));
                 }

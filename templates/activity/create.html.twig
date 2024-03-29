@@ -50,11 +50,21 @@
                                         {'class': 'place-selector form-control'}} ) }}
                                 </div>
 
-
+                                <div class="mb-3">
+                                    {{ form_row(activityForm.adresse) }}
+                                </div>
+                                <div class="mb-3">
+                                    {{ form_row(activityForm.zipcode) }}
+                                </div>
+                                <div class="mb-3">
+                                    {{ form_row(activityForm.coordinates)}}
+                                </div>
 
                                 <div class="mb-3">
                                     {{ form_row(activityForm.description, {'label' : 'Description et info', 'attr': {'class': 'form-control'}}) }}
                                 </div>
+
+
 
                                 <div class="grid">
                                     <div class="row">
