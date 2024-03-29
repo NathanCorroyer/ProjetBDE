@@ -213,7 +213,7 @@ class ActivityController extends AbstractController
         }
 
         return $this->render('activity/edit.html.twig', [
-            'activityForm' => $activityForm->createView(),
+            'activityForm' => $activityForm->createView(), 'id' => $activity->getId()
         ]);
     }
 
@@ -224,5 +224,31 @@ class ActivityController extends AbstractController
 
         return $this->redirectToRoute('app_main_home');
     }
+
+
+
+    #[Route("/delete/{id}", name:"delete")]
+
+    public function supprimer(Request $request, EntityManagerInterface $entityManager, ActivityRepository $activityRepository, $id): Response
+    {
+
+        // Récupérer l'activité à supprimer en fonction de son ID
+        $activity = $activityRepository->find($id);
+
+        // Vérifier si l'activité existe
+        if (!$activity) {
+            throw $this->createNotFoundException('L\'activité n\'existe pas.');
+        }
+
+        // Supprimer l'activité
+        $entityManager->remove($activity);
+        $entityManager->flush();
+
+
+        // Répondre avec un code de succès
+        $this->addFlash('success', 'Activity successfully delete');
+        return new Response();
+    }
+
 
 }
