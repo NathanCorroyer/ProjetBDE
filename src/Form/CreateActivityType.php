@@ -40,7 +40,8 @@ class CreateActivityType extends AbstractType
                 'attr' => [
                     'id' => 'startDate',
                     'name' => 'startDate',
-                    'class' => 'form-control startDate']
+                    'class' => 'form-control startDate',
+                    'placeholder' => 'Sélectionnez une date']
             ])
             ->add('inscriptionLimitDate', DateType::class, [
                 'label' => 'Date limite d\'inscription',
