@@ -63,15 +63,12 @@
 
                                 <div class="text-center align-middle" style="display: grid;
                             grid-template-columns:repeat(2, minmax(auto,50%)); grid-gap: 3px;">
-
-                                    {% if activity.state.value != 'Archivée' %}
                                         <a href="{{ path('activity_details' , { 'id' : activity.id }) }}" title="View activity
                                         details" class="w-100">
                                             <button type="button" class="btn btn-primary m-auto w-100">
                                                  Afficher
                                              </button >
                                         </a>
-                                    {% endif %}
                                     {% if not activity.users.contains(app.user)
                                         and activity.state.value not in ['Annulée','Clôturée','Terminée', 'Archivée', 'En création']
                                         and activity.users.count() < activity.maxInscription
@@ -98,7 +95,7 @@
                                         </a>
                                     {% endif %}
 
-                                    {% if( (is_granted('ROLE_ADMIN') and activity.state.value != 'Archivée') or activity.planner == app.user  and activity.state.value == 'En cours') %}
+                                    {% if(is_granted('ROLE_ADMIN')  or activity.planner == app.user  and activity.state.value == 'En cours') %}
                                         <a  href="{{ path( 'activity_cancel' , {'id' : activity.id })}}" class="w-100">
                                             <button class="btn btn-outline-primary m-auto w-100">Annuler</button>
                                         </a>

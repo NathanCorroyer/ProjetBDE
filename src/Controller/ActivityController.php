@@ -23,7 +23,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class ActivityController extends AbstractController
 {
 
-    public function __construct(private readonly ValidatorInterface $validator)
+    public function __construct()
     {
     }
 
@@ -31,29 +31,54 @@ class ActivityController extends AbstractController
     public function addUsersToActivity(int $id, ActivityRepository $activityRepository, EntityManagerInterface $em) : Response
     {
         $activity = $activityRepository->find($id);
+        $maxInscription = $activity->getMaxInscription();
+        $nbUsers = $activity->getUsers()->count();
+        $state = $activity ->getState();
 
-        $violations = $this->validator->validate($activity);
+        if($maxInscription-1 >= $nbUsers && $state == State::Open){
+            /** @var User $user */
+            $user = $this->getUser();
+            $activity->addUser($user);
 
-        if (count($violations) > 0) {
-            throw new \Exception('Impossible, il y a déjà trop d\'utilisateurs inscrits');
+            if($nbUsers>=$maxInscription){
+                $activity->setState(State::Closed);
+            }
+
+            $em->persist($activity);
+            $em->flush();
+            $this->addFlash('succes' , 'Vous venez de vous inscrire à cette activité !');
+            return $this->render('activity/details.html.twig', [
+                'activity' => $activity
+            ]);
+        }else{
+            switch ($state){
+                case State::Creation :
+                    $this->addFlash('echec', 'Impossible de s\'inscrire à cette activité, elle n\'est pas encore ouverte à l\"inscription !');
+                    break;
+                case State::Cancelled :
+                    $this->addFlash('echec', 'Impossible de s\'inscrire à cette activité, elle a été annulée !');
+                    break;
+                case State::Finished :
+                    $this->addFlash('echec', 'Impossible de s\'inscrire à cette activité, elle est terminée !');
+                    break;
+                case State::Ongoing :
+                    $this->addFlash('echec', 'Impossible de s\'inscrire à cette activité, elle est en cours !');
+                    break;
+                case State::Archived :
+                    $this->addFlash('echec', 'Impossible de s\'inscrire à cette activité, elle est finie depuis très longtemps :) !');
+                    break;
+                case State::Closed :
+                    $this->addFlash('echec', 'Impossible de s\'inscrire à cette activité, elle est fermée à l\'inscription !');
+                    break;
+            }
+
+            return $this->render('activity/details.html.twig', [
+                'activity'=> $activity
+            ]);
         }
 
-        /** @var User $user */
-        $user = $this->getUser();
-        $activity->addUser($user);
 
 
-
-        if($activity->getUsers()->count()>=$activity->getMaxInscription()){
-            $activity->setState(State::Closed);
-        }
-
-        $em->persist($activity);
-        $em->flush();
-        $this->addFlash('succes' , 'Vous venez de vous inscrire à cette activité !');
-        return $this->render('activity/details.html.twig', [
-            'activity' => $activity
-        ]);
     }
 
     #[Route( '/desist/{id}' , name: 'desist')]

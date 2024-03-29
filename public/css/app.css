@@ -132,3 +132,11 @@ textarea {
 .flash-succes  {
     background-color: forestgreen !important;
 }
+
+.flash-echec {
+    color: darkred !important;
+}
+
+.table{
+    margin-bottom: 0;
+}
