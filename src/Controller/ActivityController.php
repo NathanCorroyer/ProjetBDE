@@ -6,12 +6,16 @@ use App\Entity\Activity;
 use App\Entity\State;
 use App\Entity\User;
 use App\Form\CreateActivityType;
+use App\Message\ArchiveActivityMessage;
 use App\Repository\ActivityRepository;
+
 use App\Repository\PlaceRepository;
+
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -209,30 +213,16 @@ class ActivityController extends AbstractController
         }
 
         return $this->render('activity/edit.html.twig', [
-            'activityForm' => $activityForm->createView(), 'id' => $activity->getId()
+            'activityForm' => $activityForm->createView(),
         ]);
     }
 
-     #[Route("/delete/{id}", name:"delete")]
+    #[Route('/archive' , name : 'archive' )]
+    public function archiveById( MessageBusInterface $messageBus ) : Response {
 
-    public function supprimer(Request $request, EntityManagerInterface $entityManager, ActivityRepository $activityRepository, $id): Response
-    {
+        $messageBus->dispatch( new ArchiveActivityMessage());
 
-        // Récupérer l'activité à supprimer en fonction de son ID
-        $activity = $activityRepository->find($id);
-
-        // Vérifier si l'activité existe
-        if (!$activity) {
-            throw $this->createNotFoundException('L\'activité n\'existe pas.');
-        }
-
-        // Supprimer l'activité
-        $entityManager->remove($activity);
-        $entityManager->flush();
-
-
-        // Répondre avec un code de succès
-        $this->addFlash('success', 'Activity successfully delete');
-        return new Response();
+        return $this->redirectToRoute('app_main_home');
     }
+
 }
