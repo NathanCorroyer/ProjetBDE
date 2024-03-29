@@ -246,7 +246,7 @@ class ActivityController extends AbstractController
 
 
         // Répondre avec un code de succès
-        $this->addFlash('success', 'Activity successfully delete');
+        $this->addFlash('success', 'Activity successfully deleted');
         return new Response();
     }
 
