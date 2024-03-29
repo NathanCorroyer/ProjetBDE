@@ -77,13 +77,18 @@ html , body {
 }
 
 
+#affichersortie label {
 
+    margin-top: 2%;
+}
 
  .borderCards {
-     border: solid 2px steelblue;
-     border-radius: 4px;
+
+     border: solid 1px #007bff;
+     border-radius: 2%;
  }
 
+.card-header bg-primary text-white
 
 .create {
     display: flex;
