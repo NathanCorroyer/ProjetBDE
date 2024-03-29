@@ -3,6 +3,7 @@
     {{ parent() }}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{{ asset('scripts/dynamicActivityCreationForm.js') }}"></script>
+    <script src="{{ asset('scripts/dynamicActivityModifyForm.js') }}"></script>
 {% endblock %}
 {% block body %}
 <div class="container-fluid custom-gradient-bg py-5">
@@ -48,6 +49,16 @@
                                 <div class="mb-3">
                                     {{ form_row(activityForm.place, {'attr':
                                         {'class': 'place-selector form-control'}} ) }}
+                                </div>
+
+                                <div class="mb-3">
+                                    {{ form_row(activityForm.adresse) }}
+                                </div>
+                                <div class="mb-3">
+                                    {{ form_row(activityForm.zipcode) }}
+                                </div>
+                                <div class="mb-3">
+                                    {{ form_row(activityForm.coordinates)}}
                                 </div>
 
 
