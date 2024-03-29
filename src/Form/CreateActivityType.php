@@ -95,7 +95,7 @@ class CreateActivityType extends AbstractType
             ->add('coordinates', TextType::class, [
                 'mapped'=>false,
                 'disabled'=>true,
-                'label' => 'Latitude/Longitude: ',
+                'label' => 'Latitude | Longitude: ',
                 'label_attr' => ['class'=>'labels-hidden label-coordinates',
                     'style' => 'display:none'],
                 'attr' => ['class' => 'form-control coordinates',
