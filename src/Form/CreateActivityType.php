@@ -48,7 +48,7 @@ class CreateActivityType extends AbstractType
             ])
             ->add('durationInMinutes', IntegerType::class, [
                 'mapped'=>false,
-                'label' => 'Durée (heures / minutes)',
+                'label' => 'Durée (en minutes)',
                 'required' => true, // ou false selon vos besoins
             ])
 
@@ -71,6 +71,40 @@ class CreateActivityType extends AbstractType
                     'class' => 'place-selector'
                 ]
             ])
+
+            ->add('adresse', TextType::class, [
+                'mapped'=>false,
+                'disabled'=>true,
+                'label' => 'Adresse: ',
+                'label_attr' => ['class'=>'labels-hidden label-adresse',
+                    'style' => 'display:none'],
+                'attr' => ['class' => 'form-control adresse',
+                    'id'=>'adresse',
+                    'style' => 'display:none'],
+            ])
+               ->add('zipcode', TextType::class, [
+                    'mapped'=>false,
+                    'label' => 'Code Postal: ',
+                   'disabled'=>true,
+                   'label_attr' => ['class'=>'labels-hidden label-zipcode',
+                       'style' => 'display:none'],
+                    'attr' => ['class' => 'form-control zipcode',
+                    'id'=>'zipcode',
+                    'style' => 'display:none'],
+            ])
+            ->add('coordinates', TextType::class, [
+                'mapped'=>false,
+                'disabled'=>true,
+                'label' => 'Latitude/Longitude: ',
+                'label_attr' => ['class'=>'labels-hidden label-coordinates',
+                    'style' => 'display:none'],
+                'attr' => ['class' => 'form-control coordinates',
+                    'id'=>'coordinates',
+                    'style' => 'display:none'],
+            ])
+
+
+
 
             ->add('description')
 

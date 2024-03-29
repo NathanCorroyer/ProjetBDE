@@ -67,27 +67,6 @@
                                 <label class="labels">Campus :</label>
                                 <input class="form-control" type="text" value="{{ user.campus.name }}" disabled>
                             </div>
-                        </div>
-
-                        {% set errorMessages = app.flashes('error') %}
-                        {% if errorMessages is not empty %}
-                            <div class="alert alert-danger">
-                                {% for message in errorMessages %}
-                                    {{ message }}
-                                {% endfor %}
-                            </div>
-                        {% endif %}
-                        {% set successMessages = app.flashes('success') %}
-                        {% if successMessages is not empty %}
-                            <div class="alert alert-success">
-                                {% for message in successMessages %}
-                                    {{ message }}
-                                {% endfor %}
-                            </div>
-                        {% endif %}
-                </div>
-            </div>
-        </div>
-    </div>
+                        </div
 
 {% endblock %}
