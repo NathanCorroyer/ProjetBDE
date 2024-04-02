@@ -40,6 +40,7 @@ html , body {
 .form-container {
     display: flex;
     justify-items :center;
+    height:  auto;
 }
 #formulaireFiltres {
     margin: 2% 2% 0 2%;
@@ -137,10 +138,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     margin-top: 2%;
 }
 
- .borderCards {
-
-     border: solid 1px #007bff;
- }
 
 
 .create {
