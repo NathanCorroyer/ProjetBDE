@@ -70,7 +70,8 @@
                                              </button >
                                         </a>
                                     {% if not activity.users.contains(app.user)
-                                        and activity.state.value not in ['Annulée','Clôturée','Terminée', 'Archivée', 'En création']
+                                        and activity.state.value not in ['Annulée','Clôturée','Terminée', 'Archivée',
+                                        'En création', 'En cours']
                                         and activity.users.count() < activity.maxInscription
                                         and (activity.planner != app.user or (activity.planner == app.user and not activity.users
                                         .contains(app.user)))
@@ -95,7 +96,8 @@
                                         </a>
                                     {% endif %}
 
-                                    {% if(is_granted('ROLE_ADMIN')  or activity.planner == app.user  and activity.state.value == 'En cours') %}
+                                    {% if((is_granted('ROLE_ADMIN')  or activity.planner == app.user)  and activity
+                                    .state.value in ['Clôturée', 'En création', 'Ouverte']) %}
                                         <a  href="{{ path( 'activity_cancel' , {'id' : activity.id })}}" class="w-100">
                                             <button class="btn btn-outline-primary m-auto w-100">Annuler</button>
                                         </a>
