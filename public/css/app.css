@@ -139,3 +139,7 @@ textarea {
 .table{
     margin-bottom: 0;
 }
+
+.ecritureEnGras{
+    font-weight: bolder;
+}
