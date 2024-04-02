@@ -32,19 +32,7 @@ class ActivityRepository extends ServiceEntityRepository
         $this->user = $this->security->getUser();
     }
 
-    public function findAllWithUsers(){
-        $queryBuilder = $this->createQueryBuilder('a');
 
-        $queryBuilder->leftJoin('a.users', 'u')
-            ->addSelect('u')
-            ->andWhere('a.state != :archive')
-            ->setParameter('archive', State::Archived)
-            ->orderBy('a.startingDateTime', 'DESC');
-        $query = $queryBuilder->getQuery();
-        $paginator = new Paginator($query);
-
-        return $paginator;
-    }
 
     public function filter($filtres){
         $queryBuilder = $this->createQueryBuilder('a')
@@ -106,5 +94,26 @@ class ActivityRepository extends ServiceEntityRepository
 
         $query = $queryBuilder->getQuery();
         return new Paginator($query);
+    }
+
+    public function findAllWithUsersFromUserCampus()
+    {
+        /** @var User $user */
+        $user = $this->security->getUser();
+        $campus = $user->getCampus();
+
+        $queryBuilder = $this->createQueryBuilder('a');
+
+        $queryBuilder->leftJoin('a.users', 'u')
+            ->addSelect('u')
+            ->andWhere('a.state != :archive')
+            ->andWhere("a.campus = :campus" )
+            ->setParameter('campus', $campus)
+            ->setParameter('archive', State::Archived)
+            ->orderBy('a.startingDateTime', 'DESC');
+        $query = $queryBuilder->getQuery();
+        $paginator = new Paginator($query);
+
+        return $paginator;
     }
 }
