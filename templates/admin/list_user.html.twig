@@ -17,7 +17,7 @@
             </thead>
             <tbody>
             {% for user in users %}
-                <tr>
+                <tr onclick="window.location='{{ path('user_profile', {'id': user.id}) }}';" style="cursor: pointer;">
                     <td>{{ user.id }}</td>
                     <td>{{ user.firstName }}</td>
                     <td>{{ user.lastName }}</td>
