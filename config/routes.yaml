@@ -7,3 +7,8 @@ controllers:
 app_forgot_password_request:
     path: /forgot-password
     controller: App\Controller\ResetPasswordController::request
+
+
+motifAnnulation_formulaire :
+    path : /activity/delete/{id}
+    controller : App\Controller\ActivityController::supprimer

@@ -49,8 +49,10 @@
                 <div id="affichersortie" class="container text-center">
                     <div class="card-body">
                         <div class="col ecritureEnGras">
-                            <textarea class="form-control" placeholder="Veuillez saisir un motif d'annulation..."></textarea>
-                            <a href="{{ path('activity_delete' , { 'id' : activity.id } ) }}"><button type="submit" class="btn btn-secondary" style="margin-top: 2rem">Confirmer annulation</button></a>
+                            <form action="{{ path('motifAnnulation_formulaire' , { id : activity.id }) }}" method="post">
+                                <textarea name="motifAnnulation" class="form-control" placeholder="Veuillez saisir un motif d'annulation..."></textarea>
+                                <button type="submit" class="btn btn-secondary" style="margin-top: 2rem">Confirmer annulation</button>
+                            </form>
                         </div>
                     </div>
                 </div>
