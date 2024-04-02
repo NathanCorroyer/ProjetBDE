@@ -38,12 +38,13 @@ html , body {
 }
 
 .form-container {
+    position: relative;
     display: flex;
     justify-items :center;
     height:  auto;
 }
 #formulaireFiltres {
-    margin: 2% 2% 0 2%;
+    margin: 12.5% 2% 0 2%;
     padding: 0% 2% 1% 2% ;
 
     display: flex;
@@ -190,4 +191,14 @@ textarea {
 .table{
     margin-bottom: 0;
 }
+
+#bg {
+    opacity: 70%;
+    position: absolute;
+    width: fit-content;
+    height: fit-content;
+    filter: blur(1px)
+}
+
+
 
