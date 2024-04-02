@@ -34,8 +34,11 @@ class ActivityRepository extends ServiceEntityRepository
 
     public function findAllWithUsers(){
         $queryBuilder = $this->createQueryBuilder('a');
+
         $queryBuilder->leftJoin('a.users', 'u')
             ->addSelect('u')
+            ->andWhere('a.state != :archive')
+            ->setParameter('archive', State::Archived)
             ->orderBy('a.startingDateTime', 'DESC');
         $query = $queryBuilder->getQuery();
         $paginator = new Paginator($query);
@@ -47,8 +50,10 @@ class ActivityRepository extends ServiceEntityRepository
         $queryBuilder = $this->createQueryBuilder('a')
             ->leftJoin('a.campus','c')
             ->leftJoin('a.users', 'u')
-            ->addSelect('u', 'c');
-
+            ->addSelect('u', 'c')
+            ->andWhere('a.state != :archive')
+            ->setParameter('archive', State::Archived)
+            ->orderBy('a.startingDateTime', 'DESC');
 
         foreach ($filtres as $key => $value){
 

@@ -15,20 +15,26 @@ class MainController extends AbstractController
     public function home(ActivityRepository $activityRepository,
     Request $request): Response
     {
-
+        $isActivitiesNull = false;
 
         $filterForm = $this->createForm(FiltersType::class );
         $filterForm->handleRequest($request);
         if($filterForm->isSubmitted() && $filterForm->isValid()) {
             $activities = $activityRepository->filter($filterForm->getData());
 
+            if($activities->count()==null){
+                $isActivitiesNull = true;
+            }
         }else{
             $activities = $activityRepository->findAllWithUsers();
         }
 
         return $this->render('main/home.html.twig', [
             'activities' => $activities,
-            'filterForm' => $filterForm]);
+            'filterForm' => $filterForm,
+            'isActivitiesNull' => $isActivitiesNull
+        ]);
+
 
     }
 

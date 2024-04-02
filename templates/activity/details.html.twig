@@ -8,7 +8,7 @@
                 <h1>Afficher une sortie</h1>
             </div>
 
-        <div id="affichersortie"class="container text-center">
+        <div id="affichersortie" class="container text-center">
             <div class="card-body">
                 <div class="row row-cols-2">
                     <div class="col"><label>Nom de la sortie</label>
@@ -52,6 +52,32 @@
 
 
     </div>
+
+        <div class="card-header bg-primary text-white " >
+            <h1 style="font-size: 1.3rem">Organisateur de l'activité</h1>
+        </div>
+        <table class="table borderCards">
+            <thead class="bg-light">
+            <tr>
+                <th>Nom / Prénom : </th>
+                <th>E-mail :</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr style="background-color: white;">
+                    <td>
+                        <a href="{{ path('user_profile' , {'id' : activity.planner.id} ) }}">
+                            {{ activity.planner.firstName }}  {{ activity.planner.lastName }}
+                        </a>
+                    </td>
+
+                    <td>
+                        {{ activity.planner.email }}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
         <div class="card-header bg-primary text-white" >
             <h1 style="font-size: 1.3rem">Liste des particpants inscrits</h1>
         </div>
