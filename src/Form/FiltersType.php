@@ -33,7 +33,7 @@ class FiltersType extends AbstractType
         $builder
             ->setMethod('POST')
             ->add('campus', EntityType::class, [
-                'label' => 'Campus :',
+                'label' => 'Campus',
                 'query_builder' => function (CampusRepository $cr) {
                     return $cr->createQueryBuilder('c')
                         ->orderBy('c.name', 'ASC'); // Tri par le champ 'name' dans l'ordre alphabétique
@@ -48,14 +48,14 @@ class FiltersType extends AbstractType
 
             ])
             ->add('searchbar', TextType::class, [
-                'label' => 'Le nom de la sortie contient :',
+                'label' => 'Le nom de la sortie contient',
                 'required' => false,
                 'trim' => true,
-                'attr' => ['placeholder' => 'search',
+                'attr' => ['placeholder' => 'Rechercher...',
                     'name' => 'search'
             ]])
             ->add('startDate', DateType::class, [
-                'label' => 'Entre ',
+                'label' => 'Début ',
                 'widget' => 'single_text',
                 'required' => false,
                 'attr' => [
@@ -63,7 +63,7 @@ class FiltersType extends AbstractType
                 ]
             ])
             ->add('endDate', DateType::class, [
-                'label' => 'Et ',
+                'label' => 'Fin ',
                 'widget' => 'single_text',
                 'required' => false,
                 'attr' => [
