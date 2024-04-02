@@ -24,6 +24,7 @@ class CreateActivityType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $now =(new \DateTime())->format('Y-m-d');
 
 
         $builder
@@ -41,7 +42,7 @@ class CreateActivityType extends AbstractType
                     'id' => 'startDate',
                     'name' => 'startDate',
                     'class' => 'form-control startDate',
-                    'placeholder' => 'Sélectionnez une date']
+                    'min' => $now]
             ])
             ->add('inscriptionLimitDate', DateType::class, [
                 'label' => 'Date limite d\'inscription',
@@ -50,7 +51,8 @@ class CreateActivityType extends AbstractType
                 'attr' => [
                     'id' => 'limitDate',
                     'name' => 'limitDate',
-                    'class' => 'form-control limitDate']
+                    'class' => 'form-control limitDate',
+                    'min' => $now]
             ])
             ->add('maxInscription', IntegerType::class, [
                 'label' => 'Nombre de places',
@@ -60,8 +62,12 @@ class CreateActivityType extends AbstractType
                 'mapped'=>false,
                 'label' => 'Durée (en minutes)',
                 'required' => true, // ou false selon vos besoins
-                'attr' => ['class'=>'form-control']
+                'attr' => ['class'=>'form-control',
+                    'min' => 5,
+                    'step' => 5
+                    ]
             ])
+
 
             ->add('city', EntityType::class, [
                 'label' => 'Ville',

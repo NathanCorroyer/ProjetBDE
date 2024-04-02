@@ -7,28 +7,24 @@
         <div class="borderCards row">
             <div class="col-md-3 border-right">
                 <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                        <label for="avatar" style="cursor: pointer;">
-                            <img id="profile-picture" class="rounded-circle mt-5" width="150px" src="{{ user.avatar ?
-                            asset('uploads/'~user.avatar) :
-                            'https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg' }}">
-                        </label>
-                        <span class="font-weight-bold"></span>
-                        <span class="text-black-50"></span>
+                    <label for="avatar" style="cursor: pointer;">
+                        <img id="profile-picture" class="rounded-circle mt-5" width="150px" src="{{ user.avatar ?
+                        asset('uploads/'~user.avatar) :
+                        'https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg' }}">
+                    </label>
+                    <span class="font-weight-bold">Profil de {{ user.firstName }} {{ user.lastName }}</span>
+                    <span class="text-black-50">{{ user.email }}</span>
 
-                   {% if app.user.id == user.id %}
-                    <div class="mt-5 text-center"><a href="{{ path('user_modify', {'id':user.id}) }}"><button
-                                    class="btn
-                    btn-primary
-                    profile-button">
-                                Modifier mon profil</button></a>
-                    </div>
-                       {% elseif(is_granted('ROLE_ADMIN'))%}
-                           <div class="mt-5 text-center"><a href="{{ path('user_modify', {'id':user.id}) }}"><button
-                                           class="btn
-                    btn-primary
-                    profile-button">
-                                       Modifier le profil de cet utilisateur</button></a>
-                           </div>
+                    {% if app.user.id == user.id %}
+                        <div class="mt-5 text-center"><a href="{{ path('user_modify', {'id':user.id}) }}"><button
+                                        class="btn btn-primary profile-button">
+                                    Modifier mon profil</button></a>
+                        </div>
+                    {% elseif(is_granted('ROLE_ADMIN'))%}
+                        <div class="mt-5 text-center"><a href="{{ path('user_modify', {'id':user.id}) }}"><button
+                                        class="btn btn-primary profile-button">
+                                    Modifier le profil de cet utilisateur</button></a>
+                        </div>
                     {% endif %}
 
                 </div>
@@ -38,35 +34,32 @@
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h4 class="text-right">Informations:  </h4>
                     </div>
-                        <div class="row mt-2">
-                            <div class="col-md-6"><label class="labels">Nom :</label><input type="text"
-                                                                                            class="form-control"
-                                                                                            name="lastName" value="{{
-                                user.lastName }}" placeholder="Nom" pattern="[A-Za-zÀ-ÖØ-öø-ÿ\s'-]{2,}"
-                                                                                            title="Veuillez entrer un
-                                                                                             nom valide" disabled></div>
-                            <div class="col-md-6"><label class="labels">Prénom :</label><input type="text"
-                                                                                               class="form-control"
-                                                                                               name="firstName"
-                                                                                               value="{{ user
-                                                                                               .firstName }}"
-                                                                                               placeholder="Prénom"
-                                                                                               pattern="[A-Za-zÀ-ÖØ-öø-ÿ\s'-]{2,}" title="Veuillez entrer un prénom valide" disabled></div>
+                    <div class="row mt-2">
+                        <div class="col-md-6">
+                            <label class="labels" style="margin-top: 10px;">Nom :</label>
+                            <input type="text" class="form-control" name="lastName" value="{{ user.lastName }}" placeholder="Nom" pattern="[A-Za-zÀ-ÖØ-öø-ÿ\s'-]{2,}" title="Veuillez entrer un nom valide" disabled>
                         </div>
-                        <div class="row mt-3">
-                            <div class="col-md-12"><label class="labels">Téléphone :</label><input type="tel"
-                                                                                                   class="form-control" name="phone" placeholder="Numéro de téléphone" value="{{ user.phone }}" maxlength="10" disabled ></div>
-                            <div class="col-md-12"><label class="labels">Email :</label><input type="email"
-                                                                                               class="form-control"
-                                                                                               name="email"
-                                                                                               placeholder="Adresse
-                                                                                               Mail" value="{{ user
-                                .email }}" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Veuillez entrer
-                                une adresse email valide" disabled></div>
-                            <div class="col-md-12">
-                                <label class="labels">Campus :</label>
-                                <input class="form-control" type="text" value="{{ user.campus.name }}" disabled>
-                            </div>
-                        </div
-
+                        <div class="col-md-6">
+                            <label class="labels" style="margin-top: 10px;">Prénom :</label>
+                            <input type="text" class="form-control" name="firstName" value="{{ user.firstName }}" placeholder="Prénom" pattern="[A-Za-zÀ-ÖØ-öø-ÿ\s'-]{2,}" title="Veuillez entrer un prénom valide" disabled>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <label class="labels" style="margin-top: 10px;">Téléphone :</label>
+                            <input type="tel" class="form-control" name="phone" placeholder="Numéro de téléphone" value="{{ user.phone }}" maxlength="10" disabled >
+                        </div>
+                        <div class="col-md-12">
+                            <label class="labels" style="margin-top: 10px;">Email :</label>
+                            <input type="email" class="form-control" name="email" placeholder="Adresse Mail" value="{{ user.email }}" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Veuillez entrer une adresse email valide" disabled>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="labels" style="margin-top: 10px;">Campus :</label>
+                            <input class="form-control" type="text" value="{{ user.campus.name }}" disabled>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
