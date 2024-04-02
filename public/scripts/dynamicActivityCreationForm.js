@@ -102,7 +102,7 @@ function changeMinDependingOnField(referenceClass, targetClass) {
         //Je veux que mon activité soit minimum le jour après la fin des inscriptions
         date.setDate(date.getDate()+1);
         //Je passe les heures à minuit pour ne pas être embêté par le check
-        date.setHours(23, 59, 59, 999);
+        date.setHours(0, 0, 0, 0);
         target.attr('min',formatISOToCustomFormat(date.toISOString()));
     })
 }
@@ -114,7 +114,7 @@ function changeMaxDependingOnField(referenceClass, targetClass) {
         // d'inscription soit au maximum à 1 jour avant
         date.setDate(date.getDate()-1);
         //Pareil, je ne veux pas être embêté par le check des heures
-        date.setHours(0, 0, 0, 0);
+        date.setHours(23, 59, 59, 999);
         target.attr('max', formatISOToCustomFormat(date.toISOString()));
     })
 }
