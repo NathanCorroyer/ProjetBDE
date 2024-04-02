@@ -55,6 +55,7 @@ Activity
 
     #[ORM\ManyToOne(inversedBy: 'activities')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotBlank(message: "Veuillez sélectionner un lieu !")]
     private ?Place $place = null;
 
     public function __construct()

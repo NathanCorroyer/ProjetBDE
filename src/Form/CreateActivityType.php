@@ -5,18 +5,15 @@ namespace App\Form;
 use App\Entity\Activity;
 use App\Entity\City;
 use App\Entity\Place;
-use App\Entity\User;
 
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -93,10 +90,11 @@ class CreateActivityType extends AbstractType
             ])
             ->add('place', EntityType::class, [
                 'label' => 'Place',
-                        'class' => Place::class,
-                        'placeholder'=>'Choisissez un lieu',
-                        'required' =>true,
-                        'choice_label'=>'name',
+                'label_attr'=>['class' => 'place-label'],
+                'class' => Place::class,
+                'placeholder'=>'Choisissez un lieu',
+                'required' =>true,
+                'choice_label'=>'name',
                 'attr' => [
                     'class' => 'place-selector form-control'
                 ]

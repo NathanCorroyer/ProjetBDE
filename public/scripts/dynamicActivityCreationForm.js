@@ -1,7 +1,13 @@
 document.addEventListener('DOMContentLoaded', function() {
     let citySelector = document.querySelector('.city-selector');
+    let placeLabel = document.querySelector('.place-label');
     let placeSelector = document.querySelector('.place-selector');
     let zipcode = document.querySelector('.zipcode');
+    let adressField = document.querySelector('.adresse');
+    let adressLabel = document.querySelector('.label-adresse');
+    let coordinatesField = document.querySelector('.coordinates');
+    let coordinatesLabel = document.querySelector('.label-coordinates');
+    let placeIntrouvable = document.querySelector('#place-introuvable');
 
     placeSelector.disabled = true;
 
@@ -19,13 +25,29 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Requête Ajax pour obtenir les lieux
         placeSelector.innerHTML = '<option value="">Loading...</option>';
+        console.log("City id : " + cityId);
         fetch('/activity/places/'+cityId)
             .then(response => response.text())
             .then(data => {
-                placeSelector.innerHTML = data;
-                placeSelector.disabled = false;
-                let placeId = placeSelector.value;
-                getPlaceInformations(placeId);
+                if(data.length > 0){
+                    placeSelector.innerHTML = data;
+                    placeLabel.style.display = 'block';
+                    placeSelector.style.display ='block';
+                    placeSelector.disabled = false;
+                    let placeId = placeSelector.value;
+                    getPlaceInformations(placeId);
+                }else{
+                    adressField.innerHTML = '';
+                    adressField.style.display = 'none';
+                    adressLabel.style.display = 'none';
+                    coordinatesField.innerHTML = '';
+                    coordinatesField.style.display = 'none';
+                    coordinatesLabel.style.display = 'none';
+                    placeIntrouvable.classList.remove('hidden')
+                    placeSelector.innerHTML = '';
+                    placeSelector.disabled = true;
+                }
+
             });
     });
 
@@ -55,25 +77,26 @@ function getPlaceInformations(placeId){
         fetch('/place/informations/' + placeId)
             .then(response => response.json())
             .then(data => {
-                if (data.adresse != null) {
+                console.log("Data du lieu : " + data)
+                if (data.adresse !=null && data.coordinates !=null ){
                     adressField.value = data.adresse;
                     adressField.style.display = 'block';
                     adressLabel.style.display = 'block';
-                } else {
-                    adressField.innerHTML = '';
-                    adressField.style.display = 'none';
-                    adressLabel.style.display = 'none';
-                }
 
-                if (data.coordinates != null) {
+
                     coordinatesField.value = data.coordinates;
                     coordinatesField.style.display = 'block';
                     coordinatesLabel.style.display = 'block';
-                } else {
+
+                }else{
+                    adressField.innerHTML = '';
+                    adressField.style.display = 'none';
+                    adressLabel.style.display = 'none';
                     coordinatesField.innerHTML = '';
                     coordinatesField.style.display = 'none';
                     coordinatesLabel.style.display = 'none';
                 }
+
             });
     } else {
         adressField.innerHTML = '';

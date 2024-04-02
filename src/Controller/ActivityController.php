@@ -183,15 +183,21 @@ class ActivityController extends AbstractController
      #[Route("/places/{cityId}", name : "places_by_city", methods : "GET")]
     public function getPlacesByCity($cityId, PlaceRepository $placeRepository): Response
     {
-        $places = $placeRepository->findBy(['city' => $cityId]);
+        try {
+            $places = $placeRepository->findBy(['city' => $cityId]);
+        }catch (\Exception){
+            return new Response("Erreur lors du chargement des données");
+        }
         $options = '';
         if($places) {
 
             foreach ($places as $place) {
                 $options .= '<option value="' . $place->getId() . '">' . $place->getName() . '</option>';
             }
+            return new Response($options);
+        }else{
+            return new Response(null);
         }
-        return new Response($options);
     }
 
     #[Route('/edit/{id}', name: "edit", methods: ["GET", "POST"])]

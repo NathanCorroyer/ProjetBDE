@@ -44,8 +44,12 @@
                                     {{ form_row(activityForm.city)  }}
                                 </div>
 
-                                <div class="mb-3">
+                                <div class="mb-3 place-div">
                                     {{ form_row(activityForm.place) }}
+                                    <p class="hidden" id="place-introuvable">Il n'existe pas de lieu associé à cette
+                                        ville pour
+                                        l'instant
+                                        !</p>
                                 </div>
 
                                 <div class="mb-3">

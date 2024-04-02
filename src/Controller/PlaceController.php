@@ -15,12 +15,14 @@ class PlaceController extends AbstractController
     {
         $place = $placeRepository->find($id);
 
-        if($place) {
+        if ($place) {
             $adresse = $place->getAdress();;
-            $coordinates = $place->getLatitude().' | '.$place->getLongitude();
+            $coordinates = $place->getLatitude() . ' | ' . $place->getLongitude();
+            $data = array('adresse' => $adresse,
+                'coordinates' => $coordinates);
+            return new JsonResponse($data);
+        } else {
+            return new JsonResponse(null);
         }
-        $data = array('adresse' => $adresse,
-            'coordinates' => $coordinates);
-        return new JsonResponse($data);
     }
 }
