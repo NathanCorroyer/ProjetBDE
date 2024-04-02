@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration{% endblock %}
+
+{% block body %}
+    <div class="container-fluid d-flex justify-content-center align-items-center" style="height: 80vh;">
+        <div class="row justify-content-center">
+            <div class="col-md-4 mb-4">
+                <div class="card text-white bg-dark h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Liste des utilisateurs</h5>
+                        <p class="card-text">Gérer les utilisateurs inscrits sur le site.</p>
+                        <a href="{{ path('app_adminusers') }}" class="btn btn-primary">Accéder</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card text-white bg-dark h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Titre fictif</h5>
+                        <p class="card-text">Description de la carte fictive.</p>
+                        <a href="#" class="btn btn-primary">Bouton fictif</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card text-white bg-dark h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Encore un titre fictif</h5>
+                        <p class="card-text">Description fictive ridicule</p>
+                        <a href="#" class="btn btn-primary">Bouton fictif 2</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
