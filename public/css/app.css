@@ -31,19 +31,20 @@
 }
 
 html , body {
-    background: lightblue;
+    background: #B3C8CF;
     height: auto;
     margin: 0;
     padding: 0;
 }
 
 .form-container {
+    position: relative;
     display: flex;
     justify-items :center;
     height:  auto;
 }
 #formulaireFiltres {
-    margin: 2% 2% 0 2%;
+    margin: 7.5% 2% 0 2%;
     padding: 0% 2% 1% 2% ;
 
     display: flex;
@@ -71,8 +72,8 @@ html , body {
 }
 #formulaireFiltres button {
     display: block;
-    background-color: #007bff;
-    border: 1px solid #007bff;
+    background-color: #B3C8CF;
+    border: 1px solid #B3C8CF;
     border-radius: .25rem;
     box-shadow: none;
     font-weight: 400;
@@ -93,7 +94,7 @@ html , body {
     color: #FFFFFF;
     padding: .375rem .75rem;
     border-radius: .25rem;
-    border: 1px solid #007bff;
+    border: 1px solid #B3C8CF;
     background-color: #212529;
     cursor: pointer;
 }
@@ -190,4 +191,13 @@ textarea {
 .table{
     margin-bottom: 0;
 }
+
+#bg {
+    opacity: 70%;
+    position: absolute;
+    width: fit-content;
+    height: fit-content;
+}
+
+
 

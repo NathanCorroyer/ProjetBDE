@@ -7,7 +7,7 @@ use App\Entity\State;
 use DateInterval;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
-use function Sodium\add;
+
 
 class StateChecker
 {
@@ -99,7 +99,6 @@ class StateChecker
                 /*
                  * Si l'activité n'est ni archivée, ni en création, ni annulée
                  * Qu'en plus elle n'est pas commencée et que l'inscription n'est pas finie, on l'ouvre
-                 * TODO: check si ça fait pas sauter la contrainte de nombre maximal d'inscription
                  */
                 $activity -> setState(State::Open);
             }
