@@ -40,7 +40,6 @@ class FiltersType extends AbstractType
                 },
                 'class' => Campus::class,
                 'choice_label' => 'name',
-
                 'required' => false,
                 'attr' => [
                     'name' => 'campus',

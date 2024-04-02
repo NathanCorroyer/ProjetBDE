@@ -1,23 +1,17 @@
-$(document).ready(function() {
-
-
-    let placeId = $('.place-selector').val();
-
-    getPlaceInformations(placeId)
-
-
-})
+document.addEventListener('DOMContentLoaded', function() {
+    let placeId = document.querySelector('.place-selector').value;
+    getPlaceInformations(placeId);
+});
 
 function supprimer(id) {
-
-
     // Envoyer une requête AJAX au serveur pour supprimer l'activité
-    $.get('/projetbde/public/activity/delete/' + id,
-
-
-       function () {
-        redirectToHomePage()
-    }
-
-    )
+    fetch('/activity/delete/' + id)
+        .then(response => {
+            if (response.ok) {
+                redirectToHomePage();
+            } else {
+                console.error('Erreur lors de la suppression de l\'activité');
+            }
+        })
+        .catch(error => console.error('Erreur lors de la suppression de l\'activité:', error));
 }
