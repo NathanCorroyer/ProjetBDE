@@ -40,7 +40,7 @@ class FiltersType extends AbstractType
                 },
                 'class' => Campus::class,
                 'choice_label' => 'name',
-//                'placeholder' => $this->user->getCampus()->getName(),
+
                 'required' => false,
                 'attr' => [
                     'name' => 'campus',

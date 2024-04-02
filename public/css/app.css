@@ -45,7 +45,7 @@ html , body {
 }
 #formulaireFiltres {
     margin: 7.5% 2% 0 2%;
-    padding: 0 2% 1% 2% ;
+    padding: 0% 2% 1% 2% ;
 
     display: flex;
     align-items: center;
@@ -195,6 +195,7 @@ textarea {
 #bg {
     opacity: 70%;
     position: absolute;
+    max-width: 1897px;
     width: fit-content;
     height: fit-content;
 }

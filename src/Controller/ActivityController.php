@@ -7,6 +7,7 @@ use App\Entity\State;
 use App\Entity\User;
 use App\Form\CreateActivityType;
 use App\Message\ArchiveActivityMessage;
+use App\Notification\Sender;
 use App\Repository\ActivityRepository;
 
 use App\Repository\PlaceRepository;
@@ -15,9 +16,10 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[Route('/activity', name : 'activity_')]
 class ActivityController extends AbstractController
@@ -167,16 +169,12 @@ class ActivityController extends AbstractController
     }
 
     #[Route('/cancel/{id}' , name : 'cancel' , methods: "GET")]
-    public function cancelActivity ( int $id , EntityManagerInterface $entityManager , ActivityRepository $activityRepository ) {
+    public function cancelActivity ( int $id , ActivityRepository $activityRepository ) {
 
         $activity = $activityRepository->find($id);
 
-        $entityManager->remove($activity);
-        $entityManager->flush();
-
-        $this->addFlash('succes', 'Activité supprimée !');
-
-        return $this->redirectToRoute('app_main_home');
+        return $this->render('activity/cancel.html.twig' , [
+            'activity' => $activity ]);
     }
 
 
@@ -255,7 +253,7 @@ class ActivityController extends AbstractController
 
     #[Route("/delete/{id}", name:"delete")]
 
-    public function supprimer(Request $request, EntityManagerInterface $entityManager, ActivityRepository $activityRepository, $id): Response
+    public function supprimer( ActivityRepository $activityRepository, $id , Sender $sender, EntityManagerInterface $entityManager , MailerInterface $mailer ): Response
     {
 
         // Récupérer l'activité à supprimer en fonction de son ID
@@ -266,14 +264,26 @@ class ActivityController extends AbstractController
             throw $this->createNotFoundException('L\'activité n\'existe pas.');
         }
 
+        //Envoi d'un mail aux personnes enregistrées sur l'activité
+        $email =  new Email();
+        $email->from('noreply@sortir.fr')
+            ->to( 'boum@mail.fr' )
+            ->subject('Activity Cancelled')
+            ->text('Boum');
+
+
+       $mailer->send($email);
+
+
         // Supprimer l'activité
-        $entityManager->remove($activity);
-        $entityManager->flush();
+        //$entityManager->remove($activity);
+        //$entityManager->flush();
 
 
         // Répondre avec un code de succès
-        $this->addFlash('success', 'Activity successfully deleted');
-        return new Response();
+        $this->addFlash('succes', 'Mail envoyé');
+
+        return $this->redirectToRoute('app_main_home');
     }
 
 
