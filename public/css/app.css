@@ -123,7 +123,7 @@ html , body {
 }
 
 #filters_status_filter input[type="checkbox"]:checked {
-    background-color: #007bff;
+    background-color: #B3C8CF;
 }
 
 
@@ -195,7 +195,7 @@ textarea {
 #bg {
     opacity: 70%;
     position: absolute;
-    max-width: 1897px;
+    max-width: 100%;
     width: fit-content;
     height: fit-content;
 }
