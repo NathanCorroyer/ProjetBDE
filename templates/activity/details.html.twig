@@ -36,7 +36,7 @@
                     <div class="col"><label>Durée (en minutes)</label>
                         <div class="form-control">{{ activity.duration | format_datetime(pattern='HH:mm' , locale="fr" ) }}</div>
                     </div>
-                    <div class="col"><label>Latite / Longitude</label>
+                    <div class="col"><label>Latitude / Longitude</label>
                             <div class="form-control">{{ activity.place.latitude }} / {{ activity.place.longitude }}</div>
                     </div>
                 </div>
@@ -79,7 +79,7 @@
         </table>
 
         <div class="card-header bg-primary text-white" >
-            <h1 style="font-size: 1.3rem">Liste des particpants inscrits</h1>
+            <h1 style="font-size: 1.3rem">Liste des participants inscrits</h1>
         </div>
             <table class="table borderCards">
                 <thead class="bg-light">
