@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\City;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,6 +26,17 @@ class AdminController extends AbstractController {
     $this->entityManager = $entityManager;
     }
 
+    #[Route('/cities', name:'cities')]
+    public function listCities(): Response
+    {
+    $cityRepository = $this->entityManager->getRepository(City::class);
+    $cities = $cityRepository->findAll();
+
+    return $this->render('admin/list_cities.html.twig' , [
+        'cities' => $cities,
+        ]);
+    }
+
     #[Route('/users', name: 'users')]
     public function listUsers(): Response
     {
@@ -34,5 +46,17 @@ class AdminController extends AbstractController {
             'users' => $listUsers,
         ]);
     }
+
+    #[Route('/users/{id}/delete', name: 'app_delete_user')]
+    public function deleteUser(User $user, EntityManagerInterface $entityManager): Response
+    {
+
+        $entityManager->remove($user);
+        $entityManager->flush();
+
+
+        return $this->redirectToRoute('app_adminusers');
+    }
+
 
 }

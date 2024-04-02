@@ -13,16 +13,23 @@
                 <th>Nom</th>
                 <th>Email</th>
                 <th>Téléphone</th>
+                <th>Actions</th>
             </tr>
             </thead>
             <tbody>
             {% for user in users %}
-                <tr onclick="window.location='{{ path('user_profile', {'id': user.id}) }}';" style="cursor: pointer;">
+                <tr>
                     <td>{{ user.id }}</td>
                     <td>{{ user.firstName }}</td>
                     <td>{{ user.lastName }}</td>
                     <td>{{ user.email }}</td>
                     <td>{{ user.phone }}</td>
+                    <td class="d-flex align-items-center">
+                        <form action="{{ path('app_adminapp_delete_user', {'id': user.id}) }}" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?');">
+                            <button type="submit" class="btn btn-danger btn-sm mr-2"><i class="fas fa-trash-alt"></i></button>
+                        </form>
+                        <a href="{{ path('user_modify', {'id': user.id}) }}" class="btn btn-warning btn-sm"><i class="far fa-pen-to-square"></i></a>
+                    </td>
                 </tr>
             {% endfor %}
             </tbody>

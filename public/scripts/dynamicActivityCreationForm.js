@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
     let citySelector =  $('.city-selector');
     let placeSelector = $('.place-selector');
     let zipcode = $('.zipcode');
@@ -33,11 +34,19 @@ $(document).ready(function() {
         })
     });
 
+   // setMinToDates();
 
     changeMaxDependingOnField('startDate', 'limitDate');
     changeMinDependingOnField('limitDate', 'startDate');
 });
 
+function setMinToDates(){
+    let dateInputs = document.querySelectorAll('.js-datepicker');
+    dateInputs.forEach(function(input) {
+        // Set the minimum value to the current date
+        input.min = new Date().toISOString().split("T")[0];
+    });
+}
 
 function redirectToHomePage() {
     let redirectUrl = window.location.origin + '/projetbde/public'
@@ -89,14 +98,41 @@ function getPlaceInformations(placeId){
 function changeMinDependingOnField(referenceClass, targetClass) {
     let target = $('.'+targetClass)
     $('.'+referenceClass).change(function () {
-        let date = $(this).val();
-        target.attr('min', date);
+        let date = new Date($(this).val());
+        //Je veux que mon activité soit minimum le jour après la fin des inscriptions
+        date.setDate(date.getDate()+1);
+        //Je passe les heures à minuit pour ne pas être embêté par le check
+        date.setHours(23, 59, 59, 999);
+        target.attr('min',formatISOToCustomFormat(date.toISOString()));
     })
 }
 function changeMaxDependingOnField(referenceClass, targetClass) {
     let target = $('.'+targetClass)
     $('.'+referenceClass).change(function () {
-        let date = $(this).val();
-        target.attr('max', date);
+        let date = new Date($(this).val());
+        //Je veux que si j'ai sélectionné d'abord ma date de début d'activité, la date de fin
+        // d'inscription soit au maximum à 1 jour avant
+        date.setDate(date.getDate()-1);
+        //Pareil, je ne veux pas être embêté par le check des heures
+        date.setHours(0, 0, 0, 0);
+        target.attr('max', formatISOToCustomFormat(date.toISOString()));
     })
+}
+
+
+function formatISOToCustomFormat(isoString) {
+    // Create a new Date object from the ISO string
+    let date = new Date(isoString);
+
+    // Extract date components
+    let year = date.getFullYear();
+    let month = ('0' + (date.getMonth() + 1)).slice(-2); // Month is zero-based, so we add 1 and zero-pad
+    let day = ('0' + date.getDate()).slice(-2);
+
+    // Extract time components
+    let hours = ('0' + date.getHours()).slice(-2);
+    let minutes = ('0' + date.getMinutes()).slice(-2);
+
+    // Concatenate the components in the desired format
+    return year + '-' + month + '-' + day + 'T' + hours + ':' + minutes;
 }
