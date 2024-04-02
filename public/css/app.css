@@ -42,9 +42,11 @@ html , body {
     justify-items :center;
 }
 #formulaireFiltres {
-    margin: 2% 10% 0 10%;
-    padding: 10px 0 20px 10% ;
-    border: solid 2px steelblue;
+    margin: 2% 2% 0 2%;
+    padding: 0% 2% 1% 2% ;
+
+    display: flex;
+    align-items: center;
     border-radius: 4px;
     background-color: #212529;
     color: #FFFFFF;
@@ -52,8 +54,7 @@ html , body {
 }
 
 #formulaireFiltres div {
-    display: inline-block;
-    justify-content: space-around;
+
     margin: 5px 5px 0 5px;
 
 
@@ -63,6 +64,10 @@ html , body {
     margin: 5px 5px 5px 5px;
 }
 
+
+.rechercher {
+    margin-top: 2% !important;
+}
 #formulaireFiltres button {
     display: block;
     background-color: #007bff;
@@ -70,11 +75,13 @@ html , body {
     border-radius: .25rem;
     box-shadow: none;
     font-weight: 400;
+
     padding: .375rem .75rem;
     font-size: 1rem;
     color: #fff;
-    margin: 2% 15% 0 0;
-    width: 10%;
+    height: fit-content;
+    width: fit-content ;
+
 
 }
 
@@ -85,7 +92,7 @@ html , body {
     color: #FFFFFF;
     padding: .375rem .75rem;
     border-radius: .25rem;
-    border: 1px solid #FFFFFF;
+    border: 1px solid #007bff;
     background-color: #212529;
     cursor: pointer;
 }
@@ -95,12 +102,20 @@ html , body {
     color: #FFFFFF;
 }
 
+#filters_status_filter {
+    margin-top: 4% !important;
+    display: flex;
+    align-items: center;
+}
+#filters[searchbar]{
+   width: 5%;
+}
 
 #filters_status_filter input[type="checkbox"] {
-
+    margin-right: 7px;
     position: relative;
     display: inline-block;
-    width: 20px;
+    width: 30px ;
     height: 20px;
     cursor: pointer;
 }
@@ -109,22 +124,12 @@ html , body {
     background-color: #007bff;
 }
 
-.checkmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 20px;
-    width: 20px;
-    background-color: #eee;
-}
-
-
 
 input[type="date"]::-webkit-calendar-picker-indicator {
     filter: invert(1);
 }
 #formulaireFiltres label {
-    margin-bottom: 1rem;
+
 }
 
 #affichersortie label {
@@ -138,9 +143,9 @@ input[type="date"]::-webkit-calendar-picker-indicator {
  }
 
 
-div .create {
-    display: flex;
-    flex-direction: row-reverse;
+.create {
+    display: flex ;
+    flex-direction: row-reverse ;
     margin: 0 2% 2% 2%;
 }
 
@@ -188,3 +193,4 @@ textarea {
 .table{
     margin-bottom: 0;
 }
+
