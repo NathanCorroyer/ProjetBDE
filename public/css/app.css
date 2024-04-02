@@ -31,7 +31,7 @@
 }
 
 html , body {
-    background: lightblue;
+    background: #BED7DC;
     height: auto;
     margin: 0;
     padding: 0;
@@ -44,7 +44,7 @@ html , body {
     height:  auto;
 }
 #formulaireFiltres {
-    margin: 12.5% 2% 0 2%;
+    margin: 7.5% 2% 0 2%;
     padding: 0% 2% 1% 2% ;
 
     display: flex;
@@ -197,7 +197,6 @@ textarea {
     position: absolute;
     width: fit-content;
     height: fit-content;
-    filter: blur(1px)
 }
 
 
