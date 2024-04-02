@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Campus;
 use App\Entity\City;
 use App\Entity\User;
+use App\Form\CampusFormType;
 use App\Form\CityFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -90,6 +92,64 @@ class AdminController extends AbstractController {
             'form' => $form->createView(),
         ]);
     }
+        #[Route('/campuses', name:'campuses')]
+        public function listCampuses(): Response
+    {
+        $campusRepository = $this->entityManager->getRepository(Campus::class);
+        $campuses = $campusRepository->findAll();
+
+        return $this->render('admin/list_campuses.twig', [
+            'campuses' => $campuses,
+        ]);
+
+
+
+    }
+
+    #[Route('/campuses/add', name: 'app_add_campus')]
+    public function addCampus(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $campus = new Campus();
+        $form = $this->createForm(CampusFormType::class, $campus);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($campus);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_admincampuses');
+        }
+
+        return $this->render('admin/add_campus.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/campuses/{id}/delete', name: 'app_delete_campus')]
+    public function deleteCampus(Campus $campus, EntityManagerInterface $entityManager): Response
+    {
+        $entityManager->remove($campus);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_admincampuses');
+    }
+
+    #[Route('/campuses/{id}/modify', name: 'app_modify_campus')]
+    public function modifyCampus(Request $request, Campus $campus, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(CampusFormType::class, $campus);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+            return $this->redirectToRoute('app_admincampuses');
+        }
+
+        return $this->render('admin/modify_campus.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
 
     #[Route('/users', name: 'users')]
     public function listUsers(): Response

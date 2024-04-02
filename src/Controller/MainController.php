@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\State;
+use App\Entity\Campus;
 use App\Form\FiltersType;
 use App\Repository\ActivityRepository;
 use App\Service\StateChecker;
@@ -20,16 +20,26 @@ class MainController extends AbstractController
     {
         $isActivitiesNull = false;
 
+        $campus = $this->getUser()->getCampus()->getName();
+        $campusString = 'Liste des activités sur le campus de '. $campus.':';
         $filterForm = $this->createForm(FiltersType::class );
         $filterForm->handleRequest($request);
         if($filterForm->isSubmitted() && $filterForm->isValid()) {
             $activities = $activityRepository->filter($filterForm->getData());
+            $campus = $filterForm->get('campus')->getData();
+            if($campus != null){
 
+                $campus = $campus->getName();
+                $campusString = 'Liste des activités sur le campus de '. $campus .':';
+
+            }else{
+                $campusString = 'Liste des activités de tous les campus:';
+            }
             if($activities->count()==null){
                 $isActivitiesNull = true;
             }
         }else{
-            $activities = $activityRepository->findAllWithUsers();
+            $activities = $activityRepository->findAllWithUsersFromUserCampus();
         }
 
         foreach($activities as $activity){
@@ -38,7 +48,9 @@ class MainController extends AbstractController
         return $this->render('main/home.html.twig', [
             'activities' => $activities,
             'filterForm' => $filterForm,
-            'isActivitiesNull' => $isActivitiesNull
+            'isActivitiesNull' => $isActivitiesNull,
+            'campusString' => $campusString,
+            'campus' => $campus,
         ]);
 
 

@@ -1,56 +1,44 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des villes{% endblock %}
+{% block title %}Liste des campus{% endblock %}
 
 {% block body %}
-    <h1 class="text-center mt-4 mb-4">Liste des villes</h1>
+    <h1 class="text-center mt-4 mb-4">Liste des campus</h1>
     <div class="table-responsive">
         <table class="table table-striped table-sm">
             <thead class="thead-dark">
             <tr>
                 <th>ID</th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th class="text-center ">Nom de la ville</th>
+                <th>Nom du campus</th>
                 <th class="text-right pr-4">Actions</th>
             </tr>
             </thead>
             <tbody>
-            {% for city in cities %}
+            {% for campus in campuses %}
                 <tr>
-                    <td>{{ city.id }}</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td class="text-center">{{ city.name }}</td>
+                    <td>{{ campus.id }}</td>
+                    <td>{{ campus.name }}</td>
                     <td>
                         <div class="d-flex justify-content-end">
                             <!-- Bouton pour ouvrir la modal de modification -->
-                            <button type="button" class="btn btn-warning btn-sm mr-2" data-toggle="modal" data-target="#modifyCityModal{{ city.id }}">
+                            <button type="button" class="btn btn-warning btn-sm mr-2" data-toggle="modal" data-target="#modifyCampusModal{{ campus.id }}">
                                 <i class="far fa-pen-to-square"></i>
                             </button>
                             <!-- Modal de modification -->
-                            <div class="modal fade" id="modifyCityModal{{ city.id }}" tabindex="-1" role="dialog" aria-labelledby="modifyCityModalLabel{{ city.id }}" aria-hidden="true">
+                            <div class="modal fade" id="modifyCampusModal{{ campus.id }}" tabindex="-1" role="dialog" aria-labelledby="modifyCampusModalLabel{{ campus.id }}" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="modifyCityModalLabel{{ city.id }}">Modifier le nom de la ville</h5>
+                                            <h5 class="modal-title" id="modifyCampusModalLabel{{ campus.id }}">Modifier le nom du campus</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <form action="{{ path('app_admincity_modify', {'id': city.id}) }}" method="post">
+                                            <form action="{{ path('app_adminapp_modify_campus', {'id': campus.id}) }}" method="post">
                                                 <div class="form-group">
-                                                    <label for="newCityName">Nouveau nom de la ville</label>
-                                                    <input type="text" class="form-control" id="newCityName" name="newCityName" value="{{ city.name }}">
+                                                    <label for="newCampusName">Nouveau nom du campus</label>
+                                                    <input type="text" class="form-control" id="newCampusName" name="newCampusName" value="{{ campus.name }}">
                                                 </div>
                                                 <button type="submit" class="btn btn-primary">Enregistrer</button>
                                             </form>
@@ -58,7 +46,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <form action="{{ path('app_admincity_delete', {'id': city.id}) }}" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette ville ?');">
+                            <form action="{{ path('app_adminapp_delete_campus', {'id': campus.id}) }}" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce campus ?');">
                                 <button type="submit" class="btn btn-danger btn-sm mr-3"><i class="fas fa-trash-alt"></i></button>
                             </form>
                         </div>
@@ -69,8 +57,6 @@
         </table>
     </div>
     <div class="text-center mt-4">
-    </div>
-    <div class="text-center mt-4">
-        <a href="{{ path('app_adminapp_add_city') }}" class="btn btn-primary" style="background-color: #343a40;">Ajouter une ville</a>
+        <a href="{{ path('app_adminapp_add_campus') }}" class="btn btn-primary" style="background-color: #343a40;">Ajouter un campus</a>
     </div>
 {% endblock %}

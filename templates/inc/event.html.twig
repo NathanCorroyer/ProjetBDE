@@ -18,6 +18,8 @@
                 </tr>
                 </thead>
                 <tbody>
+
+                <h3>{{ campusString}}</h3>
                 {% for activity in activities %}
                    {% if ((activity.state.value == 'En création' and activity.planner == app.user) or activity.state.value != 'En création' )  %}
                         <tr>
@@ -113,6 +115,6 @@
         </div>
 {% else %}
         <div>
-            <p>Il n'y a pas d'activités correspondant à votre sélection</p>
+            <h3>Il n'y a pas d'activités disponibles sur le campus de {{ campus }}</h3>
         </div>
 {%  endif %}
