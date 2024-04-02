@@ -45,7 +45,7 @@ html , body {
 }
 #formulaireFiltres {
     margin: 7.5% 2% 0 2%;
-    padding: 0 2% 1% 2% ;
+    padding: 0% 2% 1% 2% ;
 
     display: flex;
     align-items: center;
@@ -66,37 +66,84 @@ html , body {
     margin: 5px 5px 5px 5px;
 }
 
+
+.rechercher {
+    margin-top: 2% !important;
+}
 #formulaireFiltres button {
     display: block;
-    background-color: #007bff;
-    border: 1px solid #007bff;
+    background-color: #B3C8CF;
+    border: 1px solid #B3C8CF;
     border-radius: .25rem;
     box-shadow: none;
     font-weight: 400;
+
     padding: .375rem .75rem;
     font-size: 1rem;
     color: #fff;
-    margin: 2% 15% 0 0;
-    width: 10%;
+    height: fit-content;
+    width: fit-content ;
+
 
 }
 
+
+#formulaireFiltres select, input {
+
+    appearance: none;
+    color: #FFFFFF;
+    padding: .375rem .75rem;
+    border-radius: .25rem;
+    border: 1px solid #B3C8CF;
+    background-color: #212529;
+    cursor: pointer;
+}
+
+
+#formulaireFiltres input::placeholder {
+    color: #FFFFFF;
+}
+
+#filters_status_filter {
+    margin-top: 4% !important;
+    display: flex;
+    align-items: center;
+}
+#filters[searchbar]{
+   width: 5%;
+}
+
+#filters_status_filter input[type="checkbox"] {
+    margin-right: 7px;
+    position: relative;
+    display: inline-block;
+    width: 30px ;
+    height: 20px;
+    cursor: pointer;
+}
+
+#filters_status_filter input[type="checkbox"]:checked {
+    background-color: #007bff;
+}
+
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+}
+#formulaireFiltres label {
+
+}
 
 #affichersortie label {
 
     margin-top: 2%;
 }
 
- .borderCards {
-
-     border: solid 1px #007bff;
-     border-radius: 2%;
- }
 
 
 .create {
-    display: flex;
-    flex-direction: row-reverse;
+    display: flex ;
+    flex-direction: row-reverse ;
     margin: 0 2% 2% 2%;
 }
 
@@ -144,3 +191,13 @@ textarea {
 .table{
     margin-bottom: 0;
 }
+
+#bg {
+    opacity: 70%;
+    position: absolute;
+    width: fit-content;
+    height: fit-content;
+}
+
+
+
