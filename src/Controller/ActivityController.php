@@ -168,6 +168,7 @@ class ActivityController extends AbstractController
         ]);
     }
 
+
     #[Route('/cancel/{id}' , name : 'cancel' , methods: "GET")]
     public function cancelActivity ( int $id , ActivityRepository $activityRepository ) {
 
@@ -253,7 +254,7 @@ class ActivityController extends AbstractController
 
     #[Route("/delete/{id}", name:"delete")]
 
-    public function supprimer( ActivityRepository $activityRepository, $id , Sender $sender, EntityManagerInterface $entityManager , MailerInterface $mailer ): Response
+    public function supprimer( ActivityRepository $activityRepository, $id , Sender $sender, EntityManagerInterface $entityManager , Request $request ): Response
     {
 
         // Récupérer l'activité à supprimer en fonction de son ID
@@ -264,15 +265,11 @@ class ActivityController extends AbstractController
             throw $this->createNotFoundException('L\'activité n\'existe pas.');
         }
 
+        $motifAnnulation = $request->request->get('motifAnnulation');
+
+
         //Envoi d'un mail aux personnes enregistrées sur l'activité
-        $email =  new Email();
-        $email->from('noreply@sortir.fr')
-            ->to( 'boum@mail.fr' )
-            ->subject('Activity Cancelled')
-            ->text('Boum');
-
-
-       $mailer->send($email);
+       $sender->sendCancelNotificationToUser($activity , $motifAnnulation );
 
 
         // Supprimer l'activité
@@ -281,7 +278,7 @@ class ActivityController extends AbstractController
 
 
         // Répondre avec un code de succès
-        $this->addFlash('succes', 'Mail envoyé');
+        $this->addFlash('succes', 'Mail(s) envoyé(s) et activité annulée.');
 
         return $this->redirectToRoute('app_main_home');
     }

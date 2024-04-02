@@ -14,27 +14,22 @@ class Sender
         $this->mailer = $mailer ;
     }
 
-    public function sendCancelNotificationToUser( Activity $activity ) {
+    public function sendCancelNotificationToUser( Activity $activity , $motifAnnulation  ) {
 
-        //$activityUsers = $activity->getUsers();
+        $activityUsers = $activity->getUsers();
+        $activityName = $activity->getName();
 
-       // foreach ( $activityUsers as $user ) {
-
-
+        foreach ( $activityUsers as $user ) {
             $email =  new Email();
             $email->from('noreply@sortir.fr')
-                ->to( 'boum@mail.fr' )
-                ->subject('Activity Cancelled')
-                ->text('Boum');
+                ->to( $user->getEmail() )
+                ->subject($activityName . ' cancelled')
+                ->text( $motifAnnulation );
 
 
             $this->mailer->send($email);
 
-
-
-       // }
-
-
+        }
     }
 
 }

@@ -200,5 +200,8 @@ textarea {
     height: fit-content;
 }
 
+.ecritureEnGras {
+    font-weight: bolder;
+}
 
 
