@@ -3,7 +3,7 @@
 {% if isActivitiesNull == false %}
 
     <div class="container-xxl" >
-         <div class="table-container borderCards" style="height: 50vh">
+         <div class="table-container borderCards" style="height: auto; max-height: 60vh; border-radius: 4px;" >
             <table class="table align-middle mb-0 bg-white">
                 <thead class="bg-light">
                 <tr>
@@ -39,7 +39,7 @@
 
                             <td class="text-center align-middle">
                                 {# Appelle la méthode getStateBadge qui retourne la ligne HTML associée à la bonne valeur de
-                                l'énumeration State#}
+                                l'énumeration StateChecker#}
                                 {{ activity.getStateBadge() | raw }}
 
                             </td>

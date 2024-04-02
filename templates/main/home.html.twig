@@ -4,7 +4,11 @@
 
 
 {% block body %}
+
+
 {% if filterForm %}
+
+    <img id="bg" src="{{ asset('img/background.jpg') }}" alt="background">
     <div class="form-container">
     {{ form_start(filterForm , {'attr': {'id': 'formulaireFiltres' }}) }}
 
@@ -21,8 +25,8 @@
             {{ form_row(filterForm.status_filter ) }}
 
          {{ form_widget(filterForm) }}
-        <div style="display: flex ;justify-content: center">
-             <button>Rechercher</button>
+        <div class="rechercher" style="display: flex ;justify-content: center">
+             <button><i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
 
     </div>

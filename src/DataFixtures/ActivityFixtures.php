@@ -18,7 +18,7 @@ class ActivityFixtures extends Fixture implements DependentFixtureInterface
         $faker = Factory::create('fr_FR');
         $activity = new Activity() ;
         $activity->setName("Activité créée par Admin")
-            ->setStartingDateTime($faker->dateTimeBetween('+1 week', '+2 week'))
+                ->setStartingDateTime($faker->dateTimeBetween('+1 weeks', '+2 week'))
             ->setDuration($faker->dateTime())
             ->setMaxInscription($faker->randomNumber(1 , 15))
             ->setDescription($faker->text())
@@ -30,7 +30,23 @@ class ActivityFixtures extends Fixture implements DependentFixtureInterface
         $activity->setInscriptionLimitDate($startingDate -> modify(' -1 week'));
         $manager -> persist($activity);
 
-        $faker->seed(5);
+        $now = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
+        $now->modify('+1 minute');
+        $activity = new Activity() ;
+        $activity->setName("Activité créée par Admin")
+                ->setStartingDateTime($now)
+            ->setDuration($faker->dateTime())
+            ->setMaxInscription($faker->randomNumber(1 , 15))
+            ->setDescription($faker->text())
+            ->setState(State::Open)
+            ->setCampus($this->getReference('CAMPUS' . $faker->randomNumber(1, 10)))
+            ->setPlace($this->getReference('LIEU' . $faker->randomNumber(1 , 10)))
+            ->setPlanner($this->getReference('ADMIN'));
+        $startingDate = new \DateTime(($activity->getStartingDateTime())->format('Y-m-d H:i:s'));
+        $activity->setInscriptionLimitDate($startingDate -> modify(' -1 week'));
+        $manager -> persist($activity);
+
+        //$faker->seed(5);
 
         $states = [State::Creation , State::Open , State::Closed , State::Ongoing , State::Finished, State::Archived
             ,State::Cancelled];
@@ -40,7 +56,7 @@ class ActivityFixtures extends Fixture implements DependentFixtureInterface
             $state = $states[$index];
             $activity = new Activity() ;
              $activity->setName("Activité {$i}")
-                    ->setStartingDateTime($faker->dateTimeBetween('+1 week', '+2 week'))
+                    ->setStartingDateTime($faker->dateTimeBetween('-1 week', '+1 week'))
                     ->setDuration($faker->dateTime())
                     ->setMaxInscription($faker->randomNumber(1 , 15))
                     ->setDescription($faker->text())

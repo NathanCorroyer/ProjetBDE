@@ -10,11 +10,13 @@ use App\Entity\User;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -24,7 +26,16 @@ class CreateActivityType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $now =(new \DateTime())->format('Y-m-d');
+
+        $inscriptionDate = new \DateTime();
+        $inscriptionDate->modify('+2 days');
+        $inscriptionDateFormatted = $inscriptionDate->format('Y-m-d\TH:i');
+        $startingDate = new \DateTime();
+        $startingDate->modify('+3 days');
+        $nowFormatted = $startingDate->format('Y-m-d\TH:i');
+
+
+
 
 
         $builder
@@ -34,25 +45,26 @@ class CreateActivityType extends AbstractType
                     'class' => 'form-control'
                 ]
             ])
-            ->add('startingDateTime', DateType::class, [
-                'label' => 'Date et heure de la sortie',
+            ->add('startingDateTime', DateTimeType::class, [
+                'label' => 'Date de la sortie',
                 'widget' => 'single_text',
                 'required' => true,
                 'attr' => [
                     'id' => 'startDate',
                     'name' => 'startDate',
                     'class' => 'form-control startDate',
-                    'min' => $now]
+                    'min' => $nowFormatted]
             ])
-            ->add('inscriptionLimitDate', DateType::class, [
+
+            ->add('inscriptionLimitDate', DateTimeType::class, [
                 'label' => 'Date limite d\'inscription',
                 'widget' => 'single_text',
                 'required' => true,
                 'attr' => [
                     'id' => 'limitDate',
                     'name' => 'limitDate',
-                    'class' => 'form-control limitDate',
-                    'min' => $now]
+                    'class' => 'form-control limitDate datetimepicker',
+                    'min' => $inscriptionDateFormatted]
             ])
             ->add('maxInscription', IntegerType::class, [
                 'label' => 'Nombre de places',
