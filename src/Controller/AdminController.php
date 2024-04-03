@@ -7,6 +7,7 @@ use App\Entity\City;
 use App\Entity\User;
 use App\Form\CampusFormType;
 use App\Form\CityFormType;
+use App\Repository\CampusRepository;
 use App\Repository\CityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -56,10 +57,11 @@ class AdminController extends AbstractController {
     {
         $city = $cityRepository->find($id);
         $city->setName($request->get('newCityName'));
+        $city->setZipCode($request->get('newZipCode'));
+
 
         $entityManager->persist($city);
         $entityManager->flush();
-        // Rendre à nouveau la liste des villes après la modification
         $cities = $cityRepository->findAll();
 
         return $this->render('admin/list_cities.html.twig', [
@@ -75,18 +77,14 @@ class AdminController extends AbstractController {
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Récupérer le code postal depuis le formulaire et le définir sur l'objet City
             $city->setZipCode($form->get('zipcode')->getData());
 
-            // Persister et enregistrer la ville
             $entityManager->persist($city);
             $entityManager->flush();
 
-            // Rediriger vers la liste des villes après l'ajout
             return $this->redirectToRoute('app_admincities');
         }
 
-        // Afficher le formulaire d'ajout de ville
         return $this->render('admin/add_city.html.twig', [
             'form' => $form->createView(),
         ]);
@@ -134,18 +132,18 @@ class AdminController extends AbstractController {
     }
 
     #[Route('/campuses/{id}/modify', name: 'app_modify_campus')]
-    public function modifyCampus(Request $request, Campus $campus, EntityManagerInterface $entityManager): Response
+    public function modifyCampus(Request $request, int $id, Campus $campus, EntityManagerInterface $entityManager, CampusRepository $campusRepository): Response
     {
-        $form = $this->createForm(CampusFormType::class, $campus);
-        $form->handleRequest($request);
+        $campus = $campusRepository->find($id);
+        $campus->setName($request->get('newCampusName'));
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
-            return $this->redirectToRoute('app_admincampuses');
-        }
+       $entityManager->persist($campus);
+       $entityManager->flush();
+       $campuses = $campusRepository->findAll();
 
-        return $this->render('admin/modify_campus.html.twig', [
-            'form' => $form->createView(),
+
+        return $this->render('admin/list_campuses.twig', [
+            'campuses' => $campuses,
         ]);
     }
 
