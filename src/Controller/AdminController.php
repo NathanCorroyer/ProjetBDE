@@ -56,10 +56,11 @@ class AdminController extends AbstractController {
     {
         $city = $cityRepository->find($id);
         $city->setName($request->get('newCityName'));
+        $city->setZipCode($request->get('newZipCode'));
+
 
         $entityManager->persist($city);
         $entityManager->flush();
-        // Rendre à nouveau la liste des villes après la modification
         $cities = $cityRepository->findAll();
 
         return $this->render('admin/list_cities.html.twig', [
@@ -75,14 +76,11 @@ class AdminController extends AbstractController {
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Récupérer le code postal depuis le formulaire et le définir sur l'objet City
             $city->setZipCode($form->get('zipcode')->getData());
 
-            // Persister et enregistrer la ville
             $entityManager->persist($city);
             $entityManager->flush();
 
-            // Rediriger vers la liste des villes après l'ajout
             return $this->redirectToRoute('app_admincities');
         }
 
