@@ -9,13 +9,8 @@
             <thead class="thead-dark">
             <tr>
                 <th>ID</th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th class="text-center ">Nom de la ville</th>
+                <th>Nom de la ville</th>
+                <th>Code postal</th>
                 <th class="text-right pr-4">Actions</th>
             </tr>
             </thead>
@@ -23,13 +18,8 @@
             {% for city in cities %}
                 <tr>
                     <td>{{ city.id }}</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td class="text-center">{{ city.name }}</td>
+                    <td>{{ city.name }}</td>
+                    <td>{{ city.zipCode }}</td>
                     <td>
                         <div class="d-flex justify-content-end">
                             <!-- Bouton pour ouvrir la modal de modification -->
@@ -67,8 +57,6 @@
             {% endfor %}
             </tbody>
         </table>
-    </div>
-    <div class="text-center mt-4">
     </div>
     <div class="text-center mt-4">
         <a href="{{ path('app_adminapp_add_city') }}" class="btn btn-primary" style="background-color: #343a40;">Ajouter une ville</a>
