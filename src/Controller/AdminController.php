@@ -7,6 +7,7 @@ use App\Entity\City;
 use App\Entity\User;
 use App\Form\CampusFormType;
 use App\Form\CityFormType;
+use App\Repository\CityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -50,17 +51,15 @@ class AdminController extends AbstractController {
         return $this->redirectToRoute('app_admincities');
     }
     #[Route('/cities/{id}/modify', name: 'city_modify')]
-    public function modifyCity(Request $request, City $city, EntityManagerInterface $entityManager): Response
+    public function modifyCity(Request $request, int $id, EntityManagerInterface $entityManager, CityRepository $cityRepository):
+    Response
     {
-        $form = $this->createForm(CityFormType::class, $city);
-        $form->handleRequest($request);
+        $city = $cityRepository->find($id);
+        $city->setName($request->get('newCityName'));
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
-        }
-
+        $entityManager->persist($city);
+        $entityManager->flush();
         // Rendre à nouveau la liste des villes après la modification
-        $cityRepository = $entityManager->getRepository(City::class);
         $cities = $cityRepository->findAll();
 
         return $this->render('admin/list_cities.html.twig', [
