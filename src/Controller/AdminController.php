@@ -7,6 +7,7 @@ use App\Entity\City;
 use App\Entity\User;
 use App\Form\CampusFormType;
 use App\Form\CityFormType;
+use App\Repository\CampusRepository;
 use App\Repository\CityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -84,7 +85,6 @@ class AdminController extends AbstractController {
             return $this->redirectToRoute('app_admincities');
         }
 
-        // Afficher le formulaire d'ajout de ville
         return $this->render('admin/add_city.html.twig', [
             'form' => $form->createView(),
         ]);
@@ -132,18 +132,18 @@ class AdminController extends AbstractController {
     }
 
     #[Route('/campuses/{id}/modify', name: 'app_modify_campus')]
-    public function modifyCampus(Request $request, Campus $campus, EntityManagerInterface $entityManager): Response
+    public function modifyCampus(Request $request, int $id, Campus $campus, EntityManagerInterface $entityManager, CampusRepository $campusRepository): Response
     {
-        $form = $this->createForm(CampusFormType::class, $campus);
-        $form->handleRequest($request);
+        $campus = $campusRepository->find($id);
+        $campus->setName($request->get('newCampusName'));
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
-            return $this->redirectToRoute('app_admincampuses');
-        }
+       $entityManager->persist($campus);
+       $entityManager->flush();
+       $campuses = $campusRepository->findAll();
 
-        return $this->render('admin/modify_campus.html.twig', [
-            'form' => $form->createView(),
+
+        return $this->render('admin/list_campuses.twig', [
+            'campuses' => $campuses,
         ]);
     }
 

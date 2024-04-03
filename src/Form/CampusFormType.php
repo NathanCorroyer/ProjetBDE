@@ -17,12 +17,7 @@ class CampusFormType extends AbstractType
             ->add('name', TextType::class, [
                 'label' => 'Nom du campus',
             ])
-            ->add('address', TextType::class, [
-                'label' => 'Adresse du campus',
-            ])
-            ->add('zipCode', TextType::class, [
-                'label' => 'Code postal',
-            ])
+
             ->add('save', SubmitType::class, [
                 'label' => 'Enregistrer',
                 'attr' => ['class' => 'btn btn-primary'],
