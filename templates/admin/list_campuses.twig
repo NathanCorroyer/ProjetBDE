@@ -9,7 +9,7 @@
             <thead class="thead-dark">
             <tr>
                 <th>ID</th>
-                <th>Nom du campus</th>
+                <th class="text-center">Nom du campus</th>
                 <th class="text-right pr-4">Actions</th>
             </tr>
             </thead>
@@ -17,8 +17,8 @@
             {% for campus in campuses %}
                 <tr>
                     <td>{{ campus.id }}</td>
-                    <td>{{ campus.name }}</td>
-                    <td>
+                    <td class="text-center">{{ campus.name }}</td> {# Ajout de la classe text-center #}
+                    <td class="text-right">
                         <div class="d-flex justify-content-end">
                             <!-- Bouton pour ouvrir la modal de modification -->
                             <button type="button" class="btn btn-warning btn-sm mr-2" data-toggle="modal" data-target="#modifyCampusModal{{ campus.id }}">
