@@ -4,83 +4,83 @@
 <div class="container-fluid custom-gradient-bg py-5">
     <div class="container text-center">
         <div class="card rounded-card" style="height: auto ; min-width: 200px; border-radius: 4px ; border-color: steelblue">
+
             <div class="card-header bg-primary text-white">
                 <h1>Afficher une sortie</h1>
             </div>
 
-        <div id="affichersortie" class="container text-center">
-            <div class="card-body">
-                <div class="row row-cols-2">
-                    <div class="col"><label>Nom de la sortie</label>
-                        <div class="form-control">{{ activity.name }}</div>
-                    </div>
-                    <div class="col"><label>Campus</label>
-                        <div class="form-control">{{ activity.campus.name }}</div>
-                    </div>
-                    <div class="col"><label>Date et heure de la sortie</label>
-                        <div class="form-control">{{ activity.startingDateTime | format_datetime(pattern='yyyy-MM-dd HH:mm' , locale="fr" ) }}</div></div>
-                    <div class="col"><label>Ville</label>
-                        <div class="form-control">{{ activity.place.city.name }}</div>
-                    </div>
-                    <div class="col"><label>Date limite d'inscription</label>
-                        <div class="form-control">{{ activity.inscriptionLimitDate | format_datetime(pattern='yyyy-MM-dd HH:mm' , locale="fr" ) }}</div></div>
-                    <div class="col"><label>Lieu</label>
-                        <div class="form-control">{{ activity.place.name }}</div>
-                    </div>
-                    <div class="col"><label>Nombre de places</label>
-                        <div class="form-control">{{ activity.maxInscription }}</div>
-                    </div>
-                    <div class="col"><label>Rue</label>
-                        <div class="form-control">{{ activity.place.adress }}</div>
-                    </div>
-                    <div class="col"><label>Durée (en minutes)</label>
-                        <div class="form-control">{{ activity.duration | format_datetime(pattern='HH:mm' , locale="fr" ) }}</div>
-                    </div>
-                    <div class="col"><label>Latitude / Longitude</label>
-                            <div class="form-control">{{ activity.place.latitude }} / {{ activity.place.longitude }}</div>
+            <div id="affichersortie" class="container text-center">
+                <div class="card-body">
+                    <div class="row row-cols-2">
+                        <div class="col ecritureEnGras"><label>Nom de la sortie</label>
+                            <div class="form-control">{{ activity.name }}</div>
+                        </div>
+                        <div class="col ecritureEnGras"><label>Campus</label>
+                            <div class="form-control">{{ activity.campus.name }}</div>
+                        </div>
+                        <div class="col ecritureEnGras"><label>Date et heure de la sortie</label>
+                            <div class="form-control">{{ activity.startingDateTime | format_datetime(pattern='yyyy-MM-dd HH:mm' , locale="fr" ) }}</div>
+                        </div>
+                        <div class="col ecritureEnGras"><label>Ville</label>
+                            <div class="form-control">{{ activity.place.city.name }}</div>
+                        </div>
+                        <div class="col ecritureEnGras"><label>Date limite d'inscription</label>
+                            <div class="form-control">{{ activity.inscriptionLimitDate | format_datetime(pattern='yyyy-MM-dd HH:mm' , locale="fr" ) }}</div>
+                        </div>
+                        <div class="col ecritureEnGras"><label>Lieu</label>
+                            <div class="form-control">{{ activity.place.name }}</div>
+                        </div>
+                        <div class="col ecritureEnGras"><label>Nombre de places</label>
+                            <div class="form-control">{{ activity.maxInscription }}</div>
+                        </div>
+                        <div class="col ecritureEnGras"><label>Rue</label>
+                            <div class="form-control">{{ activity.place.adress }}</div>
+                        </div>
+                        <div class="col ecritureEnGras"><label>Durée (en minutes)</label>
+                            <div class="form-control">{{ activity.duration | format_datetime(pattern='HH:mm' , locale="fr" ) }}</div>
+                        </div>
+                        <div class="col ecritureEnGras" id="latitudeLongitude"><label>Latitude / Longitude</label>
+                                <div class="form-control">{{ activity.place.latitude }}, {{ activity.place.longitude }}</div>
+                        </div>
                     </div>
                 </div>
+
+                <div class="card-body" >
+                    <div class="ecritureEnGras"><p>Description : </p><div class="form-control" style="height:auto" >{{ activity.description }}</div></div>
+                </div>
             </div>
-
-            <div class="card-body" >
-                <div><p>Description : </p><div class="form-control" style="height:auto" >{{ activity.description }}</div></div>
-            </div>
-
-
-
         </div>
 
+            <div class="card-header bg-primary text-white " >
+                <h1 style="font-size: 1.3rem">Organisateur de l'activité</h1>
+            </div>
 
-    </div>
-
-        <div class="card-header bg-primary text-white " >
-            <h1 style="font-size: 1.3rem">Organisateur de l'activité</h1>
-        </div>
-        <table class="table borderCards">
-            <thead class="bg-light">
-            <tr>
-                <th>Nom / Prénom : </th>
-                <th>E-mail :</th>
-            </tr>
-            </thead>
-            <tbody>
-                <tr style="background-color: white;">
-                    <td>
-                        <a href="{{ path('user_profile' , {'id' : activity.planner.id} ) }}">
+            <table class="table borderCards">
+                <thead class="bg-light">
+                    <tr>
+                        <th>Nom / Prénom : </th>
+                        <th>E-mail :</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="background-color: white;">
+                        <td>
+                            <a href="{{ path('user_profile' , {'id' : activity.planner.id} ) }}">
                             {{ activity.planner.firstName }}  {{ activity.planner.lastName }}
-                        </a>
-                    </td>
+                            </a>
+                        </td>
 
-                    <td>
-                        {{ activity.planner.email }}
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                        <td>
+                            {{ activity.planner.email }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
 
-        <div class="card-header bg-primary text-white" >
-            <h1 style="font-size: 1.3rem">Liste des participants inscrits</h1>
-        </div>
+            <div class="card-header bg-primary text-white" >
+                <h1 style="font-size: 1.3rem">Liste des participants inscrits</h1>
+            </div>
+
             <table class="table borderCards">
                 <thead class="bg-light">
                 <tr>
@@ -89,7 +89,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% for user in activity.users %}
+                    {% for user in activity.users %}
 
                     <tr style="background-color: white;">
                         <td>
@@ -102,12 +102,51 @@
                             {{ user.email }}
                         </td>
                     </tr>
-                {% endfor %}
+                    {% endfor %}
                 </tbody>
             </table>
 
+        <div class="card-header bg-primary text-white " >
+            <h1 style="font-size: 1.3rem">Location de l'activité</h1>
+        </div>
+        <div class="container text-center" style="background-color: white" id="maCarte">
+
+        </div>
+
+
     </div>
 </div>
+
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""></script>
+<script>
+
+    var divLatitudeLongitude = document.getElementById('latitudeLongitude');
+    var latitudeLongitude = divLatitudeLongitude.textContent;
+    console.log(latitudeLongitude);
+
+    //Création d'une variable "carte" qui charge la librairie Leaflet ( L ) et la méthode "map" qui permet de créer sa map soi même.
+    //Prend en argument l'id qu'on a mis sur notre div contenant la carte
+    //On utilise la méthode setView, pour la latitude / longitude puis le zoom par défaut
+    var carte = L.map('maCarte').setView([45.750000, 4.850000], 13);
+
+    //On appelle la méthode tileLayer => La couche de tuiles
+    //On lui donne une adresse vers un serveur
+    //On donne l'attribution = les infos sur qui fournit la carte
+    //On le donne le zoom max et on peut aussi mettre le zoom min
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(carte);
+
+    //On crée une variable marqueur qui est la méthode appelée "marker" de leaflet
+    //var marqueur = L.marker([48.852969, 2.349903]).addTo(carte);
+
+    //On peut faire un popup
+    marqueur.bindPopup("<p>Paris</p>").openPopup();
+</script>
 
 {% endblock %}
 
@@ -117,3 +156,10 @@
 Sortir.com | Details Activity
 {% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
+
+
+{% endblock %}
