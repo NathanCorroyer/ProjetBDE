@@ -16,7 +16,7 @@ final class ArchiveActivityMessageHandler
 
     public function __invoke(ArchiveActivityMessage $message)
     {
-        $activities = $this->activityRepository->findAll();
+        $activities = $this->activityRepository->findAllNotArchived();
         $now = new \DateTime();
 
         foreach ( $activities as $activity ) {
@@ -29,5 +29,6 @@ final class ArchiveActivityMessageHandler
                 $this->entityManager->flush();
             }
         }
+
     }
 }
