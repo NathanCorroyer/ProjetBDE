@@ -2,6 +2,7 @@
 
 namespace App\MessageHandler;
 
+use App\Entity\State;
 use App\Message\ArchiveActivityMessage;
 use App\Repository\ActivityRepository;
 use Doctrine\ORM\EntityManagerInterface;
