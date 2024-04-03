@@ -21,7 +21,6 @@ class CsvImportType extends AbstractType
             'class' => Campus::class,
             'choice_label' => 'name',
         ])
-            ->add('ok', SubmitType::class)
         ;
 
     }
