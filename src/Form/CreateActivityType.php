@@ -82,6 +82,7 @@ class CreateActivityType extends AbstractType
                 'label' => 'Ville',
                 'class' => City::class,
                 'choice_label' => 'name',
+                'placeholder'=>'Choisissez une ville',
                 'mapped' => false,
                 'required' => true,
                 'attr'=>[

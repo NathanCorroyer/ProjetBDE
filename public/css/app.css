@@ -209,4 +209,10 @@ textarea {
     display: none;
 }
 
+#maCarte {
+    height: 400px;
+}
 
+#modal-button-label{
+    margin: 0;
+}
