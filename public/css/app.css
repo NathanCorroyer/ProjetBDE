@@ -212,3 +212,6 @@ textarea {
     height: 400px;
 }
 
+#modal-button-label{
+    margin: 0;
+}
