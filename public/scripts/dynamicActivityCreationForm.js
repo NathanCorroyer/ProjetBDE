@@ -1,19 +1,15 @@
 document.addEventListener('DOMContentLoaded', function() {
     let citySelector = document.querySelector('.city-selector');
-    let placeLabel = document.querySelector('.place-label');
     let placeSelector = document.querySelector('.place-selector');
     let zipcode = document.querySelector('.zipcode');
-    let adressField = document.querySelector('.adresse');
-    let adressLabel = document.querySelector('.label-adresse');
-    let coordinatesField = document.querySelector('.coordinates');
-    let coordinatesLabel = document.querySelector('.label-coordinates');
-    let placeIntrouvable = document.querySelector('#place-introuvable');
-
     placeSelector.disabled = true;
 
     citySelector.addEventListener('change', function() {
         let cityId = this.value;
 
+
+        let modalButton = document.getElementById("modal-button");
+        modalButton.classList.remove('hidden');
         // Requête Ajax pour obtenir le code postal
         fetch('/city/zipcode/' + cityId)
             .then(response => response.text())
@@ -30,22 +26,9 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => response.text())
             .then(data => {
                 if(data.length > 0){
-                    placeSelector.innerHTML = data;
-                    placeLabel.style.display = 'block';
-                    placeSelector.style.display ='block';
-                    placeSelector.disabled = false;
-                    let placeId = placeSelector.value;
-                    getPlaceInformations(placeId);
+                    fillPlace(data);
                 }else{
-                    adressField.innerHTML = '';
-                    adressField.style.display = 'none';
-                    adressLabel.style.display = 'none';
-                    coordinatesField.innerHTML = '';
-                    coordinatesField.style.display = 'none';
-                    coordinatesLabel.style.display = 'none';
-                    placeIntrouvable.classList.remove('hidden')
-                    placeSelector.innerHTML = '';
-                    placeSelector.disabled = true;
+                    emptyPlace();
                 }
 
             });
@@ -143,3 +126,35 @@ function formatISOToCustomFormat(isoString) {
 
     return year + '-' + month + '-' + day + 'T' + hours + ':' + minutes;
 }
+
+function fillPlace(data){
+    let placeLabel = document.querySelector('.place-label');
+    let placeSelector = document.querySelector('.place-selector');
+    let placeIntrouvable = document.querySelector('#place-introuvable');
+    placeIntrouvable.classList.add('hidden');
+    placeSelector.innerHTML = data;
+    placeLabel.style.display = 'block';
+    placeSelector.style.display ='block';
+    placeSelector.disabled = false;
+    let placeId = placeSelector.value;
+    getPlaceInformations(placeId);
+}
+
+function emptyPlace(){
+    let placeSelector = document.querySelector('.place-selector');
+    let adressField = document.querySelector('.adresse');
+    let adressLabel = document.querySelector('.label-adresse');
+    let coordinatesField = document.querySelector('.coordinates');
+    let coordinatesLabel = document.querySelector('.label-coordinates');
+    let placeIntrouvable = document.querySelector('#place-introuvable');
+    adressField.innerHTML = '';
+    adressField.style.display = 'none';
+    adressLabel.style.display = 'none';
+    coordinatesField.innerHTML = '';
+    coordinatesField.style.display = 'none';
+    coordinatesLabel.style.display = 'none';
+    placeIntrouvable.classList.remove('hidden');
+    placeSelector.innerHTML = '';
+    placeSelector.disabled = true;
+}
+

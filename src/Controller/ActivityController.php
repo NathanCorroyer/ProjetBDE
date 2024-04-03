@@ -3,22 +3,23 @@
 namespace App\Controller;
 
 use App\Entity\Activity;
+use App\Entity\Place;
 use App\Entity\State;
 use App\Entity\User;
 use App\Form\CreateActivityType;
+use App\Form\CreatePlaceFromActivityType;
 use App\Message\ArchiveActivityMessage;
 use App\Notification\Sender;
 use App\Repository\ActivityRepository;
 
+use App\Repository\CityRepository;
 use App\Repository\PlaceRepository;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/activity', name : 'activity_')]
@@ -130,7 +131,6 @@ class ActivityController extends AbstractController
             ['id'=>'formulaireActivity']]);
 
         $activityForm->handleRequest($request);
-
 
         if ($activityForm->isSubmitted() && $activityForm->isValid()){
             $duration = $activityForm->get('durationInMinutes')->getData();
@@ -289,5 +289,34 @@ class ActivityController extends AbstractController
         return $this->redirectToRoute('app_main_home');
     }
 
+    #[Route('/place/create/{cityId}', name: 'place_create', methods: 'POST')]
+    public function createPlace($cityId, Request $request, CityRepository
+                           $cityRepository, EntityManagerInterface $entityManager)
+    {
+        $jsonData = $request->getContent();
+        $placeData = json_decode($jsonData, true);
 
+        $placeName = strval($placeData['placeName']);
+        $placeAddress = strval($placeData['placeAddress']);
+        $placeLatitude = floatval($placeData['placeLatitude']);
+        $placeLongitude = floatval($placeData['placeLongitude']);
+        $city = $cityRepository->find($cityId);
+
+        $place = new Place();
+        $place->setName($placeName);
+        $place->setCity($city);
+        $place->setAdress($placeAddress);
+        $place->setLatitude($placeLatitude);
+        $place->setLongitude($placeLongitude);
+
+        $entityManager->persist($place);
+        $entityManager->flush();
+
+        $id = $place->getId();
+        $options = '<option selected value="' . $place->getId() . '">' . $place->getName() . '</option>';
+        return $this->json(['success' => true,
+            'id' => $id,
+            'options' =>$options
+            ]);
+    }
 }
