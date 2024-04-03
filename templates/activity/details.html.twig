@@ -28,7 +28,7 @@
                             <div class="form-control">{{ activity.inscriptionLimitDate | format_datetime(pattern='yyyy-MM-dd HH:mm' , locale="fr" ) }}</div>
                         </div>
                         <div class="col ecritureEnGras"><label>Lieu</label>
-                            <div class="form-control">{{ activity.place.name }}</div>
+                            <div class="form-control" id="nomLieu">{{ activity.place.name }}</div>
                         </div>
                         <div class="col ecritureEnGras"><label>Nombre de places</label>
                             <div class="form-control">{{ activity.maxInscription }}</div>
@@ -39,8 +39,10 @@
                         <div class="col ecritureEnGras"><label>Durée (en minutes)</label>
                             <div class="form-control">{{ activity.duration | format_datetime(pattern='HH:mm' , locale="fr" ) }}</div>
                         </div>
-                        <div class="col ecritureEnGras" id="latitudeLongitude"><label>Latitude / Longitude</label>
-                                <div class="form-control">{{ activity.place.latitude }}, {{ activity.place.longitude }}</div>
+                        <div class="col ecritureEnGras" ><label>Latitude / Longitude</label>
+                                <div class="form-control" style="display: flex ; justify-content: center">
+                                    <div id="latitude">{{ activity.place.latitude }}  </div> / <div id="longitude">{{ activity.place.longitude }}</div>
+                                </div>
                         </div>
                     </div>
                 </div>
@@ -123,14 +125,18 @@
         crossorigin=""></script>
 <script>
 
-    var divLatitudeLongitude = document.getElementById('latitudeLongitude');
-    var latitudeLongitude = divLatitudeLongitude.textContent;
-    console.log(latitudeLongitude);
+    var divLatitude = document.getElementById('latitude');
+    var divLongitude = document.getElementById('longitude');
+    var divNomLieu = document.getElementById('nomLieu');
+    var latitude = divLatitude.textContent;
+    var longitude = divLongitude.textContent;
+    var nomLieu = divNomLieu.textContent;
+
 
     //Création d'une variable "carte" qui charge la librairie Leaflet ( L ) et la méthode "map" qui permet de créer sa map soi même.
     //Prend en argument l'id qu'on a mis sur notre div contenant la carte
     //On utilise la méthode setView, pour la latitude / longitude puis le zoom par défaut
-    var carte = L.map('maCarte').setView([45.750000, 4.850000], 13);
+    var carte = L.map('maCarte').setView([latitude, longitude], 13);
 
     //On appelle la méthode tileLayer => La couche de tuiles
     //On lui donne une adresse vers un serveur
@@ -142,10 +148,10 @@
     }).addTo(carte);
 
     //On crée une variable marqueur qui est la méthode appelée "marker" de leaflet
-    //var marqueur = L.marker([48.852969, 2.349903]).addTo(carte);
+    var marqueur = L.marker([latitude, longitude]).addTo(carte);
 
     //On peut faire un popup
-    marqueur.bindPopup("<p>Paris</p>").openPopup();
+    marqueur.bindPopup(nomLieu).openPopup();
 </script>
 
 {% endblock %}
