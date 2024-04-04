@@ -10,23 +10,22 @@
 
     <img id="bg" class="img-fluid" src="{{ asset('img/background.jpg') }}" alt="background">
     <div class="form-container">
-        {{ form_start(filterForm , {'attr': {'id': 'formulaireFiltres' }}) }}
-        <div class="row">
+    {{ form_start(filterForm , {'attr': {'id': 'formulaireFiltres' }}) }}
+
             {{ form_row(filterForm.campus ) }}
             {{ form_row(filterForm.searchbar ) }}
-        </div>
+
         <div class="row">
             {{ form_row(filterForm.startDate ) }}
             {{ form_row(filterForm.endDate ) }}
         </div>
 
-        <div class="checkbox-container-parent">
-            {% for option in filterForm.status_filter %}
-                <div class="checkbox-container">
-                    {{ form_row(option) }}
-                </div>
-            {% endfor %}
-        </div>
+
+            <div class="row">
+                <div>{{form_label(filterForm.status_filter)}} </div>
+                <div>{{ form_widget(filterForm.status_filter) }}</div>
+
+            </div>
          {{ form_widget(filterForm) }}
         <div class="rechercher" style="display: flex ;justify-content: center">
              <button><i class="fa-solid fa-magnifying-glass"></i>Filtrer</button>

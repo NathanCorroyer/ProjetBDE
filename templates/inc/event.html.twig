@@ -1,57 +1,66 @@
 {% if isActivitiesNull == false %}
-    <h3 class="mx-5 mt-3">{{ campusString}}</h3>
-    <div class="container mt-4">
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    <div class="container-xxl">
+        <div class="row row-cols-1 row-cols-md-4 g-4 p-5">
             {% for activity in activities %}
                 {% if ((activity.state.value == 'En création' and activity.planner == app.user) or activity.state.value != 'En création' )  %}
-                    <div class="col mb-4">
-                        <div class="card h-100 shadow">
+                    <div class="col pb-4">
+                        <div class="card text-bg-dark" style="border-radius: 4px;">
                             <div class="card-body">
-                                <h5 class="card-title text-center">{{ activity.name }}</h5>
-                                <p class="card-text text-center">Date de la sortie: {{ activity.startingDateTime | date('d-m-Y H:i') }}</p>
-                                <p class="card-text text-center">Clôture: {{ activity.inscriptionLimitDate | date('d-m-Y H:i') }}</p>
-                                <p class="card-text text-center">Inscrit/places: {{ activity.users.count}} / {{ activity.maxInscription }}</p>
-                                <div class="text-center">
+                                <ul class="list-group list-group-flush">
+                                <h5 class="card-title text-center ">{{ activity.name }}</h5>
+
+                                <li class="list-group-item">Date de la sortie: {{ activity.startingDateTime | date('d-m-Y H:i') }}</li>
+                                <li class="list-group-item">Clôture: {{ activity.inscriptionLimitDate | date('d-m-Y H:i') }}</li>
+                                <li class="list-group-item">Participants: {{ activity.users.count }} / {{ activity.maxInscription }}</li>
+                                    <li class="list-group-item">Organisateur: <a class="fw-bold" href="{{ path('user_profile', { 'id' : activity.planner.id }) }}">
+                                            {{ activity.planner.firstName }} {{ activity.planner.lastName }}
+                                        </a>
+                                    </li>
+
+                                    <li class="list-group-item">Inscrit:
+                                        {% if(activity.users.contains(app.user)) %}
+                                            <img class="m-lg-1" src="{{ asset('img/favicon-16x16.png') }}" alt="checkmark">
+                                        {% else %}
+                                            <img class="m-lg-1" src="{{ asset('img/x-mark-16.png') }}" alt="cross">
+                                        {% endif %}
+                                        {% if(activity.planner == app.user) %}
+                                            <img class="m-lg-1" src="{{ asset('img/crown_91202.png') }}" width='20px' height='20px' alt="crown">
+                                        {% endif %}
+                                    </li
+                                </ul>
+                                <div class="text-center mt-3">
                                     {{ activity.getStateBadge() | raw }}
                                 </div>
-                                <p class="card-text text-center">
-                                    {% if(activity.users.contains(app.user)) %}
-                                        <img src="{{ asset('img/favicon-16x16.png') }}" alt="checkmark">
-                                    {% else %}
-                                        <img src="{{ asset('img/x-mark-16.png') }}" alt="cross">
-                                    {% endif %}
-                                    {% if(activity.planner == app.user) %}
-                                        <img src="{{ asset('img/crown_91202.png') }}" width='20px' height='20px' alt="crown">
-                                    {% endif %}
-                                </p>
-                                <p class="card-text text-center">
-                                    <a href="{{ path('user_profile' , { 'id' : activity.planner.id })}}">
-                                        {{ activity.planner.firstName }} {{ activity.planner.lastName }}
+                            </div>
+                            <div class="card-footer text-center">
+                                <div>
+                                    <a href="{{ path('activity_details', { 'id' : activity.id }) }}" title="View activity details">
+                                        <button type="button" class="btn btn-primary">Afficher</button>
                                     </a>
-                                </p>
-                                <div class="text-center">
-                                    <a href="{{ path('activity_details' , { 'id' : activity.id }) }}" title="View activity details" class="btn btn-primary mb-2">Afficher</a>
                                     {% if not activity.users.contains(app.user)
                                         and activity.state.value not in ['Annulée','Clôturée','Terminée', 'Archivée',
                                         'En création', 'En cours']
                                         and activity.users.count() < activity.maxInscription
-                                        and (activity.planner != app.user or (activity.planner == app.user and not activity.users
-                                        .contains(app.user)))
+                                        and (activity.planner != app.user or (activity.planner == app.user and not activity.users.contains(app.user)))
                                     %}
-                                        <a href="{{ path('activity_register',{'id':activity.id}) }}" class="btn btn-outline-primary mb-2">S'inscrire</a>
+                                        <a href="{{ path('activity_register',{'id':activity.id}) }}">
+                                            <button class="btn btn-outline-primary">S'inscrire</button>
+                                        </a>
                                     {% endif %}
-
-                                    {% if activity.users.contains(app.user) %}
-                                        <a  href="{{ path('activity_desist' , {'id' : activity.id }) }}" class="btn btn-outline-primary mb-2">Se désister</a>
+                                    {% if (activity.users.contains(app.user)) %}
+                                        <a href="{{ path('activity_desist', {'id' : activity.id }) }}">
+                                            <button class="btn btn-outline-primary">Se désister</button>
+                                        </a>
                                     {% endif %}
-
                                     {% if(activity.planner == app.user and activity.state.value == 'En création') %}
-                                        <a  href="{{ path('activity_edit' , {'id' : activity.id }) }}" class="btn btn-outline-primary mb-2">Modifier</a>
+                                        <a href="{{ path('activity_edit', {'id' : activity.id }) }}">
+                                            <button class="btn btn-outline-primary">Modifier</button>
+                                        </a>
                                     {% endif %}
-
-                                    {% if((is_granted('ROLE_ADMIN') or activity.planner == app.user) and activity
-                                    .state.value in ['Clôturée', 'En création', 'Ouverte']) %}
-                                        <a  href="{{ path( 'activity_cancel' , {'id' : activity.id })}}" class="btn btn-outline-primary mb-2">Annuler</a>
+                                    {% if((is_granted('ROLE_ADMIN') or activity.planner == app.user) and activity.state.value in ['Clôturée', 'En création', 'Ouverte']) %}
+                                        <a href="{{ path('activity_cancel', {'id' : activity.id })}}">
+                                            <button class="btn btn-outline-primary">Annuler</button>
+                                        </a>
                                     {% endif %}
                                 </div>
                             </div>
@@ -61,6 +70,8 @@
             {% endfor %}
         </div>
     </div>
+    </div>
+
 {% else %}
     <div style="height: 60vh" class="d-flex align-items-center">
         <h3 class="text-center m-auto align-self-center">Aucune sortie ne correspond à votre recherche</h3>
