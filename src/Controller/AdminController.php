@@ -161,13 +161,19 @@ class AdminController extends AbstractController {
     #[Route('/users/{id}/delete', name: 'app_delete_user')]
     public function deleteUser(User $user, EntityManagerInterface $entityManager): Response
     {
+        $activities = $user->getActivities();
 
-        $entityManager->remove($user);
-        $entityManager->flush();
+        if ($activities->isEmpty()) {
+
+            $entityManager->remove($user);
+            $entityManager->flush();
 
 
-        return $this->redirectToRoute('app_adminusers');
+            return $this->redirectToRoute('app_adminusers');
+        } else {
+
+            $this->addFlash('error', 'Impossible de supprimer cet utilisateur car il est inscrit à au moins une sortie.');
+            return $this->redirectToRoute('app_adminusers');
+        }
     }
-
-
 }

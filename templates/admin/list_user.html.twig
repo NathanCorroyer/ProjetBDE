@@ -35,7 +35,18 @@
             </tbody>
         </table>
     </div>
-    <div class="text-center mt-4">
-        <a href="{{ path('app_register') }}" class="btn btn-dark">Ajouter un utilisateur</a>
+
+    <div class="container text-center">
+        <div class="row">
+            <div class="col">
+                <div></div>
+                <a href="{{ path('app_register') }}" class="btn btn-dark mt-3">Ajouter un utilisateur manuellement</a>
+            </div>
+        </div>
+        <div class="col">
+            <div class="text-center mt-4">
+                <a href="{{ path('user_import_csv') }}" class="btn btn-outline-dark mb-3">Ajouter un utilisateur à partir d'un fichier CSV</a>
+            </div>
+        </div>
     </div>
 {% endblock %}

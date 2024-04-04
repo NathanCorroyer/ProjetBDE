@@ -1,8 +1,49 @@
 * {
     font-family: "Poppins", sans-serif;
+
+}
+@media (max-width: 991px){
+    .navbar{
+        flex-direction: column;
+    }
+    .navbar-nav{
+        display: flex;
+        flex-direction: row;
+        border: 1px solid white;
+        border-radius: 7px  ;
+    }
+
+    .nav-item{
+        /*padding: 20px;*/
+        margin: 0 15px;
+        justify-content: space-between  ;
+    }
+    #logo-accueil{
+        transform: translate(-25%, 0%);
+         width: 15vw;
+        height: auto;
+        padding: 0 10px;
+        border: 1px solid white;
+        border-radius: 7px;
+    }
+
+    #navbarSupportedContent{
+        margin:0;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+}
+
+@media (min-width:992px) {
+    #navbarSupportedContent{
+        position: absolute;
+        right: 0;
+    }
 }
 .table-container{
     margin: 2%;
+    margin-top: 0;
     max-height: 680px;
     overflow-y: auto;
 }
@@ -45,32 +86,49 @@ html , body {
 }
 #formulaireFiltres {
     margin: 7.5% 2% 0 2%;
-    padding: 0 2% 1% 2% ;
-
+    padding: 1% 2% 1% 2% ;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     border-radius: 4px;
     background-color: #212529;
     color: #FFFFFF;
+    justify-content: space-around;
 
 }
 
-#formulaireFiltres div {
-
-    margin: 5px 5px 0 5px;
-
-
-}
-
-#formulaireFiltres div label {
+#formulaireFiltres label {
     margin: 5px 5px 5px 5px;
 }
 
 
-.rechercher {
-    margin-top: 2% !important;
+.rechercher button {
+    margin-top: 15px !important;
+    padding: 1vh 2.4vw 1vh 2.4vw !important;
+    margin-right: 0.6vw;
+}
+
+.rechercher i {
+    padding-right: 10px !important;
 }
 #formulaireFiltres button {
+    display: block;
+    background-color: #212529;
+    border: 1px solid #B3C8CF;
+    border-radius: .25rem;
+    box-shadow: none;
+    font-weight: 400;
+
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    color: #fff;
+    height: fit-content;
+    width: fit-content ;
+
+
+}
+
+#formulaireFiltres button:hover {
     display: block;
     background-color: #B3C8CF;
     border: 1px solid #B3C8CF;
@@ -105,12 +163,11 @@ html , body {
 }
 
 #filters_status_filter {
-    margin-top: 4% !important;
     display: flex;
     align-items: center;
-}
-#filters[searchbar]{
-   width: 5%;
+    margin-top: 15px;
+    margin-left: 2.4vw;
+
 }
 
 #filters_status_filter input[type="checkbox"] {
@@ -130,12 +187,8 @@ html , body {
 input[type="date"]::-webkit-calendar-picker-indicator {
     filter: invert(1);
 }
-#formulaireFiltres label {
-
-}
 
 #affichersortie label {
-
     margin-top: 2%;
 }
 
@@ -214,4 +267,14 @@ textarea {
 
 #modal-button-label{
     margin: 0;
+}
+
+#csv_import_csv {
+    background-color: #FFFFFF;
+    color: black;
+    border: none;
+}
+
+input {
+    appearance: auto;
 }
