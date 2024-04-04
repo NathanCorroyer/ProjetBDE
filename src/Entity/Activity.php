@@ -7,23 +7,26 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 #[ORM\Entity(repositoryClass: ActivityRepository::class)]
-class
-Activity
+class Activity
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['liste_activites'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['liste_activites'])]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Assert\GreaterThanOrEqual('now')]
+    #[Groups(['liste_activites'])]
     private ?\DateTimeInterface $startingDateTime = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]
@@ -31,12 +34,14 @@ Activity
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Assert\Expression("this.getStartingDateTime() >= this.getInscriptionLimitDate()", message : "La date de début doit être postérieure ou égale à la date limite d'inscription.")]
+    #[Groups(['liste_activites'])]
     private ?\DateTimeInterface $inscriptionLimitDate = null;
 
     #[ORM\Column]
     private ?int $maxInscription = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Groups(['liste_activites'])]
     private ?string $description = null;
 
     #[ORM\Column(type: 'string', length: 30, enumType: State::class)]
@@ -51,12 +56,17 @@ Activity
 
     #[ORM\ManyToOne(inversedBy: 'activities')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['liste_activites'])]
     private ?Campus $campus = null;
 
     #[ORM\ManyToOne(inversedBy: 'activities')]
     #[ORM\JoinColumn(nullable: false)]
     #[Assert\NotBlank(message: "Veuillez sélectionner un lieu !")]
+    #[Groups(['liste_activites'])]
     private ?Place $place = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $apiToken = null;
 
     public function __construct()
     {

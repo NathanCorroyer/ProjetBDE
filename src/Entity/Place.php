@@ -6,6 +6,7 @@ use App\Repository\PlaceRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: PlaceRepository::class)]
 class Place
@@ -13,18 +14,24 @@ class Place
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['liste_activites'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 100)]
+    #[Groups(['liste_activites'])]
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['liste_activites'])]
     private ?string $adress = null;
 
     #[ORM\Column]
+    #[Groups(['liste_activites'])]
     private ?float $latitude = null;
 
     #[ORM\Column]
+    #[Groups(['liste_activites'])]
+
     private ?float $longitude = null;
 
     #[ORM\ManyToOne(inversedBy: 'places')]
