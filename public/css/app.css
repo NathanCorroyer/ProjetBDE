@@ -2,7 +2,45 @@
     font-family: "Poppins", sans-serif;
 
 }
+@media (max-width: 991px){
+    .navbar{
+        flex-direction: column;
+    }
+    .navbar-nav{
+        display: flex;
+        flex-direction: row;
+        border: 1px solid white;
+        border-radius: 7px  ;
+    }
 
+    .nav-item{
+        /*padding: 20px;*/
+        margin: 0 15px;
+        justify-content: space-between  ;
+    }
+    #logo-accueil{
+        transform: translate(-25%, 0%);
+         width: 15vw;
+        height: auto;
+        padding: 0 10px;
+        border: 1px solid white;
+        border-radius: 7px;
+    }
+
+    #navbarSupportedContent{
+        margin:0;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+}
+
+@media (min-width:992px) {
+    #navbarSupportedContent{
+        position: absolute;
+        right: 0;
+    }
+}
 .table-container{
     margin: 2%;
     margin-top: 0;
