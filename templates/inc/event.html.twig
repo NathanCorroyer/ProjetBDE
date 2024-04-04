@@ -1,8 +1,8 @@
 
 
 {% if isActivitiesNull == false %}
-
-    <div class="container-xxl" >
+    <h3 class="mx-5 mt-3">{{ campusString}}</h3>
+    <div class="container-xxl mt-0" >
          <div class="table-container borderCards" style="height: auto; max-height: 60vh; border-radius: 4px;" >
             <table class="table align-middle mb-0 bg-white">
                 <thead class="bg-light">
@@ -19,7 +19,7 @@
                 </thead>
                 <tbody>
 
-                <h3>{{ campusString}}</h3>
+
                 {% for activity in activities %}
                    {% if ((activity.state.value == 'En création' and activity.planner == app.user) or activity.state.value != 'En création' )  %}
                         <tr>
@@ -47,7 +47,7 @@
                             </td>
                             <td class="text-center align-middle">
                                 {% if(activity.users.contains(app.user)) %}
-                                    <p class="fw-normal mb-1"><img src="{{ asset('img/favicon-16x16.png') }}" alt="checkmark"></p>
+                                    <img src="{{ asset('img/favicon-16x16.png') }}" alt="checkmark">
                                 {%else%}
                                     <img src="{{ asset('img/x-mark-16.png') }}" alt="cross">
                                 {% endif %}
@@ -114,7 +114,7 @@
          </div>
         </div>
 {% else %}
-        <div>
-            <h3>Aucune sortie ne correspond à votre recherche</h3>
+        <div style="height: 60vh" class="d-flex align-items-center">
+            <h3 class="text-center m-auto align-self-center">Aucune sortie ne correspond à votre recherche</h3>
         </div>
 {%  endif %}

@@ -62,7 +62,7 @@ class FiltersType extends AbstractType
                 ]
             ])
             ->add('endDate', DateType::class, [
-                'label' => 'Fin ',
+                'label' => 'Fin des inscriptions',
                 'widget' => 'single_text',
                 'required' => false,
                 'attr' => [
