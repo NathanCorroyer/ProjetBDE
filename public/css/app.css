@@ -85,7 +85,7 @@ html , body {
     height:  auto;
 }
 #formulaireFiltres {
-    margin: 7.5% 2.5% 0 2.5%;
+    margin: 7.5% 3% 0 3%;
     padding: 1% 2% 1% 2% ;
     display: flex;
     flex-wrap: wrap;
@@ -105,7 +105,7 @@ html , body {
 .rechercher button {
     margin-top: 15px !important;
     padding: 1vh 2.4vw 1vh 2.4vw !important;
-    margin-right: 0.6vw;
+    margin-right: 1.2vw;
 }
 
 .rechercher i {
@@ -166,7 +166,7 @@ html , body {
     display: flex;
     align-items: center;
     margin-top: 15px;
-    margin-left: 2.4vw;
+    margin-left: 1vw;
 
 }
 
@@ -197,10 +197,12 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .create {
     display: flex ;
     flex-direction: row-reverse ;
-    margin: 2vh 2.4vw;
+    margin: 2vh 3vw;
 
 }
-
+.row {
+    margin: 0;
+}
 
 .create button {
     background-color: #212529;
