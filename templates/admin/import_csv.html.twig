@@ -1,0 +1,38 @@
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container-fluid custom-gradient-bg py-5">
+    <div class="container" >
+    <div class="row justify-content-center">
+        <div class="col-md-6"  >
+            <div class="card rounded-card" style="height: auto ; border-radius: 4px ; border-color: steelblue">
+
+            <div class="card-header bg-primary text-white">
+                <h3>Charger un csv de participants</h3>
+            </div>
+            <div id="affichersortie" class="container text-center">
+                <div class="card-body">
+                    {{ form_start(csvFileForm) }}
+                    <div class="mb-3">
+                        <div id="import">
+                    {{ form_row(csvFileForm.csv, {'label': 'Fichier CSV'}) }}
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                    {{ form_row(csvFileForm.campus, {'label': 'Campus', 'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="mb-3"> {# Utilisation de la classe Bootstrap pour centrer le bouton #}
+                        <button type="submit" class="btn btn-primary" style="margin-top: 1%">Soumettre le fichier</button>
+                    </div>
+                    {{ form_end(csvFileForm) }}
+
+
+                <a href="{{ path('user_admin_user_download_csv_model') }}"><button class="btn btn-outline-primary">Télécharger un modèle de csv vide</button></a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

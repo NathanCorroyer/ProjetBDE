@@ -6,6 +6,8 @@ use App\Entity\Activity;
 use App\Entity\State;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\Tools\Console\Command\ClearCache\QueryRegionCommand;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 use phpDocumentor\Reflection\PseudoTypes\IntegerValue;
@@ -111,6 +113,19 @@ class ActivityRepository extends ServiceEntityRepository
             ->setParameter('campus', $campus)
             ->setParameter('archive', State::Archived)
             ->orderBy('a.startingDateTime', 'DESC');
+        $query = $queryBuilder->getQuery();
+        $paginator = new Paginator($query);
+
+        return $paginator;
+    }
+
+    public function findAllNotArchived() {
+
+        $queryBuilder = $this->createQueryBuilder('a');
+
+        $queryBuilder->andWhere('a.state != :archive' )
+            ->setParameter('archive' , State::Archived );
+
         $query = $queryBuilder->getQuery();
         $paginator = new Paginator($query);
 

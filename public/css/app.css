@@ -216,3 +216,13 @@ textarea {
 #modal-button-label{
     margin: 0;
 }
+
+#csv_import_csv {
+    background-color: #FFFFFF;
+    color: black;
+    border: none;
+}
+
+input {
+    appearance: auto;
+}
