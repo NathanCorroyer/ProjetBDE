@@ -14,11 +14,12 @@ class Campus
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['liste_activites'])]
+    #[Groups(['liste_activites' , 'liste_users'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 100)]
-    #[Groups(['liste_activites'])]
+    #[Groups(['liste_activites' , 'liste_users'])]
+
     private ?string $name = null;
 
     #[ORM\OneToMany(targetEntity: User::class, mappedBy: 'campus', orphanRemoval: true)]

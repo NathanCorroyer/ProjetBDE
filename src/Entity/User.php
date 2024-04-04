@@ -44,11 +44,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $phone = null;
 
     #[ORM\Column(length: 50)]
-    #[Groups(['liste_client'])]
+    #[Groups(['liste_users'])]
     private ?string $firstName = null;
 
     #[ORM\Column(length: 50)]
-    #[Groups(['liste_client'])]
+    #[Groups(['liste_users'])]
     private ?string $lastName = null;
 
     #[ORM\Column]
@@ -62,7 +62,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\ManyToOne(inversedBy: 'users')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['liste_client'])]
+    #[Groups(['liste_users'])]
     private ?Campus $campus = null;
 
     #[ORM\Column(length: 255, nullable: true)]
