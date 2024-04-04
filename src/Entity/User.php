@@ -68,9 +68,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $avatar = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $apiToken = null;
-
     public function __construct()
     {
         $this->roles = ['ROLE_USER'];
@@ -283,16 +280,5 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getApiToken(): ?string
-    {
-        return $this->apiToken;
-    }
-
-    public function setApiToken(?string $apiToken): static
-    {
-        $this->apiToken = $apiToken;
-
-        return $this;
-    }
 
 }
