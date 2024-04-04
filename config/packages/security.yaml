@@ -46,7 +46,6 @@ security:
         - { path: ^/register, roles: PUBLIC_ACCESS }
         - { path: ^/api/listeUser, roles: PUBLIC_ACCESS }
         - { path: ^/api/listeActivites, roles: PUBLIC_ACCESS }
-        - { path: ^/api/me, roles: PUBLIC_ACCESS }
         - { path: ^/, roles: ROLE_USER }
 
 

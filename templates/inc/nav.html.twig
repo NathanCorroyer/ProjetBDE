@@ -2,10 +2,23 @@
     <div class="logo">
          <a class="navbar-brand" href="{{ path('app_main_home') }}"><img src="{{ asset('img/logo.png') }}" id="logo-accueil" alt="logo"></a>
 
+
     </div>
     <div class=" navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0" id="navbar-nav">
             {% if app.user %}
+
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Nos Api
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" id="apiActivites" onclick="copyApiActivitesToClipboard()">http://127.0.0.1:8000/api/listeActivites</a>
+                        <a class="dropdown-item" id="apiUsers" onclick="copyApiUsersToClipboard()">http://127.0.0.1:8000/api/listeUsers</a>
+                    </div>
+                </div>
+
+
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href='{{ path('app_main_home') }}'>Accueil</a>
                 </li>
@@ -13,6 +26,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href='{{ path('user_myProfile') }}'>Mon profil</a>
                 </li>
+
+
+
                 {% if is_granted('ROLE_ADMIN') %}
 
                     <li class="nav-item">
@@ -32,3 +48,30 @@
         </ul>
     </div>
 </nav>
+
+
+<script>
+    function copyApiActivitesToClipboard() {
+        var adresseApiActivites = document.getElementById('apiActivites');
+        navigator.clipboard.writeText(adresseApiActivites.innerText)
+            .then(function() {
+                alert('Texte copié !');
+            })
+            .catch(function(err) {
+                console.error('Impossible de copier le texte : ', err);
+                alert('Impossible de copier le texte : ' + err);
+            });
+    }
+
+    function copyApiUsersToClipboard(){
+        var adresseApiUsers = document.getElementById('apiUsers');
+        navigator.clipboard.writeText(adresseApiUsers.innerText)
+            .then(function() {
+                alert('Texte copié !');
+            })
+            .catch(function(err) {
+                console.error('Impossible de copier le texte : ', err);
+                alert('Impossible de copier le texte : ' + err);
+            });
+    }
+</script>
