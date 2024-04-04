@@ -47,15 +47,15 @@ html , body {
     height:  auto;
 }
 #formulaireFiltres {
-    /*margin: 0 2% 0 2%;*/
+    margin: 7.5% 2% 0 2%;
     padding: 0 2% 1% 2% ;
-    width: 100vw;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     border-radius: 4px;
     background-color: #212529;
     color: #FFFFFF;
+    justify-content: center;
 
 }
 
@@ -198,7 +198,7 @@ textarea {
 
 #bg {
     opacity: 70%;
-    /*position: absolute;*/
+    position: absolute;
     max-width: 100%;
     width: fit-content;
     height: fit-content;
