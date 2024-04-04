@@ -65,8 +65,7 @@ class Activity
     #[Groups(['liste_activites'])]
     private ?Place $place = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $apiToken = null;
+
 
     public function __construct()
     {
