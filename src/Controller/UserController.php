@@ -98,7 +98,7 @@ $userPasswordHasher, CampusRepository $campusRepository, Request $request): Resp
 
             $this->entityManager->flush();
 
-            $this->addFlash('success', 'Profil mis à jour avec succès.');
+            $this->addFlash('succes', 'Profil mis à jour avec succès.');
             return $this->redirectToRoute('user_profile', ['id' => $user->getId()]);
         }
 
@@ -169,7 +169,7 @@ $userPasswordHasher, CampusRepository $campusRepository, Request $request): Resp
             //mais on ne flush qu'une fois
             $entityManager->flush();
 
-            $this->addFlash('success', $i . " participants ajoutés !");
+            $this->addFlash('succes', $i . " participants ajoutés !");
             //recharge la page pour éviter la resoumission du csv sur un f5 par exemple
             return $this->redirectToRoute('user_import_csv');
         }
