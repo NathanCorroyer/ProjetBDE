@@ -158,7 +158,7 @@ class ActivityController extends AbstractController
             $entityManager->persist($activity);
             $entityManager->flush();
 
-            $this->addFlash('success', 'Idea successfully added');
+            $this->addFlash('succes', 'Activité ajoutée avec succès !');
             return $this->redirectToRoute('activity_details',['id' => $activity->getId()]);
         }
 
@@ -239,7 +239,7 @@ class ActivityController extends AbstractController
 
             $entityManager->flush();
 
-            $this->addFlash('success', 'Activity successfully updated');
+            $this->addFlash('succes', 'Activité mise à jour avec succès');
             return $this->redirectToRoute('activity_details', ['id' => $activity->getId()]);
         }
 
