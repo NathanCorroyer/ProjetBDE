@@ -50,7 +50,7 @@ function redirectToHomePage() {
 
 // Supprimer la partie "/activity/edit/943" de l'URL
 // Naviguer vers la nouvelle URL
-    window.location.href = currentUrl.replace("/activity/edit/943", "");
+    window.location.href = currentUrl.replace(/\/activity\/edit\/.*/, "/");
 }
 
 function getPlaceInformations(placeId){
