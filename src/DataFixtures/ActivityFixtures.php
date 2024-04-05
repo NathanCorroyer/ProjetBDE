@@ -18,7 +18,7 @@ class ActivityFixtures extends Fixture implements DependentFixtureInterface
         $faker = Factory::create('fr_FR');
         $activity = new Activity() ;
         $activity->setName("Activité créée par Admin")
-                ->setStartingDateTime($faker->dateTimeBetween('+1 week', '+2 week'))
+                ->setStartingDateTime($faker->dateTimeBetween('+3 days', '+2 weeks'))
             ->setDuration($faker->dateTime())
             ->setMaxInscription($faker->randomNumber(1 , 15))
             ->setDescription($faker->text())
@@ -65,7 +65,7 @@ class ActivityFixtures extends Fixture implements DependentFixtureInterface
             $state = $states[$index];
             $activity = new Activity() ;
              $activity->setName($activites[$i])
-                    ->setStartingDateTime($faker->dateTimeBetween('-1 week', '+1 week'))
+                    ->setStartingDateTime($faker->dateTimeBetween('-1 week', '+2 weeks'))
                     ->setDuration($faker->dateTime())
                     ->setMaxInscription($faker->randomNumber(1 , 15))
                     ->setDescription($faker->text())
