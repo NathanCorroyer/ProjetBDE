@@ -46,8 +46,11 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function redirectToHomePage() {
-    let redirectUrl = window.location.origin + '/projetbde/public';
-    window.location.replace(redirectUrl);
+    var currentUrl = window.location.href;
+
+// Supprimer la partie "/activity/edit/943" de l'URL
+// Naviguer vers la nouvelle URL
+    window.location.href = currentUrl.replace("/activity/edit/943", "");
 }
 
 function getPlaceInformations(placeId){

@@ -209,7 +209,7 @@ class ActivityController extends AbstractController
         // Cela peut dépendre de la relation entre l'utilisateur et l'activité
         // Par exemple, vérifiez si l'utilisateur est l'organisateur de l'activité
 
-        $activityForm = $this->createForm(CreateActivityType::class, $activity);
+        $activityForm = $this->createForm(CreateActivityType::class, $activity, );
         $activityForm->handleRequest($request);
 
         if ($activityForm->isSubmitted() && $activityForm->isValid()) {
@@ -279,8 +279,8 @@ class ActivityController extends AbstractController
 
 
         // Supprimer l'activité
-        //$entityManager->remove($activity);
-        //$entityManager->flush();
+        $entityManager->remove($activity);
+        $entityManager->flush();
 
 
         // Répondre avec un code de succès

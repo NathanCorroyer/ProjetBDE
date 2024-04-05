@@ -45,6 +45,19 @@
 
                                 <div class="mb-3">
                                     {{ form_row(activityForm.place) }}
+                                    <p class="hidden" id="place-introuvable">Il n'existe pas de lieu associé à cette
+                                        ville pour
+                                        l'instant
+                                        !</p>
+                                    <!-- Bouton pour ouvrir la modal de modification -->
+
+                                    <button type="button" class="btn btn-info btn-sm mr-2 mt-3 hidden"
+                                            data-toggle="modal" data-target="#createPlaceModal" id="modal-button">
+                                        <label for="modal-button" id="modal-button-label">Ajouter un lieu <i
+                                                    class="fa-solid
+                                        fa-plus"></i></label>
+
+                                    </button>
                                 </div>
 
                                 <div class="mb-3">
@@ -86,6 +99,46 @@
                         </div>
                         {{ form_end(activityForm) }}
 
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <!-- Modal de modification -->
+                        <div class="modal fade" id="createPlaceModal" tabindex="-1" role="dialog" aria-labelledby="createPlaceModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="createPlaceModalLabel">Créer un lieu</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                                id="button-modal-close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form id="place-form">
+                                            <div class="form-group">
+                                                <label for="place-name">Nom du lieu</label>
+                                                <input type="text" class="form-control" id="place-name" name="place-name">
+
+                                                <label for="place-address">Adresse du lieu</label>
+                                                <input type="text" class="form-control" id="place-address" name="place-address">
+
+                                                <label for="place-latitude">Latitude</label>
+                                                <input type="number" step="0.0000001" class="form-control"
+                                                       id="place-latitude"
+                                                       name="place-latitude">
+
+                                                <label for="place-longitude">Longitude</label>
+                                                <input type="number" step="0.0000001" class="form-control"
+                                                       id="place-longitude"
+                                                       name="place-longitude">
+
+
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Enregistrer</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

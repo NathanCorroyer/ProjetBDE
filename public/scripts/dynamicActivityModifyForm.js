@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     let placeId = document.querySelector('.place-selector').value;
     getPlaceInformations(placeId);
+
 });
 
 function supprimer(id) {
