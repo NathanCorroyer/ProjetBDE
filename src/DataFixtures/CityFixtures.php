@@ -14,15 +14,24 @@ class CityFixtures extends Fixture
         $faker = Factory::create('fr_FR');
         $faker->seed(4);
 
-
-        for ( $i = 1 ; $i <= 10 ; $i ++){
+        $cities = array(
+            "Lyon",
+            "Bordeaux",
+            'Paris',
+            'Marseille',
+            "Aix-en-Provence",
+            "Portiragnes",
+            'Nice',
+            'Toulouse'
+        );
+        foreach ($cities as $cityName){
             $city = ( new City())
-                    ->setName($faker->city())
+                    ->setName($cityName)
                     ->setZipCode($faker->postcode());
 
             $manager->persist($city);
 
-            $this->addReference('CITY' . $i , $city );
+            $this->addReference($city->getName() , $city );
         }
 
         $manager->flush();

@@ -18,7 +18,7 @@ class ActivityFixtures extends Fixture implements DependentFixtureInterface
         $faker = Factory::create('fr_FR');
         $activity = new Activity() ;
         $activity->setName("Activité créée par Admin")
-                ->setStartingDateTime($faker->dateTimeBetween('+1 weeks', '+2 week'))
+                ->setStartingDateTime($faker->dateTimeBetween('+1 week', '+2 week'))
             ->setDuration($faker->dateTime())
             ->setMaxInscription($faker->randomNumber(1 , 15))
             ->setDescription($faker->text())
@@ -30,39 +30,48 @@ class ActivityFixtures extends Fixture implements DependentFixtureInterface
         $activity->setInscriptionLimitDate($startingDate -> modify(' -1 week'));
         $manager -> persist($activity);
 
-        $now = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
-        $now->modify('+1 minute');
-        $activity = new Activity() ;
-        $activity->setName("Activité créée par Admin")
-                ->setStartingDateTime($now)
-            ->setDuration($faker->dateTime())
-            ->setMaxInscription($faker->randomNumber(1 , 15))
-            ->setDescription($faker->text())
-            ->setState(State::Open)
-            ->setCampus($this->getReference('CAMPUS' . $faker->randomNumber(1, 10)))
-            ->setPlace($this->getReference('LIEU' . $faker->randomNumber(1 , 10)))
-            ->setPlanner($this->getReference('ADMIN'));
-        $startingDate = new \DateTime(($activity->getStartingDateTime())->format('Y-m-d H:i:s'));
-        $activity->setInscriptionLimitDate($startingDate -> modify(' -1 week'));
-        $manager -> persist($activity);
+        $activites = array(
+            "Faire du vélo",
+            "Lire un livre",
+            "Jouer d'un instrument de musique",
+            "Faire du jardinage",
+            "Faire de la randonnée",
+            "Regarder un film",
+            "Faire de la cuisine",
+            "Faire de la peinture/dessin",
+            "Faire du yoga",
+            "Jouer à des jeux de société",
+            "Aller à la salle de sport",
+            "Écrire dans un journal",
+            "Faire du camping",
+            "Visiter un musée",
+            "Faire de la méditation",
+            "Jouer au tennis",
+            "Apprendre une nouvelle langue",
+            "Faire de la photographie",
+            "Faire de la natation",
+            "Faire du bricolage"
+        );
+
+
 
         //$faker->seed(5);
 
         $states = [State::Creation , State::Open , State::Closed , State::Ongoing , State::Finished, State::Archived
             ,State::Cancelled];
 
-        for ( $i = 1 ; $i <= 20 ; $i ++ ) {
+        for ( $i = 0 ; $i <= 19 ; $i ++ ) {
             $index = array_rand($states);
             $state = $states[$index];
             $activity = new Activity() ;
-             $activity->setName("Activité {$i}")
+             $activity->setName($activites[$i])
                     ->setStartingDateTime($faker->dateTimeBetween('-1 week', '+1 week'))
                     ->setDuration($faker->dateTime())
                     ->setMaxInscription($faker->randomNumber(1 , 15))
                     ->setDescription($faker->text())
                     ->setState($state)
                     ->setCampus($this->getReference('CAMPUS' . $faker->randomNumber(1, 10)))
-                    ->setPlace($this->getReference('LIEU' . $faker->randomNumber(1 , 10)))
+                    ->setPlace($this->getReference('LIEU' . $i))
                     ->setPlanner($this->getReference('USER' . $faker->randomNumber(1 , 10)));
              $startingDate = new \DateTime(($activity->getStartingDateTime())->format('Y-m-d H:i:s'));
              $activity->setInscriptionLimitDate($startingDate -> modify(' -1 week'));
