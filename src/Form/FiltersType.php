@@ -54,7 +54,7 @@ class FiltersType extends AbstractType
                     'name' => 'search'
             ]])
             ->add('startDate', DateType::class, [
-                'label' => 'Début ',
+                'label' => 'À partir de',
                 'widget' => 'single_text',
                 'required' => false,
                 'attr' => [
