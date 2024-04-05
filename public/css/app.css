@@ -281,3 +281,8 @@ textarea {
 input {
     appearance: auto;
 }
+
+#profile_modifier_avatarFile {
+    background-color: #FFFFFF;
+    border: none;
+}
