@@ -19,7 +19,7 @@ class PlaceFixtures extends Fixture
         $names = array(
             "Parc de la Tête d'Or",
             "Librairie Mollat",
-            "Conservatoire National Supérieur de Musique et de Danse de Paris",
+            "Conservatoire National Supérieur de Musique et de Danse",
             "Jardin des Plantes",
             "Parc national des Calanques",
             "Cinéma Le Grand Rex",
